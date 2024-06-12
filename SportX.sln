@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2FD3C0D4-5E12-4090-908A-BAFAD2C08A78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{5013C787-709B-4A4C-9A96-ED28E3A54983}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportX.Ui", "SportX.Ui\SportX.Ui.csproj", "{FEEA2F4D-5568-4066-A727-C28261ED86F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEEA2F4D-5568-4066-A727-C28261ED86F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEEA2F4D-5568-4066-A727-C28261ED86F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEEA2F4D-5568-4066-A727-C28261ED86F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEEA2F4D-5568-4066-A727-C28261ED86F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5013C787-709B-4A4C-9A96-ED28E3A54983} = {2FD3C0D4-5E12-4090-908A-BAFAD2C08A78}
+		{FEEA2F4D-5568-4066-A727-C28261ED86F4} = {5013C787-709B-4A4C-9A96-ED28E3A54983}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64B83B0E-1967-46BF-959C-60A4D91D06FA}
+	EndGlobalSection
+EndGlobal
