@@ -1,4 +1,6 @@
-﻿namespace SportX.Ui
+﻿using SportX.Ui.Properties;
+
+namespace SportX.Ui
 {
     partial class FrmLogin
     {
@@ -28,12 +30,126 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            labelUsername = new Label();
+            labelPassword = new Label();
+            textBoxUsername = new TextBox();
+            textBoxPassword = new TextBox();
+            buttonLogin = new Button();
+            buttonCancel = new Button();
+            pictureBoxLogo = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
+            SuspendLayout();
+            // 
+            // labelUsername
+            // 
+            labelUsername.AutoSize = true;
+            labelUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            labelUsername.Location = new Point(325, 203);
+            labelUsername.Margin = new Padding(4, 0, 4, 0);
+            labelUsername.Name = "labelUsername";
+            labelUsername.Size = new Size(115, 29);
+            labelUsername.TabIndex = 0;
+            labelUsername.Text = "نام کاربری";
+            // 
+            // labelPassword
+            // 
+            labelPassword.AutoSize = true;
+            labelPassword.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            labelPassword.Location = new Point(325, 281);
+            labelPassword.Margin = new Padding(4, 0, 4, 0);
+            labelPassword.Name = "labelPassword";
+            labelPassword.Size = new Size(94, 29);
+            labelPassword.TabIndex = 1;
+            labelPassword.Text = "رمز عبور";
+            // 
+            // textBoxUsername
+            // 
+            textBoxUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxUsername.Location = new Point(62, 198);
+            textBoxUsername.Margin = new Padding(4, 5, 4, 5);
+            textBoxUsername.Name = "textBoxUsername";
+            textBoxUsername.Size = new Size(249, 36);
+            textBoxUsername.TabIndex = 2;
+            // 
+            // textBoxPassword
+            // 
+            textBoxPassword.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxPassword.Location = new Point(62, 277);
+            textBoxPassword.Margin = new Padding(4, 5, 4, 5);
+            textBoxPassword.Name = "textBoxPassword";
+            textBoxPassword.PasswordChar = '*';
+            textBoxPassword.Size = new Size(249, 36);
+            textBoxPassword.TabIndex = 3;
+            // 
+            // buttonLogin
+            // 
+            buttonLogin.BackColor = Color.MediumSeaGreen;
+            buttonLogin.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonLogin.ForeColor = Color.White;
+            buttonLogin.Location = new Point(62, 359);
+            buttonLogin.Margin = new Padding(4, 5, 4, 5);
+            buttonLogin.Name = "buttonLogin";
+            buttonLogin.Size = new Size(119, 55);
+            buttonLogin.TabIndex = 4;
+            buttonLogin.Text = "ورود";
+            buttonLogin.UseVisualStyleBackColor = false;
+            buttonLogin.Click += buttonLogin_Click;
+            // 
+            // buttonCancel
+            // 
+            buttonCancel.BackColor = Color.Crimson;
+            buttonCancel.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonCancel.ForeColor = Color.White;
+            buttonCancel.Location = new Point(194, 359);
+            buttonCancel.Margin = new Padding(4, 5, 4, 5);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(119, 55);
+            buttonCancel.TabIndex = 5;
+            buttonCancel.Text = "لغو";
+            buttonCancel.UseVisualStyleBackColor = false;
+            buttonCancel.Click += buttonCancel_Click;
+            // 
+            // pictureBoxLogo
+            // 
+            pictureBoxLogo.Image = Resources.Logo;
+            pictureBoxLogo.Location = new Point(188, 16);
+            pictureBoxLogo.Margin = new Padding(4, 5, 4, 5);
+            pictureBoxLogo.Name = "pictureBoxLogo";
+            pictureBoxLogo.Size = new Size(125, 156);
+            pictureBoxLogo.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxLogo.TabIndex = 6;
+            pictureBoxLogo.TabStop = false;
+            // 
+            // FrmLogin
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(500, 469);
+            Controls.Add(pictureBoxLogo);
+            Controls.Add(buttonCancel);
+            Controls.Add(buttonLogin);
+            Controls.Add(textBoxPassword);
+            Controls.Add(textBoxUsername);
+            Controls.Add(labelPassword);
+            Controls.Add(labelUsername);
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "FrmLogin";
+            RightToLeft = RightToLeft.Yes;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "فرم ورود";
+            ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
+        private Label labelUsername;
+        private Label labelPassword;
+        private TextBox textBoxUsername;
+        private TextBox textBoxPassword;
+        private Button buttonLogin;
+        private Button buttonCancel;
+        private PictureBox pictureBoxLogo;
         #endregion
     }
 }
