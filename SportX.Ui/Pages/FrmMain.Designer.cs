@@ -31,72 +31,101 @@ namespace SportX.Ui.Pages
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelNationalCode = new Label();
-            this.textBoxNationalCode = new TextBox();
-            this.buttonCheck = new Button();
-            this.labelInfo = new Label();
-            this.SuspendLayout();
-
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            labelNationalCode = new Label();
+            textBoxNationalCode = new TextBox();
+            buttonCheck = new Button();
+            labelInfo = new Label();
+            menuStrip = new MenuStrip();
+            signUpMenuItem = new ToolStripMenuItem();
+            menuStrip.SuspendLayout();
+            SuspendLayout();
             // 
             // labelNationalCode
             // 
-            this.labelNationalCode.AutoSize = true;
-            this.labelNationalCode.Location = new Point(200, 30);
-            this.labelNationalCode.Name = "labelNationalCode";
-            this.labelNationalCode.Size = new Size(70, 17);
-            this.labelNationalCode.TabIndex = 0;
-            this.labelNationalCode.Text = "کد ملی / شناسه";
-
+            labelNationalCode.AutoSize = true;
+            labelNationalCode.Location = new Point(562, 94);
+            labelNationalCode.Margin = new Padding(4, 0, 4, 0);
+            labelNationalCode.Name = "labelNationalCode";
+            labelNationalCode.Size = new Size(134, 25);
+            labelNationalCode.TabIndex = 1;
+            labelNationalCode.Text = "کد ملی / شناسه";
             // 
             // textBoxNationalCode
             // 
-            this.textBoxNationalCode.Location = new Point(20, 27);
-            this.textBoxNationalCode.Name = "textBoxNationalCode";
-            this.textBoxNationalCode.Size = new Size(150, 22);
-            this.textBoxNationalCode.TabIndex = 1;
-
+            textBoxNationalCode.Location = new Point(338, 89);
+            textBoxNationalCode.Margin = new Padding(4, 5, 4, 5);
+            textBoxNationalCode.Name = "textBoxNationalCode";
+            textBoxNationalCode.Size = new Size(186, 31);
+            textBoxNationalCode.TabIndex = 2;
             // 
             // buttonCheck
             // 
-            this.buttonCheck.Location = new Point(80, 70);
-            this.buttonCheck.Name = "buttonCheck";
-            this.buttonCheck.Size = new Size(75, 23);
-            this.buttonCheck.TabIndex = 2;
-            this.buttonCheck.Text = "بررسی";
-            this.buttonCheck.UseVisualStyleBackColor = true;
-            this.buttonCheck.Click += new EventHandler(this.ButtonCheck_Click);
-
+            buttonCheck.Location = new Point(412, 156);
+            buttonCheck.Margin = new Padding(4, 5, 4, 5);
+            buttonCheck.Name = "buttonCheck";
+            buttonCheck.Size = new Size(94, 36);
+            buttonCheck.TabIndex = 3;
+            buttonCheck.Text = "بررسی";
+            buttonCheck.UseVisualStyleBackColor = true;
+            buttonCheck.Click += ButtonCheck_Click;
             // 
             // labelInfo
             // 
-            this.labelInfo.AutoSize = true;
-            this.labelInfo.Location = new Point(20, 120);
-            this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new Size(0, 17);
-            this.labelInfo.TabIndex = 3;
-
+            labelInfo.AutoSize = true;
+            labelInfo.Location = new Point(338, 219);
+            labelInfo.Margin = new Padding(4, 0, 4, 0);
+            labelInfo.Name = "labelInfo";
+            labelInfo.Size = new Size(0, 25);
+            labelInfo.TabIndex = 4;
             // 
-            // EntryForm
+            // menuStrip
             // 
-            this.AutoScaleDimensions = new SizeF(8F, 16F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(284, 261);
-            this.Controls.Add(this.labelInfo);
-            this.Controls.Add(this.buttonCheck);
-            this.Controls.Add(this.textBoxNationalCode);
-            this.Controls.Add(this.labelNationalCode);
-            this.Name = "EntryForm";
-            this.Text = "ورود";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            menuStrip.ImageScalingSize = new Size(24, 24);
+            menuStrip.Items.AddRange(new ToolStripItem[] { signUpMenuItem });
+            menuStrip.Location = new Point(0, 0);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Padding = new Padding(8, 3, 0, 3);
+            menuStrip.Size = new Size(750, 35);
+            menuStrip.TabIndex = 0;
+            menuStrip.Text = "menuStrip";
+            // 
+            // signUpMenuItem
+            // 
+            signUpMenuItem.Name = "signUpMenuItem";
+            signUpMenuItem.Size = new Size(84, 29);
+            signUpMenuItem.Text = "ثبت نام";
+            signUpMenuItem.Click += SignUpMenuItem_Click;
+            // 
+            // FrmMain
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(750, 625);
+            Controls.Add(labelInfo);
+            Controls.Add(buttonCheck);
+            Controls.Add(textBoxNationalCode);
+            Controls.Add(labelNationalCode);
+            Controls.Add(menuStrip);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MainMenuStrip = menuStrip;
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "FrmMain";
+            RightToLeft = RightToLeft.Yes;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "صفحه اصلی";
+            menuStrip.ResumeLayout(false);
+            menuStrip.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
-
-        
 
         private Label labelNationalCode;
         private TextBox textBoxNationalCode;
         private Button buttonCheck;
         private Label labelInfo;
+        private MenuStrip menuStrip;
+        private ToolStripMenuItem signUpMenuItem;
 
         #endregion
     }
