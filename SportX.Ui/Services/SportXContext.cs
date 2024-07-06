@@ -1,9 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SportX.Ui.Models;
 
 namespace SportX.Ui.Services;
-public class SportXContext : DbContext
+public class SportXContext: DbContext
 {
+    public SportXContext()
+    { }
+
     public SportXContext(DbContextOptions<SportXContext> context) : base(context)
     { }
 
@@ -26,5 +30,13 @@ public class SportXContext : DbContext
                     .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer(Program.Configuration.GetConnectionString("SqlDefaultConnectionString"));
+        }
     }
 }

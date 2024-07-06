@@ -30,6 +30,7 @@ namespace SportX.Ui
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             labelUsername = new Label();
             labelPassword = new Label();
             textBoxUsername = new TextBox();
@@ -133,6 +134,7 @@ namespace SportX.Ui
             Controls.Add(textBoxUsername);
             Controls.Add(labelPassword);
             Controls.Add(labelUsername);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 5, 4, 5);
             Name = "FrmLogin";
             RightToLeft = RightToLeft.Yes;
