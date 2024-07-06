@@ -45,11 +45,14 @@ namespace SportX.Ui.Pages
             buttonSignUp = new Button();
             dataGridViewAthletes = new DataGridView();
             buttonNew = new Button();
-            radioMilitray = new RadioButton();
-            radioNormal = new RadioButton();
             label1 = new Label();
             panel1 = new Panel();
+            panel2 = new Panel();
+            radioMilitray = new RadioButton();
+            radioNormal = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)dataGridViewAthletes).BeginInit();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // labelName
@@ -119,7 +122,7 @@ namespace SportX.Ui.Pages
             // radioButtonMale
             // 
             radioButtonMale.Checked = true;
-            radioButtonMale.Location = new Point(703, 171);
+            radioButtonMale.Location = new Point(197, 5);
             radioButtonMale.Margin = new Padding(4, 5, 4, 5);
             radioButtonMale.Name = "radioButtonMale";
             radioButtonMale.Size = new Size(75, 38);
@@ -130,7 +133,7 @@ namespace SportX.Ui.Pages
             // 
             // radioButtonFemale
             // 
-            radioButtonFemale.Location = new Point(603, 171);
+            radioButtonFemale.Location = new Point(97, 5);
             radioButtonFemale.Margin = new Padding(4, 5, 4, 5);
             radioButtonFemale.Name = "radioButtonFemale";
             radioButtonFemale.Size = new Size(75, 38);
@@ -194,28 +197,6 @@ namespace SportX.Ui.Pages
             buttonNew.UseVisualStyleBackColor = true;
             buttonNew.Click += buttonNew_Click;
             // 
-            // radioMilitray
-            // 
-            radioMilitray.Location = new Point(566, 219);
-            radioMilitray.Margin = new Padding(4, 5, 4, 5);
-            radioMilitray.Name = "radioMilitray";
-            radioMilitray.Size = new Size(92, 38);
-            radioMilitray.TabIndex = 15;
-            radioMilitray.Text = "نظامی";
-            radioMilitray.UseVisualStyleBackColor = true;
-            // 
-            // radioNormal
-            // 
-            radioNormal.Checked = true;
-            radioNormal.Location = new Point(678, 219);
-            radioNormal.Margin = new Padding(4, 5, 4, 5);
-            radioNormal.Name = "radioNormal";
-            radioNormal.Size = new Size(100, 38);
-            radioNormal.TabIndex = 14;
-            radioNormal.TabStop = true;
-            radioNormal.Text = "معمولی";
-            radioNormal.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -228,27 +209,57 @@ namespace SportX.Ui.Pages
             // 
             // panel1
             // 
-            panel1.Location = new Point(104, 64);
+            panel1.Controls.Add(radioButtonFemale);
+            panel1.Controls.Add(radioButtonMale);
+            panel1.Location = new Point(485, 167);
             panel1.Name = "panel1";
-            panel1.Size = new Size(50, 50);
+            panel1.Size = new Size(298, 50);
             panel1.TabIndex = 16;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(radioMilitray);
+            panel2.Controls.Add(radioNormal);
+            panel2.Location = new Point(485, 218);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(298, 50);
+            panel2.TabIndex = 17;
+            // 
+            // radioMilitray
+            // 
+            radioMilitray.Location = new Point(61, 6);
+            radioMilitray.Margin = new Padding(4, 5, 4, 5);
+            radioMilitray.Name = "radioMilitray";
+            radioMilitray.Size = new Size(92, 38);
+            radioMilitray.TabIndex = 17;
+            radioMilitray.Text = "نظامی";
+            radioMilitray.UseVisualStyleBackColor = true;
+            // 
+            // radioNormal
+            // 
+            radioNormal.Checked = true;
+            radioNormal.Location = new Point(173, 6);
+            radioNormal.Margin = new Padding(4, 5, 4, 5);
+            radioNormal.Name = "radioNormal";
+            radioNormal.Size = new Size(100, 38);
+            radioNormal.TabIndex = 16;
+            radioNormal.TabStop = true;
+            radioNormal.Text = "معمولی";
+            radioNormal.UseVisualStyleBackColor = true;
             // 
             // FrmSignup
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(965, 699);
+            Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(radioMilitray);
-            Controls.Add(radioNormal);
             Controls.Add(label1);
             Controls.Add(dataGridViewAthletes);
             Controls.Add(buttonNew);
             Controls.Add(buttonSignUp);
             Controls.Add(textBoxDateOfBirth);
             Controls.Add(labelDateOfBirth);
-            Controls.Add(radioButtonFemale);
-            Controls.Add(radioButtonMale);
             Controls.Add(labelGender);
             Controls.Add(textBoxPhone);
             Controls.Add(labelPhone);
@@ -262,6 +273,8 @@ namespace SportX.Ui.Pages
             RightToLeft = RightToLeft.Yes;
             Text = "ثبت نام ورزشکار";
             ((System.ComponentModel.ISupportInitialize)dataGridViewAthletes).EndInit();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -282,9 +295,10 @@ namespace SportX.Ui.Pages
         #endregion
 
         private Button buttonNew;
-        private RadioButton radioMilitray;
-        private RadioButton radioNormal;
         private Label label1;
         private Panel panel1;
+        private Panel panel2;
+        private RadioButton radioMilitray;
+        private RadioButton radioNormal;
     }
 }

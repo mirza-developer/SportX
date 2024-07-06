@@ -49,7 +49,10 @@ public partial class FrmSignup : Form
                 textBoxNationalCode.Text = _selectedAthlete.NationalCode;
                 textBoxPhone.Text = _selectedAthlete.Phone;
                 radioButtonMale.Checked = _selectedAthlete.IsMale;
+                radioButtonFemale.Checked = !_selectedAthlete.IsMale;
                 textBoxDateOfBirth.Text = _selectedAthlete.DateOfBirth;
+                radioNormal.Checked = _selectedAthlete.Membership == MembershipType.Normal;
+                radioMilitray.Checked = _selectedAthlete.Membership == MembershipType.Military;
             }
         }
     }
@@ -66,7 +69,8 @@ public partial class FrmSignup : Form
                 Phone = textBoxPhone.Text,
                 IsMale = radioButtonMale.Checked,
                 DateOfBirth = textBoxDateOfBirth.Text,
-                CreateDatetime = DateTime.Now
+                CreateDatetime = DateTime.Now,
+                Membership = radioNormal.Checked ? MembershipType.Normal : MembershipType.Military
             };
 
             context.Athletes.Add(newAthlete);
@@ -80,6 +84,7 @@ public partial class FrmSignup : Form
             _selectedAthlete.IsMale = radioButtonMale.Checked;
             _selectedAthlete.DateOfBirth = textBoxDateOfBirth.Text;
             _selectedAthlete.LastModifyDatetime = DateTime.Now;
+            _selectedAthlete.Membership = radioNormal.Checked ? MembershipType.Normal : MembershipType.Military;
         }
 
         context.SaveChanges();
@@ -96,6 +101,7 @@ public partial class FrmSignup : Form
         radioButtonMale.Checked = true;
         textBoxDateOfBirth.Clear();
         _selectedAthlete = null;
+        radioNormal.Checked = true;
     }
 
     private void buttonNew_Click(object sender, EventArgs e)
