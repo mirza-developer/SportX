@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace SportX.Ui.Models;
 public class Payment : BaseModel
 {
+    [Required]
     public long PriceInTomans { get; set; }
 
     [Required]
@@ -15,6 +16,9 @@ public class Payment : BaseModel
 
     [StringLength(128)]
     public string? ReceiptNumber { get; set; }
+
+    [Required]
+    public int SessionCountFor { get; set; }
 
     public PaymentType? PaymentType { get; set; }
 

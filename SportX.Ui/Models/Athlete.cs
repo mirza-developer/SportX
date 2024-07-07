@@ -21,8 +21,8 @@ public class Athlete : BaseModel
     [StringLength(10)]
     public string? DateOfBirth { get; set; }
 
-    [StringLength(10)]
-    public string? PaidUntilDate { get; set; }
+    [Required]
+    public int RemainingSessionCounts { get; set; }
 
     public MembershipType? Membership { get; set; }
 
