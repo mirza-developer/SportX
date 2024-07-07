@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SportX.Tools;
 using SportX.Ui.Models;
 using SportX.Ui.Services;
 
@@ -7,6 +6,8 @@ namespace SportX.Ui.Pages;
 public partial class FrmMain : Form
 {
     private SportXContext _context = new(new DbContextOptions<SportXContext>());
+    private List<AthleteUsageLog>? enteredAthletes;
+
     public FrmMain()
     {
         InitializeComponent();
@@ -18,6 +19,13 @@ public partial class FrmMain : Form
 
         Athlete? athlete = await _context.Athletes
                                          .FirstOrDefaultAsync(a => a.NationalCode == nationalCodeOrId || a.Id.ToString() == nationalCodeOrId);
+
+        if (enteredAthletes.Any(p=> p.AthleteId == athlete.Id))
+        {
+            MessageBox.Show("ورزشکار وارد شده است", "توجه" ,MessageBoxButtons.OK , MessageBoxIcon.Warning);
+
+            return;
+        }
 
         if (athlete is not null)
         {
@@ -68,10 +76,10 @@ public partial class FrmMain : Form
 
     private async Task LoadEnteredAthletes()
     {
-        var enteredAthletes = await _context.Usages.Where(p => p.IsEntered
-                                                                                     && p.CreateDatetime.Date == DateTime.Now.Date)
-                                                           .Include(p => p.Athlete)
-                                                           .ToListAsync();
+        enteredAthletes = await _context.Usages.Where(p => p.IsEntered
+                                                                    && p.CreateDatetime.Date == DateTime.Now.Date)
+                                               .Include(p => p.Athlete)
+                                               .ToListAsync();
 
         var athletes = enteredAthletes.Select(a => new
         {

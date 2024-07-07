@@ -16,17 +16,16 @@ public partial class FrmSignup : Form
 
     private void LoadAthletes()
     {
-        var athletes = context.Athletes.ToList();
+        List<Athlete>? athletes = context.Athletes.ToList();
         dataGridViewAthletes.DataSource = athletes;
 
-        // Set Persian column headers
         dataGridViewAthletes.Columns["Name"].HeaderText = "نام";
         dataGridViewAthletes.Columns["NationalCode"].HeaderText = "کد ملی";
         dataGridViewAthletes.Columns["Phone"].HeaderText = "تلفن";
         dataGridViewAthletes.Columns["DateOfBirth"].HeaderText = "تاریخ تولد";
-        dataGridViewAthletes.Columns["PaidUntilDate"].HeaderText = "تاریخ اعتبار";
         dataGridViewAthletes.Columns["MembershipString"].HeaderText = "نوع عضویت";
         dataGridViewAthletes.Columns["GenderString"].HeaderText = "جنسیت";
+        dataGridViewAthletes.Columns["RemainingSessionCounts"].HeaderText = "جلسات باقی مانده";
 
         dataGridViewAthletes.Columns["Id"].Visible = false;
         dataGridViewAthletes.Columns["CreateDatetime"].Visible = false;
@@ -61,7 +60,6 @@ public partial class FrmSignup : Form
     {
         if (_selectedAthlete == null)
         {
-            // Create new athlete
             Athlete newAthlete = new Athlete
             {
                 Name = textBoxName.Text,
@@ -77,7 +75,6 @@ public partial class FrmSignup : Form
         }
         else
         {
-            // Update existing athlete
             _selectedAthlete.Name = textBoxName.Text;
             _selectedAthlete.NationalCode = textBoxNationalCode.Text;
             _selectedAthlete.Phone = textBoxPhone.Text;
