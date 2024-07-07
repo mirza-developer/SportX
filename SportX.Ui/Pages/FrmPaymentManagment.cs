@@ -81,6 +81,8 @@ public partial class FrmPaymentManagment : Form
 
         selectedAthlete.RemainingSessionCounts += newPayment.SessionCountFor;
 
+        _context.Update(selectedAthlete);
+
         _context.SaveChanges();
        
         MessageBox.Show("پرداخت ثبت شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);

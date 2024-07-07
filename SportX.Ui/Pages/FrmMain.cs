@@ -2,7 +2,6 @@
 using SportX.Tools;
 using SportX.Ui.Models;
 using SportX.Ui.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SportX.Ui.Pages;
 public partial class FrmMain : Form
@@ -70,17 +69,18 @@ public partial class FrmMain : Form
     private async Task LoadEnteredAthletes()
     {
         var enteredAthletes = await _context.Usages.Where(p => p.IsEntered
-                                          && PersianCalendarTools.GregorianToPersian(p.CreateDatetime) == PersianCalendarTools.GregorianToPersian(DateTime.Now))
+                                                                                     && p.CreateDatetime.Date == DateTime.Now.Date)
                                                            .Include(p => p.Athlete)
                                                            .ToListAsync();
 
         var athletes = enteredAthletes.Select(a => new
         {
-            a.Athlete.Id,
-            a.Athlete.Name,
-            a.Athlete.NationalCode,
-            Gender = a.Athlete.IsMale ? "مرد" : "زن",
-            Membership = a.Athlete.Membership == MembershipType.Normal ? "معمولی" : "نظامی"
+            کد = a.Athlete.Id,
+            نام = a.Athlete.Name,
+            کدملی = a.Athlete.NationalCode,
+            جنسیت = a.Athlete.IsMale ? "مرد" : "زن",
+            عضویت = a.Athlete.Membership == MembershipType.Normal ? "معمولی" : "نظامی",
+            ورود = a.CreateDatetime.ToString("HH:mm")
         })
         .ToList();
 
@@ -103,13 +103,23 @@ public partial class FrmMain : Form
         }
 
         await _context.Usages.Where(p => p.IsEntered
-                                             && PersianCalendarTools.GregorianToPersian(p.CreateDatetime) == PersianCalendarTools.GregorianToPersian(DateTime.Now)
-                                             && (p.AthleteId == int.Parse(textBoxNationalCode.Text)  || p.Athlete.NationalCode == textBoxNationalCode.Text))
-                             .ExecuteUpdateAsync(p=>p.SetProperty(prop=>prop.IsEntered , false));
+                                             && p.CreateDatetime.Date == DateTime.Now.Date
+                                             && (p.AthleteId == int.Parse(textBoxNationalCode.Text) || p.Athlete.NationalCode == textBoxNationalCode.Text))
+                             .ExecuteUpdateAsync(p => p.SetProperty(prop => prop.IsEntered, false));
 
-        MessageBox.Show("ورود ثبت شد", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageBox.Show("خروج ثبت شد", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         await LoadEnteredAthletes();
+    }
+
+    private void dataGridViewAthletes_SelectionChanged(object sender, EventArgs e)
+    {
+        if (dataGridViewAthletes.SelectedRows.Count > 0)
+        {
+            var selectedId = (int)dataGridViewAthletes.SelectedRows[0].Cells[0].Value;
+
+            textBoxNationalCode.Text = selectedId.ToString();
+        }
     }
 }
 

@@ -40,9 +40,9 @@ namespace SportX.Ui.Pages
             signUpMenuItem = new ToolStripMenuItem();
             پرداختهاToolStripMenuItem = new ToolStripMenuItem();
             groupBox1 = new GroupBox();
+            btnExit = new Button();
             groupBox2 = new GroupBox();
             dataGridViewAthletes = new DataGridView();
-            btnExit = new Button();
             menuStrip.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -122,6 +122,17 @@ namespace SportX.Ui.Pages
             groupBox1.TabStop = false;
             groupBox1.Text = "ثبت ورود";
             // 
+            // btnExit
+            // 
+            btnExit.BackColor = Color.Red;
+            btnExit.Location = new Point(309, 72);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(66, 32);
+            btnExit.TabIndex = 4;
+            btnExit.Text = "خروج";
+            btnExit.UseVisualStyleBackColor = false;
+            btnExit.Click += btnExit_Click;
+            // 
             // groupBox2
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -142,17 +153,7 @@ namespace SportX.Ui.Pages
             dataGridViewAthletes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewAthletes.Size = new Size(590, 214);
             dataGridViewAthletes.TabIndex = 5;
-            // 
-            // btnExit
-            // 
-            btnExit.BackColor = Color.Red;
-            btnExit.Location = new Point(309, 72);
-            btnExit.Name = "btnExit";
-            btnExit.Size = new Size(66, 32);
-            btnExit.TabIndex = 4;
-            btnExit.Text = "خروج";
-            btnExit.UseVisualStyleBackColor = false;
-            btnExit.Click += btnExit_Click;
+            dataGridViewAthletes.SelectionChanged += dataGridViewAthletes_SelectionChanged;
             // 
             // FrmMain
             // 
