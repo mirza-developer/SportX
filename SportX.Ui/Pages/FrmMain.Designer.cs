@@ -39,10 +39,13 @@ namespace SportX.Ui.Pages
             menuStrip = new MenuStrip();
             signUpMenuItem = new ToolStripMenuItem();
             پرداختهاToolStripMenuItem = new ToolStripMenuItem();
+            گزارشهاToolStripMenuItem = new ToolStripMenuItem();
+            گزارشماهیانهپرداختToolStripMenuItem = new ToolStripMenuItem();
             groupBox1 = new GroupBox();
             btnExit = new Button();
             groupBox2 = new GroupBox();
             dataGridViewAthletes = new DataGridView();
+            گزارشحضورورزشکارToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -87,7 +90,7 @@ namespace SportX.Ui.Pages
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new Size(24, 24);
-            menuStrip.Items.AddRange(new ToolStripItem[] { signUpMenuItem, پرداختهاToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { signUpMenuItem, پرداختهاToolStripMenuItem, گزارشهاToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(596, 24);
@@ -107,6 +110,20 @@ namespace SportX.Ui.Pages
             پرداختهاToolStripMenuItem.Size = new Size(68, 20);
             پرداختهاToolStripMenuItem.Text = "پرداخت ها";
             پرداختهاToolStripMenuItem.Click += پرداختهاToolStripMenuItem_Click;
+            // 
+            // گزارشهاToolStripMenuItem
+            // 
+            گزارشهاToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { گزارشماهیانهپرداختToolStripMenuItem, گزارشحضورورزشکارToolStripMenuItem });
+            گزارشهاToolStripMenuItem.Name = "گزارشهاToolStripMenuItem";
+            گزارشهاToolStripMenuItem.Size = new Size(64, 20);
+            گزارشهاToolStripMenuItem.Text = "گزارش ها";
+            // 
+            // گزارشماهیانهپرداختToolStripMenuItem
+            // 
+            گزارشماهیانهپرداختToolStripMenuItem.Name = "گزارشماهیانهپرداختToolStripMenuItem";
+            گزارشماهیانهپرداختToolStripMenuItem.Size = new Size(181, 22);
+            گزارشماهیانهپرداختToolStripMenuItem.Text = "گزارش ماهیانه پرداخت";
+            گزارشماهیانهپرداختToolStripMenuItem.Click += گزارشماهیانهپرداختToolStripMenuItem_Click;
             // 
             // groupBox1
             // 
@@ -155,6 +172,13 @@ namespace SportX.Ui.Pages
             dataGridViewAthletes.TabIndex = 5;
             dataGridViewAthletes.SelectionChanged += dataGridViewAthletes_SelectionChanged;
             // 
+            // گزارشحضورورزشکارToolStripMenuItem
+            // 
+            گزارشحضورورزشکارToolStripMenuItem.Name = "گزارشحضورورزشکارToolStripMenuItem";
+            گزارشحضورورزشکارToolStripMenuItem.Size = new Size(181, 22);
+            گزارشحضورورزشکارToolStripMenuItem.Text = "گزارش حضور ورزشکار";
+            گزارشحضورورزشکارToolStripMenuItem.Click += گزارشحضورورزشکارToolStripMenuItem_Click;
+            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -194,5 +218,8 @@ namespace SportX.Ui.Pages
 
         private DataGridView dataGridViewAthletes;
         private Button btnExit;
+        private ToolStripMenuItem گزارشهاToolStripMenuItem;
+        private ToolStripMenuItem گزارشماهیانهپرداختToolStripMenuItem;
+        private ToolStripMenuItem گزارشحضورورزشکارToolStripMenuItem;
     }
 }

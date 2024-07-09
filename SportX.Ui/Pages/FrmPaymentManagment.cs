@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportX.Tools;
 using SportX.Ui.Models;
 using SportX.Ui.Services;
 using System.Data;
@@ -11,6 +12,8 @@ public partial class FrmPaymentManagment : Form
     public FrmPaymentManagment()
     {
         InitializeComponent();
+
+        ClearForm();
     }
 
     private void ButtonSelectAthlete_Click(object sender, EventArgs e)
@@ -74,20 +77,23 @@ public partial class FrmPaymentManagment : Form
             ReceiptNumber = textBoxReceiptNumber.Text,
             SessionCountFor = int.Parse(textBoxSessionCount.Text),
             PaymentType = (PaymentType)comboBoxPaymentType.SelectedIndex,
-            CreateDatetime = DateTime.Now
+            CreateDatetime = DateTime.Now,
+            DateEndMembership = txtboxPaymentDateEnd.Text
         };
 
         _context.Payments.Add(newPayment);
 
         selectedAthlete.RemainingSessionCounts += newPayment.SessionCountFor;
 
+        selectedAthlete.DateEndMembership = txtboxPaymentDateEnd.Text;
+
         _context.Update(selectedAthlete);
 
         _context.SaveChanges();
-       
+
         MessageBox.Show("پرداخت ثبت شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
-       
-        LoadPaymentHistory(); 
+
+        LoadPaymentHistory();
     }
 
     private void ClearForm()
@@ -100,6 +106,8 @@ public partial class FrmPaymentManagment : Form
         comboBoxPaymentType.SelectedIndex = -1;
         selectedAthlete = null;
         buttonSelectAthlete.Text = "انتخاب ورزشکار";
+        textBoxPayDate.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now);
+        txtboxPaymentDateEnd.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now.AddMonths(1));
     }
 
     private void btnClear_Click(object sender, EventArgs e)

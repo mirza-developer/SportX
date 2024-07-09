@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportX.Tools;
 using SportX.Ui.Models;
 using SportX.Ui.Services;
 
@@ -20,9 +21,9 @@ public partial class FrmMain : Form
         Athlete? athlete = await _context.Athletes
                                          .FirstOrDefaultAsync(a => a.NationalCode == nationalCodeOrId || a.Id.ToString() == nationalCodeOrId);
 
-        if (enteredAthletes.Any(p=> p.AthleteId == athlete.Id))
+        if (enteredAthletes.Any(p => p.AthleteId == athlete.Id))
         {
-            MessageBox.Show("ورزشکار وارد شده است", "توجه" ,MessageBoxButtons.OK , MessageBoxIcon.Warning);
+            MessageBox.Show("ورزشکار وارد شده است", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             return;
         }
@@ -31,6 +32,13 @@ public partial class FrmMain : Form
         {
             if (athlete.RemainingSessionCounts > 0)
             {
+                if (PersianCalendarTools.PersianToGregorian(athlete.DateEndMembership).Date < DateTime.Now.Date)
+                {
+                    MessageBox.Show("اعتبار عضویت به پایان رسیده است", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
                 AthleteUsageLog usageLog = new AthleteUsageLog
                 {
                     AthleteId = athlete.Id,
@@ -128,6 +136,18 @@ public partial class FrmMain : Form
 
             textBoxNationalCode.Text = selectedId.ToString();
         }
+    }
+
+    private void گزارشماهیانهپرداختToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        FrmPaymentMonthlyReport paymentForm = new();
+        paymentForm.Show();
+    }
+
+    private void گزارشحضورورزشکارToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        FrmAthleteLogReport reportForm = new();
+        reportForm.Show();
     }
 }
 

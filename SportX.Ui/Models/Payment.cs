@@ -20,6 +20,9 @@ public class Payment : BaseModel
     [Required]
     public int SessionCountFor { get; set; }
 
+    [StringLength(10)]
+    public string? DateEndMembership { get; set; }
+
     public PaymentType? PaymentType { get; set; }
 
     public int? AthleteId { get; set; }

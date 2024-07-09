@@ -46,6 +46,8 @@
             dataGridViewPayments = new DataGridView();
             btnClear = new Button();
             labelTotalPayments = new Label();
+            label1 = new Label();
+            txtboxPaymentDateEnd = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPayments).BeginInit();
             SuspendLayout();
             // 
@@ -158,7 +160,7 @@
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(150, 250);
+            buttonSave.Location = new Point(150, 280);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(100, 30);
             buttonSave.TabIndex = 13;
@@ -167,7 +169,7 @@
             // 
             // dataGridViewPayments
             // 
-            dataGridViewPayments.Location = new Point(20, 300);
+            dataGridViewPayments.Location = new Point(20, 318);
             dataGridViewPayments.MultiSelect = false;
             dataGridViewPayments.Name = "dataGridViewPayments";
             dataGridViewPayments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -176,7 +178,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(256, 250);
+            btnClear.Location = new Point(256, 280);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(100, 30);
             btnClear.TabIndex = 13;
@@ -185,16 +187,34 @@
             // 
             // labelTotalPayments
             // 
-            labelTotalPayments.Location = new Point(20, 510);
+            labelTotalPayments.Location = new Point(20, 528);
             labelTotalPayments.Name = "labelTotalPayments";
             labelTotalPayments.Size = new Size(760, 20);
             labelTotalPayments.TabIndex = 15;
             labelTotalPayments.Text = "جمع مبالغ پرداختی: 0 تومان";
             labelTotalPayments.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // label1
+            // 
+            label1.Location = new Point(300, 239);
+            label1.Name = "label1";
+            label1.Size = new Size(100, 20);
+            label1.TabIndex = 16;
+            label1.Text = "تاریخ اعتبار";
+            label1.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // txtboxPaymentDateEnd
+            // 
+            txtboxPaymentDateEnd.Location = new Point(100, 239);
+            txtboxPaymentDateEnd.Name = "txtboxPaymentDateEnd";
+            txtboxPaymentDateEnd.Size = new Size(200, 23);
+            txtboxPaymentDateEnd.TabIndex = 17;
+            // 
             // FrmPaymentManagment
             // 
-            ClientSize = new Size(793, 537);
+            ClientSize = new Size(793, 555);
+            Controls.Add(label1);
+            Controls.Add(txtboxPaymentDateEnd);
             Controls.Add(buttonSelectAthlete);
             Controls.Add(labelPrice);
             Controls.Add(textBoxPrice);
@@ -241,5 +261,7 @@
         #endregion
 
         private Button btnClear;
+        private Label label1;
+        private TextBox txtboxPaymentDateEnd;
     }
 }

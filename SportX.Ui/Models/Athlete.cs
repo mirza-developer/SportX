@@ -24,6 +24,9 @@ public class Athlete : BaseModel
     [Required]
     public int RemainingSessionCounts { get; set; }
 
+    [StringLength(10)]
+    public string? DateEndMembership { get; set; }
+
     public MembershipType? Membership { get; set; }
 
     [NotMapped]

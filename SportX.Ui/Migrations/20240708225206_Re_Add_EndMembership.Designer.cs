@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportX.Ui.Services;
 
@@ -11,9 +12,11 @@ using SportX.Ui.Services;
 namespace SportX.Ui.Migrations
 {
     [DbContext(typeof(SportXContext))]
-    partial class SportXContextModelSnapshot : ModelSnapshot
+    [Migration("20240708225206_Re_Add_EndMembership")]
+    partial class Re_Add_EndMembership
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
