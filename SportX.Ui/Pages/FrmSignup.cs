@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SportX.Ui.Models;
+﻿using SportX.Ui.Models;
 using SportX.Ui.Services;
 
 namespace SportX.Ui.Pages;
@@ -7,6 +6,7 @@ public partial class FrmSignup : Form
 {
     private SportXContext context = new();
     private Athlete _selectedAthlete;
+
     public FrmSignup()
     {
         InitializeComponent();
@@ -16,7 +16,7 @@ public partial class FrmSignup : Form
 
     private void LoadAthletes()
     {
-        List<Athlete>? athletes = context.Athletes.ToList();
+        List<Athlete> athletes = context.Athletes.ToList();
         dataGridViewAthletes.DataSource = athletes;
 
         dataGridViewAthletes.Columns["Name"].HeaderText = "نام";
@@ -34,6 +34,7 @@ public partial class FrmSignup : Form
         dataGridViewAthletes.Columns["Usages"].Visible = false;
         dataGridViewAthletes.Columns["IsMale"].Visible = false;
         dataGridViewAthletes.Columns["Membership"].Visible = false;
+        dataGridViewAthletes.Columns["DateEndMembership"].Visible = false;
     }
 
     private void DataGridViewAthletes_SelectionChanged(object sender, EventArgs e)
@@ -56,7 +57,7 @@ public partial class FrmSignup : Form
         }
     }
 
-    private void ButtonSignUp_Click(object sender, EventArgs e)
+    private async void ButtonSignUp_Click(object sender, EventArgs e)
     {
         if (_selectedAthlete == null)
         {
@@ -68,6 +69,7 @@ public partial class FrmSignup : Form
                 IsMale = radioButtonMale.Checked,
                 DateOfBirth = textBoxDateOfBirth.Text,
                 CreateDatetime = DateTime.Now,
+                LastModifyDatetime = DateTime.Now,
                 Membership = radioNormal.Checked ? MembershipType.Normal : MembershipType.Military
             };
 
@@ -82,6 +84,8 @@ public partial class FrmSignup : Form
             _selectedAthlete.DateOfBirth = textBoxDateOfBirth.Text;
             _selectedAthlete.LastModifyDatetime = DateTime.Now;
             _selectedAthlete.Membership = radioNormal.Checked ? MembershipType.Normal : MembershipType.Military;
+
+            context.Athletes.Update(_selectedAthlete);
         }
 
         context.SaveChanges();
