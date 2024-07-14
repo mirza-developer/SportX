@@ -36,15 +36,23 @@ partial class FrmSignup
         panel2 = new Panel();
         radioNormal = new RadioButton();
         radioMilitray = new RadioButton();
+        textBoxId = new TextBox();
+        label2 = new Label();
+        groupBox1 = new GroupBox();
+        buttonSearch = new Button();
+        textBoxSearch = new TextBox();
+        label3 = new Label();
+        buttonPayments = new Button();
         ((System.ComponentModel.ISupportInitialize)dataGridViewAthletes).BeginInit();
         panel1.SuspendLayout();
         panel2.SuspendLayout();
+        groupBox1.SuspendLayout();
         SuspendLayout();
         // 
         // labelName
         // 
         labelName.AutoSize = true;
-        labelName.Location = new Point(552, 21);
+        labelName.Location = new Point(628, 41);
         labelName.Name = "labelName";
         labelName.Size = new Size(21, 15);
         labelName.TabIndex = 0;
@@ -52,7 +60,7 @@ partial class FrmSignup
         // 
         // textBoxName
         // 
-        textBoxName.Location = new Point(216, 18);
+        textBoxName.Location = new Point(292, 38);
         textBoxName.Name = "textBoxName";
         textBoxName.Size = new Size(333, 23);
         textBoxName.TabIndex = 1;
@@ -60,7 +68,7 @@ partial class FrmSignup
         // labelNationalCode
         // 
         labelNationalCode.AutoSize = true;
-        labelNationalCode.Location = new Point(552, 49);
+        labelNationalCode.Location = new Point(628, 70);
         labelNationalCode.Name = "labelNationalCode";
         labelNationalCode.Size = new Size(43, 15);
         labelNationalCode.TabIndex = 2;
@@ -68,7 +76,7 @@ partial class FrmSignup
         // 
         // textBoxNationalCode
         // 
-        textBoxNationalCode.Location = new Point(216, 46);
+        textBoxNationalCode.Location = new Point(292, 67);
         textBoxNationalCode.Name = "textBoxNationalCode";
         textBoxNationalCode.Size = new Size(333, 23);
         textBoxNationalCode.TabIndex = 3;
@@ -76,7 +84,7 @@ partial class FrmSignup
         // labelPhone
         // 
         labelPhone.AutoSize = true;
-        labelPhone.Location = new Point(552, 77);
+        labelPhone.Location = new Point(628, 98);
         labelPhone.Name = "labelPhone";
         labelPhone.Size = new Size(29, 15);
         labelPhone.TabIndex = 4;
@@ -84,7 +92,7 @@ partial class FrmSignup
         // 
         // textBoxPhone
         // 
-        textBoxPhone.Location = new Point(216, 74);
+        textBoxPhone.Location = new Point(292, 95);
         textBoxPhone.Name = "textBoxPhone";
         textBoxPhone.Size = new Size(333, 23);
         textBoxPhone.TabIndex = 5;
@@ -92,7 +100,7 @@ partial class FrmSignup
         // labelGender
         // 
         labelGender.AutoSize = true;
-        labelGender.Location = new Point(552, 106);
+        labelGender.Location = new Point(628, 127);
         labelGender.Name = "labelGender";
         labelGender.Size = new Size(43, 15);
         labelGender.TabIndex = 6;
@@ -121,7 +129,7 @@ partial class FrmSignup
         // labelDateOfBirth
         // 
         labelDateOfBirth.AutoSize = true;
-        labelDateOfBirth.Location = new Point(552, 134);
+        labelDateOfBirth.Location = new Point(628, 155);
         labelDateOfBirth.Name = "labelDateOfBirth";
         labelDateOfBirth.Size = new Size(54, 15);
         labelDateOfBirth.TabIndex = 9;
@@ -129,14 +137,14 @@ partial class FrmSignup
         // 
         // textBoxDateOfBirth
         // 
-        textBoxDateOfBirth.Location = new Point(216, 131);
+        textBoxDateOfBirth.Location = new Point(292, 152);
         textBoxDateOfBirth.Name = "textBoxDateOfBirth";
         textBoxDateOfBirth.Size = new Size(333, 23);
         textBoxDateOfBirth.TabIndex = 10;
         // 
         // buttonSignUp
         // 
-        buttonSignUp.Location = new Point(255, 211);
+        buttonSignUp.Location = new Point(337, 221);
         buttonSignUp.Name = "buttonSignUp";
         buttonSignUp.Size = new Size(136, 26);
         buttonSignUp.TabIndex = 11;
@@ -152,7 +160,7 @@ partial class FrmSignup
         dataGridViewAthletes.BackgroundColor = Color.LightGray;
         dataGridViewAthletes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         dataGridViewAthletes.Dock = DockStyle.Bottom;
-        dataGridViewAthletes.Location = new Point(0, 243);
+        dataGridViewAthletes.Location = new Point(0, 304);
         dataGridViewAthletes.MultiSelect = false;
         dataGridViewAthletes.Name = "dataGridViewAthletes";
         dataGridViewAthletes.ReadOnly = true;
@@ -160,13 +168,13 @@ partial class FrmSignup
         dataGridViewAthletes.RowHeadersWidth = 62;
         dataGridViewAthletes.RowTemplate.Height = 25;
         dataGridViewAthletes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        dataGridViewAthletes.Size = new Size(745, 244);
+        dataGridViewAthletes.Size = new Size(745, 257);
         dataGridViewAthletes.TabIndex = 12;
         dataGridViewAthletes.SelectionChanged += DataGridViewAthletes_SelectionChanged;
         // 
         // buttonNew
         // 
-        buttonNew.Location = new Point(416, 211);
+        buttonNew.Location = new Point(498, 221);
         buttonNew.Name = "buttonNew";
         buttonNew.Size = new Size(136, 26);
         buttonNew.TabIndex = 13;
@@ -177,7 +185,7 @@ partial class FrmSignup
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(552, 162);
+        label1.Location = new Point(628, 183);
         label1.Name = "label1";
         label1.Size = new Size(68, 15);
         label1.TabIndex = 14;
@@ -187,7 +195,7 @@ partial class FrmSignup
         // 
         panel1.Controls.Add(radioButtonMale);
         panel1.Controls.Add(radioButtonFemale);
-        panel1.Location = new Point(344, 99);
+        panel1.Location = new Point(420, 120);
         panel1.Margin = new Padding(2);
         panel1.Name = "panel1";
         panel1.Size = new Size(203, 30);
@@ -197,7 +205,7 @@ partial class FrmSignup
         // 
         panel2.Controls.Add(radioNormal);
         panel2.Controls.Add(radioMilitray);
-        panel2.Location = new Point(344, 162);
+        panel2.Location = new Point(420, 183);
         panel2.Margin = new Padding(2);
         panel2.Name = "panel2";
         panel2.Size = new Size(203, 30);
@@ -223,11 +231,81 @@ partial class FrmSignup
         radioMilitray.Text = "نظامی";
         radioMilitray.UseVisualStyleBackColor = true;
         // 
+        // textBoxId
+        // 
+        textBoxId.Location = new Point(492, 9);
+        textBoxId.Name = "textBoxId";
+        textBoxId.ReadOnly = true;
+        textBoxId.Size = new Size(133, 23);
+        textBoxId.TabIndex = 18;
+        // 
+        // label2
+        // 
+        label2.AutoSize = true;
+        label2.Location = new Point(628, 12);
+        label2.Name = "label2";
+        label2.Size = new Size(19, 15);
+        label2.TabIndex = 17;
+        label2.Text = "کد";
+        // 
+        // groupBox1
+        // 
+        groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        groupBox1.Controls.Add(buttonSearch);
+        groupBox1.Location = new Point(12, 253);
+        groupBox1.Name = "groupBox1";
+        groupBox1.Size = new Size(721, 45);
+        groupBox1.TabIndex = 19;
+        groupBox1.TabStop = false;
+        groupBox1.Text = "جستجو";
+        // 
+        // buttonSearch
+        // 
+        buttonSearch.Location = new Point(220, 13);
+        buttonSearch.Name = "buttonSearch";
+        buttonSearch.Size = new Size(54, 26);
+        buttonSearch.TabIndex = 22;
+        buttonSearch.Text = "جستجو";
+        buttonSearch.UseVisualStyleBackColor = true;
+        buttonSearch.Click += buttonSearch_Click;
+        // 
+        // textBoxSearch
+        // 
+        textBoxSearch.Location = new Point(292, 269);
+        textBoxSearch.Name = "textBoxSearch";
+        textBoxSearch.Size = new Size(333, 23);
+        textBoxSearch.TabIndex = 21;
+        // 
+        // label3
+        // 
+        label3.AutoSize = true;
+        label3.Location = new Point(628, 272);
+        label3.Name = "label3";
+        label3.Size = new Size(97, 15);
+        label3.TabIndex = 20;
+        label3.Text = "نام/کدملی/شناسه";
+        // 
+        // buttonPayments
+        // 
+        buttonPayments.Location = new Point(177, 221);
+        buttonPayments.Name = "buttonPayments";
+        buttonPayments.Size = new Size(136, 26);
+        buttonPayments.TabIndex = 22;
+        buttonPayments.Text = "مشاهده پرداخت ها";
+        buttonPayments.UseVisualStyleBackColor = true;
+        buttonPayments.Click += buttonPayments_Click;
+        // 
         // FrmSignup
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(745, 487);
+        ClientSize = new Size(745, 561);
+        Controls.Add(buttonPayments);
+        Controls.Add(textBoxSearch);
+        Controls.Add(label3);
+        Controls.Add(groupBox1);
+        Controls.Add(textBoxId);
+        Controls.Add(label2);
         Controls.Add(panel2);
         Controls.Add(panel1);
         Controls.Add(label1);
@@ -251,6 +329,7 @@ partial class FrmSignup
         ((System.ComponentModel.ISupportInitialize)dataGridViewAthletes).EndInit();
         panel1.ResumeLayout(false);
         panel2.ResumeLayout(false);
+        groupBox1.ResumeLayout(false);
         ResumeLayout(false);
         PerformLayout();
     }
@@ -276,4 +355,11 @@ partial class FrmSignup
     private RadioButton radioNormal;
     private RadioButton radioMilitray;
     private Panel panel2;
+    private TextBox textBoxId;
+    private Label label2;
+    private GroupBox groupBox1;
+    private TextBox textBoxSearch;
+    private Label label3;
+    private Button buttonSearch;
+    private Button buttonPayments;
 }

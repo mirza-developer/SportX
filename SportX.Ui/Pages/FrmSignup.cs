@@ -16,8 +16,16 @@ public partial class FrmSignup : Form
 
     private void LoadAthletes()
     {
-        List<Athlete> athletes = context.Athletes.ToList();
-        dataGridViewAthletes.DataSource = athletes;
+        var athletes = context.Athletes.AsQueryable();
+
+        if (!string.IsNullOrEmpty(textBoxSearch.Text))
+        {
+            athletes = athletes.Where(p => p.Id.ToString() == textBoxSearch.Text
+            || p.Name.Contains(textBoxSearch.Text)
+            || p.NationalCode.Contains(textBoxSearch.Text));
+        }
+
+        dataGridViewAthletes.DataSource = athletes.ToList();
 
         dataGridViewAthletes.Columns["Name"].HeaderText = "نام";
         dataGridViewAthletes.Columns["NationalCode"].HeaderText = "کد ملی";
@@ -53,6 +61,7 @@ public partial class FrmSignup : Form
                 textBoxDateOfBirth.Text = _selectedAthlete.DateOfBirth;
                 radioNormal.Checked = _selectedAthlete.Membership == MembershipType.Normal;
                 radioMilitray.Checked = _selectedAthlete.Membership == MembershipType.Military;
+                textBoxId.Text = _selectedAthlete.Id.ToString();
             }
         }
     }
@@ -103,10 +112,23 @@ public partial class FrmSignup : Form
         textBoxDateOfBirth.Clear();
         _selectedAthlete = null;
         radioNormal.Checked = true;
+        textBoxId.Text = string.Empty;
     }
 
     private void buttonNew_Click(object sender, EventArgs e)
     {
         ClearForm();
+    }
+
+    private void buttonSearch_Click(object sender, EventArgs e)
+    {
+        LoadAthletes();
+    }
+
+    private void buttonPayments_Click(object sender, EventArgs e)
+    {
+        FrmPaymentManagment frm = new(_selectedAthlete);
+       
+        frm.ShowDialog();
     }
 }

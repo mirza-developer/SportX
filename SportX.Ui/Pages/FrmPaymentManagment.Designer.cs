@@ -53,9 +53,9 @@
             // 
             // buttonSelectAthlete
             // 
-            buttonSelectAthlete.Location = new Point(150, 20);
+            buttonSelectAthlete.Location = new Point(62, 20);
             buttonSelectAthlete.Name = "buttonSelectAthlete";
-            buttonSelectAthlete.Size = new Size(120, 30);
+            buttonSelectAthlete.Size = new Size(303, 30);
             buttonSelectAthlete.TabIndex = 0;
             buttonSelectAthlete.Text = "انتخاب ورزشکار";
             buttonSelectAthlete.Click += ButtonSelectAthlete_Click;

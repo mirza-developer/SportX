@@ -41,11 +41,11 @@ namespace SportX.Ui.Pages
             پرداختهاToolStripMenuItem = new ToolStripMenuItem();
             گزارشهاToolStripMenuItem = new ToolStripMenuItem();
             گزارشماهیانهپرداختToolStripMenuItem = new ToolStripMenuItem();
+            گزارشحضورورزشکارToolStripMenuItem = new ToolStripMenuItem();
             groupBox1 = new GroupBox();
             btnExit = new Button();
             groupBox2 = new GroupBox();
             dataGridViewAthletes = new DataGridView();
-            گزارشحضورورزشکارToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -125,6 +125,13 @@ namespace SportX.Ui.Pages
             گزارشماهیانهپرداختToolStripMenuItem.Text = "گزارش ماهیانه پرداخت";
             گزارشماهیانهپرداختToolStripMenuItem.Click += گزارشماهیانهپرداختToolStripMenuItem_Click;
             // 
+            // گزارشحضورورزشکارToolStripMenuItem
+            // 
+            گزارشحضورورزشکارToolStripMenuItem.Name = "گزارشحضورورزشکارToolStripMenuItem";
+            گزارشحضورورزشکارToolStripMenuItem.Size = new Size(181, 22);
+            گزارشحضورورزشکارToolStripMenuItem.Text = "گزارش حضور ورزشکار";
+            گزارشحضورورزشکارToolStripMenuItem.Click += گزارشحضورورزشکارToolStripMenuItem_Click;
+            // 
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -172,13 +179,6 @@ namespace SportX.Ui.Pages
             dataGridViewAthletes.TabIndex = 5;
             dataGridViewAthletes.SelectionChanged += dataGridViewAthletes_SelectionChanged;
             // 
-            // گزارشحضورورزشکارToolStripMenuItem
-            // 
-            گزارشحضورورزشکارToolStripMenuItem.Name = "گزارشحضورورزشکارToolStripMenuItem";
-            گزارشحضورورزشکارToolStripMenuItem.Size = new Size(181, 22);
-            گزارشحضورورزشکارToolStripMenuItem.Text = "گزارش حضور ورزشکار";
-            گزارشحضورورزشکارToolStripMenuItem.Click += گزارشحضورورزشکارToolStripMenuItem_Click;
-            // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -194,6 +194,7 @@ namespace SportX.Ui.Pages
             RightToLeft = RightToLeft.Yes;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "صفحه اصلی";
+            FormClosing += FrmMain_FormClosing;
             Load += FrmMain_Load;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();

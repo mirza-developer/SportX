@@ -149,5 +149,10 @@ public partial class FrmMain : Form
         FrmAthleteLogReport reportForm = new();
         reportForm.Show();
     }
+
+    private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        Application.Exit();
+    }
 }
 

@@ -16,6 +16,17 @@ public partial class FrmPaymentManagment : Form
         ClearForm();
     }
 
+    public FrmPaymentManagment(Athlete passedAthlete)
+    {
+        ClearForm();
+
+        selectedAthlete = passedAthlete;
+
+        buttonSelectAthlete.Text = $"انتخاب شده: {selectedAthlete.Name}";
+
+        LoadPaymentHistory();
+    }
+
     private void ButtonSelectAthlete_Click(object sender, EventArgs e)
     {
         using var selectAthleteForm = new FrmChooseAthlete();

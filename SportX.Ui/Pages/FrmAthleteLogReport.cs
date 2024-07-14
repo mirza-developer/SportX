@@ -1,7 +1,8 @@
-﻿using SportX.Ui.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SportX.Tools;
+using SportX.Ui.Models;
 using SportX.Ui.Services;
 using System.Data;
-using System.Globalization;
 
 namespace SportX.Ui.Pages;
 public partial class FrmAthleteLogReport : Form
@@ -16,13 +17,12 @@ public partial class FrmAthleteLogReport : Form
 
     private void ButtonChooseAthlete_Click(object sender, EventArgs e)
     {
-        using (FrmChooseAthlete frmChooseAthlete = new FrmChooseAthlete())
+        using FrmChooseAthlete frmChooseAthlete = new();
+
+        if (frmChooseAthlete.ShowDialog() == DialogResult.OK)
         {
-            if (frmChooseAthlete.ShowDialog() == DialogResult.OK)
-            {
-                selectedAthlete = frmChooseAthlete.SelectedAthlete;
-                textBoxAthlete.Text = selectedAthlete.Name;
-            }
+            selectedAthlete = frmChooseAthlete.SelectedAthlete;
+            textBoxAthlete.Text = selectedAthlete.Name;
         }
     }
 
@@ -34,29 +34,43 @@ public partial class FrmAthleteLogReport : Form
             return;
         }
 
-        var persianCalendar = new PersianCalendar();
-        DateTime fromDate = DateTime.ParseExact(dateTimePickerFromDate.Text, "yyyy/MM/dd", null);
-        DateTime toDate = DateTime.ParseExact(dateTimePickerToDate.Text, "yyyy/MM/dd", null);
-
         var usageLogs = context.Usages
-            .Where(u => u.AthleteId == selectedAthlete.Id &&
-                        u.CreateDatetime >= fromDate &&
-                        u.CreateDatetime <= toDate)
+                                                     .Include(p => p.Athlete)
+                                                     .AsQueryable()
+                                                     .Where(u => u.AthleteId == selectedAthlete.Id);
+
+        if (!string.IsNullOrEmpty(dateTimePickerFromDate.Text))
+        {
+            DateTime fromDate = PersianCalendarTools.PersianToGregorian(dateTimePickerFromDate.Text);
+
+            usageLogs = usageLogs.Where(u => u.CreateDatetime >= fromDate);
+        }
+
+        if (!string.IsNullOrEmpty(dateTimePickerToDate.Text))
+        {
+            DateTime toDate = PersianCalendarTools.PersianToGregorian(dateTimePickerToDate.Text);
+
+            usageLogs = usageLogs.Where(u => u.CreateDatetime <= toDate);
+        }
+
+        int index = 0;
+
+        dataGridViewReport.DataSource = usageLogs.ToList()
             .Select(u => new
             {
-                u.IsEntered,
-                u.IsPaid,
-                u.CreateDatetime
+                Index = index++,
+                Name = u.Athlete.Name,
+                CreateDate = PersianCalendarTools.GregorianToPersian(u.CreateDatetime),
+                CreateTime = u.CreateDatetime.ToString("HH:mm")
             })
             .ToList();
 
-        dataGridViewReport.DataSource = usageLogs;
+        dataGridViewReport.Columns["Index"].HeaderText = "ردیف";
+        dataGridViewReport.Columns["Name"].HeaderText = "نام ورزشکار";
+        dataGridViewReport.Columns["CreateTime"].HeaderText = "ساعت";
+        dataGridViewReport.Columns["CreateDate"].HeaderText = "تاریخ";
 
-        dataGridViewReport.Columns["IsEntered"].HeaderText = "ورود";
-        dataGridViewReport.Columns["IsPaid"].HeaderText = "پرداخت شده";
-        dataGridViewReport.Columns["CreateDatetime"].HeaderText = "تاریخ ورود/خروج";
-
-        var totalUsageCount = usageLogs.Count;
+        var totalUsageCount = usageLogs.Count();
         labelTotalUsageCount.Text = $"تعداد کل ورود و خروج: {totalUsageCount}";
     }
 }

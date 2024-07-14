@@ -33,18 +33,18 @@
             textBoxAthlete = new TextBox();
             buttonChooseAthlete = new Button();
             labelFromDate = new Label();
-            dateTimePickerFromDate = new DateTimePicker();
             labelToDate = new Label();
-            dateTimePickerToDate = new DateTimePicker();
             buttonGenerateReport = new Button();
             dataGridViewReport = new DataGridView();
             labelTotalUsageCount = new Label();
+            dateTimePickerFromDate = new TextBox();
+            dateTimePickerToDate = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewReport).BeginInit();
             SuspendLayout();
             // 
             // labelAthlete
             // 
-            labelAthlete.Location = new Point(300, 20);
+            labelAthlete.Location = new Point(684, 24);
             labelAthlete.Name = "labelAthlete";
             labelAthlete.Size = new Size(100, 20);
             labelAthlete.TabIndex = 0;
@@ -53,15 +53,15 @@
             // 
             // textBoxAthlete
             // 
-            textBoxAthlete.Location = new Point(150, 20);
+            textBoxAthlete.Location = new Point(440, 24);
             textBoxAthlete.Name = "textBoxAthlete";
             textBoxAthlete.ReadOnly = true;
-            textBoxAthlete.Size = new Size(120, 23);
+            textBoxAthlete.Size = new Size(214, 23);
             textBoxAthlete.TabIndex = 1;
             // 
             // buttonChooseAthlete
             // 
-            buttonChooseAthlete.Location = new Point(50, 20);
+            buttonChooseAthlete.Location = new Point(354, 22);
             buttonChooseAthlete.Name = "buttonChooseAthlete";
             buttonChooseAthlete.Size = new Size(80, 25);
             buttonChooseAthlete.TabIndex = 2;
@@ -70,43 +70,25 @@
             // 
             // labelFromDate
             // 
-            labelFromDate.Location = new Point(300, 50);
+            labelFromDate.Location = new Point(684, 54);
             labelFromDate.Name = "labelFromDate";
             labelFromDate.Size = new Size(50, 20);
             labelFromDate.TabIndex = 3;
             labelFromDate.Text = "از تاریخ";
             labelFromDate.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // dateTimePickerFromDate
-            // 
-            dateTimePickerFromDate.CustomFormat = "yyyy/MM/dd";
-            dateTimePickerFromDate.Format = DateTimePickerFormat.Custom;
-            dateTimePickerFromDate.Location = new Point(150, 50);
-            dateTimePickerFromDate.Name = "dateTimePickerFromDate";
-            dateTimePickerFromDate.Size = new Size(120, 23);
-            dateTimePickerFromDate.TabIndex = 4;
-            // 
             // labelToDate
             // 
-            labelToDate.Location = new Point(300, 80);
+            labelToDate.Location = new Point(684, 84);
             labelToDate.Name = "labelToDate";
             labelToDate.Size = new Size(50, 20);
             labelToDate.TabIndex = 5;
             labelToDate.Text = "تا تاریخ";
             labelToDate.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // dateTimePickerToDate
-            // 
-            dateTimePickerToDate.CustomFormat = "yyyy/MM/dd";
-            dateTimePickerToDate.Format = DateTimePickerFormat.Custom;
-            dateTimePickerToDate.Location = new Point(150, 80);
-            dateTimePickerToDate.Name = "dateTimePickerToDate";
-            dateTimePickerToDate.Size = new Size(120, 23);
-            dateTimePickerToDate.TabIndex = 6;
-            // 
             // buttonGenerateReport
             // 
-            buttonGenerateReport.Location = new Point(150, 110);
+            buttonGenerateReport.Location = new Point(534, 114);
             buttonGenerateReport.Name = "buttonGenerateReport";
             buttonGenerateReport.Size = new Size(120, 30);
             buttonGenerateReport.TabIndex = 7;
@@ -131,16 +113,30 @@
             labelTotalUsageCount.Text = "تعداد کل ورود و خروج: 0";
             labelTotalUsageCount.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // dateTimePickerFromDate
+            // 
+            dateTimePickerFromDate.Location = new Point(534, 54);
+            dateTimePickerFromDate.Name = "dateTimePickerFromDate";
+            dateTimePickerFromDate.Size = new Size(120, 23);
+            dateTimePickerFromDate.TabIndex = 10;
+            // 
+            // dateTimePickerToDate
+            // 
+            dateTimePickerToDate.Location = new Point(534, 84);
+            dateTimePickerToDate.Name = "dateTimePickerToDate";
+            dateTimePickerToDate.Size = new Size(120, 23);
+            dateTimePickerToDate.TabIndex = 11;
+            // 
             // FrmAthleteLogReport
             // 
             ClientSize = new Size(800, 490);
+            Controls.Add(dateTimePickerToDate);
+            Controls.Add(dateTimePickerFromDate);
             Controls.Add(labelAthlete);
             Controls.Add(textBoxAthlete);
             Controls.Add(buttonChooseAthlete);
             Controls.Add(labelFromDate);
-            Controls.Add(dateTimePickerFromDate);
             Controls.Add(labelToDate);
-            Controls.Add(dateTimePickerToDate);
             Controls.Add(buttonGenerateReport);
             Controls.Add(dataGridViewReport);
             Controls.Add(labelTotalUsageCount);
@@ -158,12 +154,14 @@
         private TextBox textBoxAthlete;
         private Button buttonChooseAthlete;
         private Label labelFromDate;
-        private DateTimePicker dateTimePickerFromDate;
         private Label labelToDate;
-        private DateTimePicker dateTimePickerToDate;
         private Button buttonGenerateReport;
         private DataGridView dataGridViewReport;
         private Label labelTotalUsageCount;
+
         #endregion
+
+        private TextBox dateTimePickerFromDate;
+        private TextBox dateTimePickerToDate;
     }
 }
