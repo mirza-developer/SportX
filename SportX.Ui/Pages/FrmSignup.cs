@@ -1,4 +1,5 @@
-﻿using SportX.Ui.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SportX.Ui.Models;
 using SportX.Ui.Services;
 
 namespace SportX.Ui.Pages;
@@ -6,7 +7,6 @@ public partial class FrmSignup : Form
 {
     private SportXContext context = new();
     private Athlete _selectedAthlete;
-
     public FrmSignup()
     {
         InitializeComponent();
@@ -34,6 +34,7 @@ public partial class FrmSignup : Form
         dataGridViewAthletes.Columns["MembershipString"].HeaderText = "نوع عضویت";
         dataGridViewAthletes.Columns["GenderString"].HeaderText = "جنسیت";
         dataGridViewAthletes.Columns["RemainingSessionCounts"].HeaderText = "جلسات باقی مانده";
+        dataGridViewAthletes.Columns["Address"].HeaderText = "آدرس";
 
         dataGridViewAthletes.Columns["Id"].Visible = false;
         dataGridViewAthletes.Columns["CreateDatetime"].Visible = false;
@@ -41,6 +42,7 @@ public partial class FrmSignup : Form
         dataGridViewAthletes.Columns["Payments"].Visible = false;
         dataGridViewAthletes.Columns["Usages"].Visible = false;
         dataGridViewAthletes.Columns["IsMale"].Visible = false;
+        dataGridViewAthletes.Columns["Epc"].Visible = false;
         dataGridViewAthletes.Columns["Membership"].Visible = false;
         dataGridViewAthletes.Columns["DateEndMembership"].Visible = false;
     }
@@ -62,13 +64,22 @@ public partial class FrmSignup : Form
                 radioNormal.Checked = _selectedAthlete.Membership == MembershipType.Normal;
                 radioMilitray.Checked = _selectedAthlete.Membership == MembershipType.Military;
                 textBoxId.Text = _selectedAthlete.Id.ToString();
+                textBoxAddress.Text = _selectedAthlete.Address;
+                textBoxEpc.Text = _selectedAthlete.Epc;
             }
         }
     }
 
     private async void ButtonSignUp_Click(object sender, EventArgs e)
     {
-        if (_selectedAthlete == null)
+        //if (await IsDuplicate())
+        //{
+        //    MessageBox.Show("اطلاعات تکراری است", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        //    return;
+        //}
+
+        if (_selectedAthlete is null)
         {
             Athlete newAthlete = new Athlete
             {
@@ -79,7 +90,9 @@ public partial class FrmSignup : Form
                 DateOfBirth = textBoxDateOfBirth.Text,
                 CreateDatetime = DateTime.Now,
                 LastModifyDatetime = DateTime.Now,
-                Membership = radioNormal.Checked ? MembershipType.Normal : MembershipType.Military
+                Membership = radioNormal.Checked ? MembershipType.Normal : MembershipType.Military,
+                Address = textBoxAddress.Text,
+                Epc = textBoxEpc.Text
             };
 
             context.Athletes.Add(newAthlete);
@@ -93,11 +106,13 @@ public partial class FrmSignup : Form
             _selectedAthlete.DateOfBirth = textBoxDateOfBirth.Text;
             _selectedAthlete.LastModifyDatetime = DateTime.Now;
             _selectedAthlete.Membership = radioNormal.Checked ? MembershipType.Normal : MembershipType.Military;
+            _selectedAthlete.Address = textBoxAddress.Text;
+            _selectedAthlete.Epc = textBoxEpc.Text;
 
             context.Athletes.Update(_selectedAthlete);
         }
 
-        context.SaveChanges();
+        await context.SaveChangesAsync();
         MessageBox.Show("اطلاعات ورزشکار ثبت شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
         LoadAthletes(); // Refresh the DataGridView
         ClearForm();
@@ -113,6 +128,8 @@ public partial class FrmSignup : Form
         _selectedAthlete = null;
         radioNormal.Checked = true;
         textBoxId.Text = string.Empty;
+        textBoxAddress.Text = string.Empty;
+        textBoxEpc.Text = string.Empty;
     }
 
     private void buttonNew_Click(object sender, EventArgs e)
@@ -128,7 +145,46 @@ public partial class FrmSignup : Form
     private void buttonPayments_Click(object sender, EventArgs e)
     {
         FrmPaymentManagment frm = new(_selectedAthlete);
-       
+
         frm.ShowDialog();
     }
+
+    private void timerFocus_Tick(object sender, EventArgs e)
+    {
+        textBoxEpc.Focus();
+    }
+
+    private void buttonEpc_Click(object sender, EventArgs e)
+    {
+        if (!timerFocus.Enabled)
+        {
+            textBoxEpc.ReadOnly = false;
+
+            timerFocus.Enabled = true;
+
+            buttonEpc.Text = "توقف";
+
+            textBoxEpc.Text = string.Empty;
+        }
+        else
+        {
+            textBoxEpc.ReadOnly = true;
+
+            timerFocus.Enabled = false;
+
+            buttonEpc.Text = "قرائت";
+        }
+    }
+
+    private void textBoxEpc_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            buttonEpc_Click(sender, e);
+        }
+    }
+
+    private async Task<bool> IsDuplicate()
+        => await context.Athletes.AnyAsync(p => p.NationalCode.Contains(textBoxNationalCode.Text)
+                                        || p.Epc == textBoxEpc.Text);
 }

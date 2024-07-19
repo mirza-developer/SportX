@@ -55,7 +55,7 @@
             // 
             buttonSelectAthlete.Location = new Point(62, 20);
             buttonSelectAthlete.Name = "buttonSelectAthlete";
-            buttonSelectAthlete.Size = new Size(303, 30);
+            buttonSelectAthlete.Size = new Size(303, 34);
             buttonSelectAthlete.TabIndex = 0;
             buttonSelectAthlete.Text = "انتخاب ورزشکار";
             buttonSelectAthlete.Click += ButtonSelectAthlete_Click;
@@ -73,7 +73,7 @@
             // 
             textBoxPrice.Location = new Point(100, 60);
             textBoxPrice.Name = "textBoxPrice";
-            textBoxPrice.Size = new Size(200, 23);
+            textBoxPrice.Size = new Size(200, 31);
             textBoxPrice.TabIndex = 2;
             // 
             // labelPayDate
@@ -89,7 +89,7 @@
             // 
             textBoxPayDate.Location = new Point(100, 90);
             textBoxPayDate.Name = "textBoxPayDate";
-            textBoxPayDate.Size = new Size(200, 23);
+            textBoxPayDate.Size = new Size(200, 31);
             textBoxPayDate.TabIndex = 4;
             // 
             // labelDescription
@@ -105,7 +105,7 @@
             // 
             textBoxDescription.Location = new Point(100, 120);
             textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(200, 23);
+            textBoxDescription.Size = new Size(200, 31);
             textBoxDescription.TabIndex = 6;
             // 
             // labelReceiptNumber
@@ -121,7 +121,7 @@
             // 
             textBoxReceiptNumber.Location = new Point(100, 150);
             textBoxReceiptNumber.Name = "textBoxReceiptNumber";
-            textBoxReceiptNumber.Size = new Size(200, 23);
+            textBoxReceiptNumber.Size = new Size(200, 31);
             textBoxReceiptNumber.TabIndex = 8;
             // 
             // labelPaymentType
@@ -139,7 +139,7 @@
             comboBoxPaymentType.Items.AddRange(new object[] { "کارت به کارت", "نقدی", "پوز" });
             comboBoxPaymentType.Location = new Point(100, 180);
             comboBoxPaymentType.Name = "comboBoxPaymentType";
-            comboBoxPaymentType.Size = new Size(200, 23);
+            comboBoxPaymentType.Size = new Size(200, 33);
             comboBoxPaymentType.TabIndex = 10;
             // 
             // labelSessionCount
@@ -155,7 +155,7 @@
             // 
             textBoxSessionCount.Location = new Point(100, 210);
             textBoxSessionCount.Name = "textBoxSessionCount";
-            textBoxSessionCount.Size = new Size(200, 23);
+            textBoxSessionCount.Size = new Size(200, 31);
             textBoxSessionCount.TabIndex = 12;
             // 
             // buttonSave
@@ -169,9 +169,11 @@
             // 
             // dataGridViewPayments
             // 
+            dataGridViewPayments.ColumnHeadersHeight = 34;
             dataGridViewPayments.Location = new Point(20, 318);
             dataGridViewPayments.MultiSelect = false;
             dataGridViewPayments.Name = "dataGridViewPayments";
+            dataGridViewPayments.RowHeadersWidth = 62;
             dataGridViewPayments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewPayments.Size = new Size(760, 200);
             dataGridViewPayments.TabIndex = 14;
@@ -189,7 +191,7 @@
             // 
             labelTotalPayments.Location = new Point(20, 528);
             labelTotalPayments.Name = "labelTotalPayments";
-            labelTotalPayments.Size = new Size(760, 20);
+            labelTotalPayments.Size = new Size(760, 37);
             labelTotalPayments.TabIndex = 15;
             labelTotalPayments.Text = "جمع مبالغ پرداختی: 0 تومان";
             labelTotalPayments.TextAlign = ContentAlignment.MiddleRight;
@@ -207,12 +209,12 @@
             // 
             txtboxPaymentDateEnd.Location = new Point(100, 239);
             txtboxPaymentDateEnd.Name = "txtboxPaymentDateEnd";
-            txtboxPaymentDateEnd.Size = new Size(200, 23);
+            txtboxPaymentDateEnd.Size = new Size(200, 31);
             txtboxPaymentDateEnd.TabIndex = 17;
             // 
             // FrmPaymentManagment
             // 
-            ClientSize = new Size(793, 555);
+            ClientSize = new Size(793, 575);
             Controls.Add(label1);
             Controls.Add(txtboxPaymentDateEnd);
             Controls.Add(buttonSelectAthlete);

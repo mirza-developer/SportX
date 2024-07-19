@@ -119,6 +119,7 @@ public partial class FrmPaymentManagment : Form
         buttonSelectAthlete.Text = "انتخاب ورزشکار";
         textBoxPayDate.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now);
         txtboxPaymentDateEnd.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now.AddMonths(1));
+        dataGridViewPayments.DataSource = null;
     }
 
     private void btnClear_Click(object sender, EventArgs e)

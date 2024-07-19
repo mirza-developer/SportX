@@ -56,14 +56,14 @@
             textBoxAthlete.Location = new Point(440, 24);
             textBoxAthlete.Name = "textBoxAthlete";
             textBoxAthlete.ReadOnly = true;
-            textBoxAthlete.Size = new Size(214, 23);
+            textBoxAthlete.Size = new Size(214, 31);
             textBoxAthlete.TabIndex = 1;
             // 
             // buttonChooseAthlete
             // 
             buttonChooseAthlete.Location = new Point(354, 22);
             buttonChooseAthlete.Name = "buttonChooseAthlete";
-            buttonChooseAthlete.Size = new Size(80, 25);
+            buttonChooseAthlete.Size = new Size(80, 33);
             buttonChooseAthlete.TabIndex = 2;
             buttonChooseAthlete.Text = "انتخاب";
             buttonChooseAthlete.Click += ButtonChooseAthlete_Click;
@@ -97,9 +97,11 @@
             // 
             // dataGridViewReport
             // 
+            dataGridViewReport.ColumnHeadersHeight = 34;
             dataGridViewReport.Location = new Point(20, 150);
             dataGridViewReport.MultiSelect = false;
             dataGridViewReport.Name = "dataGridViewReport";
+            dataGridViewReport.RowHeadersWidth = 62;
             dataGridViewReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewReport.Size = new Size(760, 300);
             dataGridViewReport.TabIndex = 8;
@@ -117,14 +119,14 @@
             // 
             dateTimePickerFromDate.Location = new Point(534, 54);
             dateTimePickerFromDate.Name = "dateTimePickerFromDate";
-            dateTimePickerFromDate.Size = new Size(120, 23);
+            dateTimePickerFromDate.Size = new Size(120, 31);
             dateTimePickerFromDate.TabIndex = 10;
             // 
             // dateTimePickerToDate
             // 
             dateTimePickerToDate.Location = new Point(534, 84);
             dateTimePickerToDate.Name = "dateTimePickerToDate";
-            dateTimePickerToDate.Size = new Size(120, 23);
+            dateTimePickerToDate.Size = new Size(120, 31);
             dateTimePickerToDate.TabIndex = 11;
             // 
             // FrmAthleteLogReport

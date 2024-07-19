@@ -2,6 +2,7 @@
 using SportX.Tools;
 using SportX.Ui.Models;
 using SportX.Ui.Services;
+using System.Linq;
 
 namespace SportX.Ui.Pages;
 public partial class FrmMain : Form
@@ -16,78 +17,43 @@ public partial class FrmMain : Form
 
     private async void ButtonCheck_Click(object sender, EventArgs e)
     {
-        string nationalCodeOrId = textBoxNationalCode.Text;
-
-        Athlete? athlete = await _context.Athletes
-                                         .FirstOrDefaultAsync(a => a.NationalCode == nationalCodeOrId || a.Id.ToString() == nationalCodeOrId);
-
-        if (enteredAthletes.Any(p => p.AthleteId == athlete.Id))
-        {
-            MessageBox.Show("ورزشکار وارد شده است", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            return;
-        }
-
-        if (athlete is not null)
-        {
-            if (athlete.RemainingSessionCounts > 0)
-            {
-                if (PersianCalendarTools.PersianToGregorian(athlete.DateEndMembership).Date < DateTime.Now.Date)
-                {
-                    MessageBox.Show("اعتبار عضویت به پایان رسیده است", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    return;
-                }
-
-                AthleteUsageLog usageLog = new AthleteUsageLog
-                {
-                    AthleteId = athlete.Id,
-                    IsEntered = true,
-                    IsPaid = true,
-                    CreateDatetime = DateTime.Now
-                };
-
-                _context.Usages.Add(usageLog);
-
-                athlete.RemainingSessionCounts--;
-
-                _context.Athletes.Update(athlete);
-
-                await _context.SaveChangesAsync();
-
-                MessageBox.Show("ورود ثبت شد", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                await LoadEnteredAthletes();
-            }
-            else
-            {
-                MessageBox.Show("اعتبار عضویت به پایان رسیده است", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        else
-        {
-            MessageBox.Show("ورزشکار یافت نشد", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        await CheckAndEnter();
     }
 
     private void SignUpMenuItem_Click(object sender, EventArgs e)
     {
+        timerFocus.Enabled = false;
+        buttonEpc.Text = "قرائت";
+
         FrmSignup signUpForm = new();
-        signUpForm.Show();
+        signUpForm.ShowDialog();
+        _context.ChangeTracker.Clear();
     }
 
     private void پرداختهاToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        timerFocus.Enabled = false;
+        buttonEpc.Text = "قرائت";
+
         FrmPaymentManagment paymentForm = new();
-        paymentForm.Show();
+        paymentForm.ShowDialog();
+        _context.ChangeTracker.Clear();
     }
 
     private async Task LoadEnteredAthletes()
     {
         enteredAthletes = await _context.Usages.Where(p => p.IsEntered
                                                                     && p.CreateDatetime.Date == DateTime.Now.Date)
+                                               .OrderBy(p => p.CreateDatetime)
                                                .Include(p => p.Athlete)
                                                .ToListAsync();
+
+        if (!string.IsNullOrEmpty(textBoxSearch.Text))
+        {
+            enteredAthletes = enteredAthletes.Where(p => p.Id.ToString() == textBoxSearch.Text
+            || p.Athlete.Name.Contains(textBoxSearch.Text)
+            || p.Athlete.NationalCode.Contains(textBoxSearch.Text)).ToList();
+        }
 
         var athletes = enteredAthletes.Select(a => new
         {
@@ -108,19 +74,20 @@ public partial class FrmMain : Form
         await LoadEnteredAthletes();
     }
 
-    private async void btnExit_Click(object sender, EventArgs e)
+    private async Task Exit()
     {
-        string nationalCodeOrId = textBoxNationalCode.Text;
+        string nationalCodeOrId = textBoxEnterNationalCode.Text;
 
         if (string.IsNullOrWhiteSpace(nationalCodeOrId))
         {
-            MessageBox.Show("لطفا تمام فیلدها را پر کنید", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("لطفا کد ملی پر کنید", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             return;
         }
 
         await _context.Usages.Where(p => p.IsEntered
                                              && p.CreateDatetime.Date == DateTime.Now.Date
-                                             && (p.AthleteId == int.Parse(textBoxNationalCode.Text) || p.Athlete.NationalCode == textBoxNationalCode.Text))
+                                             && (p.AthleteId == int.Parse(textBoxEnterNationalCode.Text) || p.Athlete.NationalCode == textBoxEnterNationalCode.Text))
                              .ExecuteUpdateAsync(p => p.SetProperty(prop => prop.IsEntered, false));
 
         MessageBox.Show("خروج ثبت شد", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -134,7 +101,7 @@ public partial class FrmMain : Form
         {
             var selectedId = (int)dataGridViewAthletes.SelectedRows[0].Cells[0].Value;
 
-            textBoxNationalCode.Text = selectedId.ToString();
+            textBoxEnterNationalCode.Text = selectedId.ToString();
         }
     }
 
@@ -146,13 +113,173 @@ public partial class FrmMain : Form
 
     private void گزارشحضورورزشکارToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        timerFocus.Enabled = false;
+        buttonEpc.Text = "قرائت";
+
         FrmAthleteLogReport reportForm = new();
-        reportForm.Show();
+        reportForm.ShowDialog();
     }
 
     private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
     {
         Application.Exit();
+    }
+
+    private void buttonChooseAthlete_Click(object sender, EventArgs e)
+    {
+        using FrmChooseAthlete frmChooseAthlete = new();
+
+        if (frmChooseAthlete.ShowDialog() == DialogResult.OK)
+        {
+            textBoxEnterNationalCode.Text = frmChooseAthlete.SelectedAthlete.Id.ToString();
+        }
+    }
+
+    private async void buttonSearch_Click(object sender, EventArgs e)
+    {
+        await LoadEnteredAthletes();
+    }
+
+    private void timerFocus_Tick(object sender, EventArgs e)
+    {
+        textBoxEpc.Focus();
+    }
+
+    private async void buttonEpc_Click(object sender, EventArgs e)
+    {
+        if (!timerFocus.Enabled)
+        {
+            timerFocus.Enabled = true;
+
+            buttonEpc.Text = "توقف";
+
+            textBoxEpc.Text = string.Empty;
+        }
+        else
+        {
+            timerFocus.Enabled = false;
+
+            buttonEpc.Text = "قرائت";
+        }
+    }
+
+    private async void textBoxEpc_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            if (!string.IsNullOrEmpty(textBoxEpc.Text))
+            {
+                await CheckAndEnter();
+
+                textBoxEpc.Text = string.Empty;
+            }
+        }
+    }
+
+    private void LoadAthleteInfo(Athlete athlete)
+    {
+        textBoxName.Text = athlete.Name;
+        textBoxNationalCode.Text = athlete.NationalCode;
+        textBoxPhone.Text = athlete.Phone;
+        textBoxId.Text = athlete.Id.ToString();
+        textBoxAddress.Text = athlete.Address;
+        textboxRemainingSessions.Text = athlete.RemainingSessionCounts.ToString();
+        textBoxEndDate.Text = athlete.DateEndMembership;
+    }
+
+    private async Task CheckAndEnter()
+    {
+        string nationalCodeOrId = textBoxEnterNationalCode.Text;
+
+        Athlete? athlete;
+
+        if (!string.IsNullOrEmpty(textBoxEpc.Text))
+        {
+            athlete = await _context.Athletes
+                                    .FirstOrDefaultAsync(a => a.Epc == textBoxEpc.Text);
+        }
+        else
+        {
+
+
+            athlete = await _context.Athletes
+                                    .FirstOrDefaultAsync(a => a.NationalCode == nationalCodeOrId || a.Id.ToString() == nationalCodeOrId);
+        }
+
+        if (enteredAthletes.Any(p => p.AthleteId == athlete.Id))
+        {
+            await Exit();
+
+            return;
+        }
+
+        LoadAthleteInfo(athlete);
+
+        if (athlete is not null)
+        {
+            if (athlete.RemainingSessionCounts > 0)
+            {
+                if (PersianCalendarTools.PersianToGregorian(athlete.DateEndMembership).Date < DateTime.Now.Date)
+                {
+                    textBoxStatus.Text = "اتمام تاریخی اعتبار";
+
+                    groupBoxInfo.BackColor = Color.Red;
+
+                    timerClearInfo.Enabled = true;
+
+                    return;
+                }
+
+                AthleteUsageLog usageLog = new AthleteUsageLog
+                {
+                    AthleteId = athlete.Id,
+                    IsEntered = true,
+                    IsPaid = true,
+                    CreateDatetime = DateTime.Now
+                };
+
+                _context.Usages.Add(usageLog);
+
+                athlete.RemainingSessionCounts--;
+
+                _context.Athletes.Update(athlete);
+
+                await _context.SaveChangesAsync();
+
+                textBoxStatus.Text = "ورود موفق";
+
+                groupBoxInfo.BackColor = Color.Green;
+
+                await LoadEnteredAthletes();
+            }
+            else
+            {
+                textBoxStatus.Text = "اتمام جلسه ای اعتبار";
+
+                groupBoxInfo.BackColor = Color.Red;
+            }
+
+            timerClearInfo.Enabled = true;
+        }
+        else
+        {
+            MessageBox.Show("ورزشکار یافت نشد", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void timerClearInfo_Tick(object sender, EventArgs e)
+    {
+        groupBoxInfo.BackColor = SystemColors.Control;
+
+        foreach (var control in groupBoxInfo.Controls)
+        {
+            if (control is TextBox textbox)
+            {
+                textbox.Text = string.Empty;
+            }
+        }
+
+        timerClearInfo.Enabled = false;
     }
 }
 

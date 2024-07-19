@@ -29,6 +29,12 @@ public class Athlete : BaseModel
 
     public MembershipType? Membership { get; set; }
 
+    [StringLength(2000)]
+    public string? Address { get; set; }
+
+    [StringLength(100)]
+    public string? Epc { get; set; }
+
     [NotMapped]
     public string? MembershipString 
     {
