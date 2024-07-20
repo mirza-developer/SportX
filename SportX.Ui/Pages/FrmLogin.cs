@@ -31,7 +31,6 @@ public partial class FrmLogin : Form
 
     private void buttonCancel_Click(object sender, EventArgs e)
     {
-        this.DialogResult = DialogResult.Cancel;
-        this.Close();
+        Application.Exit();
     }
 }

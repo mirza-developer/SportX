@@ -3,6 +3,7 @@ using SportX.Tools;
 using SportX.Ui.Models;
 using SportX.Ui.Services;
 using System.Data;
+using System.Windows.Forms;
 
 namespace SportX.Ui.Pages;
 public partial class FrmPaymentManagment : Form
@@ -22,7 +23,7 @@ public partial class FrmPaymentManagment : Form
 
         selectedAthlete = passedAthlete;
 
-        buttonSelectAthlete.Text = $"انتخاب شده: {selectedAthlete.Name}";
+        textBoxAthleteName.Text = selectedAthlete.Name;
 
         LoadPaymentHistory();
     }
@@ -34,7 +35,7 @@ public partial class FrmPaymentManagment : Form
         if (selectAthleteForm.ShowDialog() == DialogResult.OK)
         {
             selectedAthlete = selectAthleteForm.SelectedAthlete;
-            buttonSelectAthlete.Text = $"انتخاب شده: {selectedAthlete.Name}";
+            textBoxAthleteName.Text = selectedAthlete.Name;
             LoadPaymentHistory();
         }
     }
@@ -48,6 +49,7 @@ public partial class FrmPaymentManagment : Form
                 .OrderByDescending(p => p.PayDate)
                 .Select(p => new
                 {
+                    p.Id,
                     p.PriceInTomans,
                     p.PayDate,
                     p.Description,
@@ -65,6 +67,8 @@ public partial class FrmPaymentManagment : Form
             dataGridViewPayments.Columns["ReceiptNumber"].HeaderText = "شماره رسید";
             dataGridViewPayments.Columns["PaymentType"].HeaderText = "نوع پرداخت";
             dataGridViewPayments.Columns["SessionCountFor"].HeaderText = "تعداد جلسات";
+
+            dataGridViewPayments.Columns["Id"].Visible = false;
 
             var totalPayments = payments.Sum(p => p.PriceInTomans);
             labelTotalPayments.Text = $"جمع مبالغ پرداختی: {totalPayments} تومان";
@@ -125,5 +129,58 @@ public partial class FrmPaymentManagment : Form
     private void btnClear_Click(object sender, EventArgs e)
     {
         ClearForm();
+    }
+
+    private void FrmPaymentManagment_Load(object sender, EventArgs e)
+    {
+        ToolStripMenuItem deleteMenuItem = new ToolStripMenuItem("حذف");
+        deleteMenuItem.Click += DeleteMenuItem_Click; ;
+        menuGridOptions.Items.Add(deleteMenuItem);
+    }
+
+    private void DeleteMenuItem_Click(object? sender, EventArgs e)
+    {
+        if (MessageBox.Show("آیا از حذف پرداختی مطمئن هستید؟", "توجه", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            == DialogResult.No)
+        {
+            return;
+        }
+
+        if (dataGridViewPayments.SelectedRows.Count > 0)
+        {
+            var rowIndex = dataGridViewPayments.SelectedRows[0].Index;
+            
+            var paymentId = (int)dataGridViewPayments.Rows[rowIndex].Cells["Id"].Value;
+
+            var payment = _context.Payments.SingleOrDefault(p => p.Id == paymentId);
+           
+            if (payment is not null)
+            {
+                _context.Payments.Remove(payment);
+                
+                _context.SaveChanges();
+            }
+
+            MessageBox.Show("پرداخت با موفقیت حذف شد", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            LoadPaymentHistory();
+        }
+    }
+
+    private void dataGridViewPayments_MouseDown(object sender, MouseEventArgs e)
+    {
+        if (e.Button == MouseButtons.Right)
+        {
+            var hti = dataGridViewPayments.HitTest(e.X, e.Y);
+           
+            dataGridViewPayments.ClearSelection();
+            
+            if (hti.RowIndex >= 0)
+            {
+                dataGridViewPayments.Rows[hti.RowIndex].Selected = true;
+
+                menuGridOptions.Show(dataGridViewPayments, e.Location);
+            }
+        }
     }
 }

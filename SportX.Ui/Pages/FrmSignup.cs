@@ -187,4 +187,31 @@ public partial class FrmSignup : Form
     private async Task<bool> IsDuplicate()
         => await context.Athletes.AnyAsync(p => p.NationalCode.Contains(textBoxNationalCode.Text)
                                         || p.Epc == textBoxEpc.Text);
+
+    private async void buttonDelete_Click(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(textBoxId.Text))
+        {
+            return;
+        }
+
+        if (MessageBox.Show("از حذف ورزشکار مطمئن هستید؟", "توجه", MessageBoxButtons.YesNo,MessageBoxIcon.Question)
+            == DialogResult.No)
+        {
+            return;
+        }
+
+        try
+        {
+            await context.Athletes
+               .Where(p => p.Id == int.Parse(textBoxId.Text))
+               .ExecuteDeleteAsync();
+
+            LoadAthletes();
+        }
+        catch (Exception)
+        {
+            MessageBox.Show("امکان حذف ورزشکار وجود ندارد", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+    }
 }
