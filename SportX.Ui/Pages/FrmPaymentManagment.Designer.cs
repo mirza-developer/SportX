@@ -52,21 +52,24 @@
             label2 = new Label();
             textBoxAthleteName = new TextBox();
             menuGridOptions = new ContextMenuStrip(components);
+            textBoxEpc = new TextBox();
+            buttonEpc = new Button();
+            timerFocus = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)dataGridViewPayments).BeginInit();
             SuspendLayout();
             // 
             // buttonSelectAthlete
             // 
-            buttonSelectAthlete.Location = new Point(368, 23);
+            buttonSelectAthlete.Location = new Point(421, 16);
             buttonSelectAthlete.Name = "buttonSelectAthlete";
-            buttonSelectAthlete.Size = new Size(82, 34);
+            buttonSelectAthlete.Size = new Size(119, 34);
             buttonSelectAthlete.TabIndex = 0;
             buttonSelectAthlete.Text = "انتخاب ورزشکار";
             buttonSelectAthlete.Click += ButtonSelectAthlete_Click;
             // 
             // labelPrice
             // 
-            labelPrice.Location = new Point(756, 60);
+            labelPrice.Location = new Point(846, 60);
             labelPrice.Name = "labelPrice";
             labelPrice.Size = new Size(100, 27);
             labelPrice.TabIndex = 1;
@@ -75,14 +78,14 @@
             // 
             // textBoxPrice
             // 
-            textBoxPrice.Location = new Point(456, 60);
+            textBoxPrice.Location = new Point(546, 60);
             textBoxPrice.Name = "textBoxPrice";
-            textBoxPrice.Size = new Size(300, 31);
+            textBoxPrice.Size = new Size(300, 23);
             textBoxPrice.TabIndex = 2;
             // 
             // labelPayDate
             // 
-            labelPayDate.Location = new Point(756, 97);
+            labelPayDate.Location = new Point(846, 97);
             labelPayDate.Name = "labelPayDate";
             labelPayDate.Size = new Size(100, 27);
             labelPayDate.TabIndex = 3;
@@ -91,14 +94,14 @@
             // 
             // textBoxPayDate
             // 
-            textBoxPayDate.Location = new Point(456, 97);
+            textBoxPayDate.Location = new Point(546, 97);
             textBoxPayDate.Name = "textBoxPayDate";
-            textBoxPayDate.Size = new Size(300, 31);
+            textBoxPayDate.Size = new Size(300, 23);
             textBoxPayDate.TabIndex = 4;
             // 
             // labelDescription
             // 
-            labelDescription.Location = new Point(756, 134);
+            labelDescription.Location = new Point(846, 134);
             labelDescription.Name = "labelDescription";
             labelDescription.Size = new Size(100, 27);
             labelDescription.TabIndex = 5;
@@ -107,14 +110,14 @@
             // 
             // textBoxDescription
             // 
-            textBoxDescription.Location = new Point(456, 134);
+            textBoxDescription.Location = new Point(546, 134);
             textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(300, 31);
+            textBoxDescription.Size = new Size(300, 23);
             textBoxDescription.TabIndex = 6;
             // 
             // labelReceiptNumber
             // 
-            labelReceiptNumber.Location = new Point(756, 171);
+            labelReceiptNumber.Location = new Point(846, 171);
             labelReceiptNumber.Name = "labelReceiptNumber";
             labelReceiptNumber.Size = new Size(100, 27);
             labelReceiptNumber.TabIndex = 7;
@@ -123,14 +126,14 @@
             // 
             // textBoxReceiptNumber
             // 
-            textBoxReceiptNumber.Location = new Point(456, 171);
+            textBoxReceiptNumber.Location = new Point(546, 171);
             textBoxReceiptNumber.Name = "textBoxReceiptNumber";
-            textBoxReceiptNumber.Size = new Size(300, 31);
+            textBoxReceiptNumber.Size = new Size(300, 23);
             textBoxReceiptNumber.TabIndex = 8;
             // 
             // labelPaymentType
             // 
-            labelPaymentType.Location = new Point(756, 208);
+            labelPaymentType.Location = new Point(846, 208);
             labelPaymentType.Name = "labelPaymentType";
             labelPaymentType.Size = new Size(100, 27);
             labelPaymentType.TabIndex = 9;
@@ -141,14 +144,14 @@
             // 
             comboBoxPaymentType.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxPaymentType.Items.AddRange(new object[] { "کارت به کارت", "نقدی", "پوز" });
-            comboBoxPaymentType.Location = new Point(456, 208);
+            comboBoxPaymentType.Location = new Point(546, 208);
             comboBoxPaymentType.Name = "comboBoxPaymentType";
-            comboBoxPaymentType.Size = new Size(300, 33);
+            comboBoxPaymentType.Size = new Size(300, 23);
             comboBoxPaymentType.TabIndex = 10;
             // 
             // labelSessionCount
             // 
-            labelSessionCount.Location = new Point(756, 247);
+            labelSessionCount.Location = new Point(846, 247);
             labelSessionCount.Name = "labelSessionCount";
             labelSessionCount.Size = new Size(100, 27);
             labelSessionCount.TabIndex = 11;
@@ -157,14 +160,14 @@
             // 
             // textBoxSessionCount
             // 
-            textBoxSessionCount.Location = new Point(456, 247);
+            textBoxSessionCount.Location = new Point(546, 247);
             textBoxSessionCount.Name = "textBoxSessionCount";
-            textBoxSessionCount.Size = new Size(300, 31);
+            textBoxSessionCount.Size = new Size(300, 23);
             textBoxSessionCount.TabIndex = 12;
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(150, 280);
+            buttonSave.Location = new Point(12, 281);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(100, 33);
             buttonSave.TabIndex = 13;
@@ -180,13 +183,13 @@
             dataGridViewPayments.RowHeadersVisible = false;
             dataGridViewPayments.RowHeadersWidth = 62;
             dataGridViewPayments.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewPayments.Size = new Size(909, 268);
+            dataGridViewPayments.Size = new Size(909, 282);
             dataGridViewPayments.TabIndex = 14;
             dataGridViewPayments.MouseDown += dataGridViewPayments_MouseDown;
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(256, 280);
+            btnClear.Location = new Point(118, 281);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(100, 33);
             btnClear.TabIndex = 13;
@@ -195,7 +198,7 @@
             // 
             // labelTotalPayments
             // 
-            labelTotalPayments.Location = new Point(20, 589);
+            labelTotalPayments.Location = new Point(20, 603);
             labelTotalPayments.Name = "labelTotalPayments";
             labelTotalPayments.Size = new Size(901, 37);
             labelTotalPayments.TabIndex = 15;
@@ -204,7 +207,7 @@
             // 
             // label1
             // 
-            label1.Location = new Point(756, 284);
+            label1.Location = new Point(846, 284);
             label1.Name = "label1";
             label1.Size = new Size(100, 27);
             label1.TabIndex = 16;
@@ -213,14 +216,14 @@
             // 
             // txtboxPaymentDateEnd
             // 
-            txtboxPaymentDateEnd.Location = new Point(456, 284);
+            txtboxPaymentDateEnd.Location = new Point(546, 284);
             txtboxPaymentDateEnd.Name = "txtboxPaymentDateEnd";
-            txtboxPaymentDateEnd.Size = new Size(300, 31);
+            txtboxPaymentDateEnd.Size = new Size(300, 23);
             txtboxPaymentDateEnd.TabIndex = 17;
             // 
             // label2
             // 
-            label2.Location = new Point(756, 23);
+            label2.Location = new Point(846, 23);
             label2.Name = "label2";
             label2.Size = new Size(100, 27);
             label2.TabIndex = 18;
@@ -229,10 +232,10 @@
             // 
             // textBoxAthleteName
             // 
-            textBoxAthleteName.Location = new Point(456, 23);
+            textBoxAthleteName.Location = new Point(546, 23);
             textBoxAthleteName.Name = "textBoxAthleteName";
             textBoxAthleteName.ReadOnly = true;
-            textBoxAthleteName.Size = new Size(300, 31);
+            textBoxAthleteName.Size = new Size(300, 23);
             textBoxAthleteName.TabIndex = 19;
             // 
             // menuGridOptions
@@ -241,9 +244,34 @@
             menuGridOptions.Name = "menuGridOptions";
             menuGridOptions.Size = new Size(61, 4);
             // 
+            // textBoxEpc
+            // 
+            textBoxEpc.Location = new Point(137, 26);
+            textBoxEpc.Name = "textBoxEpc";
+            textBoxEpc.Size = new Size(0, 23);
+            textBoxEpc.TabIndex = 30;
+            textBoxEpc.KeyDown += textBoxEpc_KeyDown;
+            // 
+            // buttonEpc
+            // 
+            buttonEpc.Location = new Point(360, 16);
+            buttonEpc.Name = "buttonEpc";
+            buttonEpc.Size = new Size(55, 34);
+            buttonEpc.TabIndex = 31;
+            buttonEpc.Text = "قرائت";
+            buttonEpc.UseVisualStyleBackColor = true;
+            buttonEpc.Click += buttonEpc_Click;
+            // 
+            // timerFocus
+            // 
+            timerFocus.Interval = 500;
+            timerFocus.Tick += timerFocus_Tick;
+            // 
             // FrmPaymentManagment
             // 
             ClientSize = new Size(933, 642);
+            Controls.Add(buttonEpc);
+            Controls.Add(textBoxEpc);
             Controls.Add(label2);
             Controls.Add(textBoxAthleteName);
             Controls.Add(label1);
@@ -300,5 +328,8 @@
         private Label label2;
         private TextBox textBoxAthleteName;
         private ContextMenuStrip menuGridOptions;
+        private TextBox textBoxEpc;
+        private Button buttonEpc;
+        private System.Windows.Forms.Timer timerFocus;
     }
 }

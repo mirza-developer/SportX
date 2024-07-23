@@ -19,13 +19,11 @@ public partial class FrmPaymentManagment : Form
 
     public FrmPaymentManagment(Athlete passedAthlete)
     {
+        InitializeComponent();
+
         ClearForm();
 
-        selectedAthlete = passedAthlete;
-
-        textBoxAthleteName.Text = selectedAthlete.Name;
-
-        LoadPaymentHistory();
+        LoadAthlete(passedAthlete);
     }
 
     private void ButtonSelectAthlete_Click(object sender, EventArgs e)
@@ -34,9 +32,7 @@ public partial class FrmPaymentManagment : Form
 
         if (selectAthleteForm.ShowDialog() == DialogResult.OK)
         {
-            selectedAthlete = selectAthleteForm.SelectedAthlete;
-            textBoxAthleteName.Text = selectedAthlete.Name;
-            LoadPaymentHistory();
+            LoadAthlete(selectAthleteForm.SelectedAthlete);
         }
     }
 
@@ -149,15 +145,15 @@ public partial class FrmPaymentManagment : Form
         if (dataGridViewPayments.SelectedRows.Count > 0)
         {
             var rowIndex = dataGridViewPayments.SelectedRows[0].Index;
-            
+
             var paymentId = (int)dataGridViewPayments.Rows[rowIndex].Cells["Id"].Value;
 
             var payment = _context.Payments.SingleOrDefault(p => p.Id == paymentId);
-           
+
             if (payment is not null)
             {
                 _context.Payments.Remove(payment);
-                
+
                 _context.SaveChanges();
             }
 
@@ -172,9 +168,9 @@ public partial class FrmPaymentManagment : Form
         if (e.Button == MouseButtons.Right)
         {
             var hti = dataGridViewPayments.HitTest(e.X, e.Y);
-           
+
             dataGridViewPayments.ClearSelection();
-            
+
             if (hti.RowIndex >= 0)
             {
                 dataGridViewPayments.Rows[hti.RowIndex].Selected = true;
@@ -182,5 +178,66 @@ public partial class FrmPaymentManagment : Form
                 menuGridOptions.Show(dataGridViewPayments, e.Location);
             }
         }
+    }
+
+    private void buttonEpc_Click(object sender, EventArgs e)
+    {
+        if (!timerFocus.Enabled)
+        {
+            timerFocus.Enabled = true;
+
+            buttonEpc.Text = "توقف";
+
+            textBoxEpc.Text = string.Empty;
+        }
+        else
+        {
+            timerFocus.Enabled = false;
+
+            buttonEpc.Text = "قرائت";
+        }
+    }
+
+    private void timerFocus_Tick(object sender, EventArgs e)
+    {
+        textBoxEpc.Focus();
+    }
+
+    private async void textBoxEpc_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            if (!string.IsNullOrEmpty(textBoxEpc.Text))
+            {
+                var athlete = await _context.Athletes.FirstOrDefaultAsync(p => p.Epc == textBoxEpc.Text);
+
+                if (athlete is null)
+                {
+                    return;
+                }
+
+                LoadAthlete(athlete);
+
+                textBoxEpc.Text = string.Empty;
+            }
+        }
+    }
+
+    private void LoadAthlete(Athlete athlete)
+    {
+        selectedAthlete = athlete;
+
+        textBoxAthleteName.Text = selectedAthlete.Name;
+
+        if (selectedAthlete.Membership == MembershipType.Normal)
+        {
+            textBoxPrice.Text = Program.Configuration["ProjectConfigs:PriceSettings:NormalPrice"];
+        }
+        else if (selectedAthlete.Membership == MembershipType.Military)
+        {
+            textBoxPrice.Text = Program.Configuration["ProjectConfigs:PriceSettings:MilitaryPrice"];
+        }
+
+        LoadPaymentHistory();
     }
 }

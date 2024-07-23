@@ -60,74 +60,66 @@ partial class FrmSignup
         // labelName
         // 
         labelName.AutoSize = true;
-        labelName.Location = new Point(897, 68);
-        labelName.Margin = new Padding(4, 0, 4, 0);
+        labelName.Location = new Point(737, 51);
         labelName.Name = "labelName";
-        labelName.Size = new Size(34, 25);
+        labelName.Size = new Size(21, 15);
         labelName.TabIndex = 0;
         labelName.Text = "نام";
         // 
         // textBoxName
         // 
-        textBoxName.Location = new Point(417, 63);
-        textBoxName.Margin = new Padding(4, 5, 4, 5);
+        textBoxName.Location = new Point(401, 48);
         textBoxName.Name = "textBoxName";
-        textBoxName.Size = new Size(474, 31);
+        textBoxName.Size = new Size(333, 23);
         textBoxName.TabIndex = 1;
         // 
         // labelNationalCode
         // 
         labelNationalCode.AutoSize = true;
-        labelNationalCode.Location = new Point(897, 117);
-        labelNationalCode.Margin = new Padding(4, 0, 4, 0);
+        labelNationalCode.Location = new Point(737, 80);
         labelNationalCode.Name = "labelNationalCode";
-        labelNationalCode.Size = new Size(67, 25);
+        labelNationalCode.Size = new Size(43, 15);
         labelNationalCode.TabIndex = 2;
         labelNationalCode.Text = "کد ملی";
         // 
         // textBoxNationalCode
         // 
-        textBoxNationalCode.Location = new Point(417, 112);
-        textBoxNationalCode.Margin = new Padding(4, 5, 4, 5);
+        textBoxNationalCode.Location = new Point(401, 77);
         textBoxNationalCode.Name = "textBoxNationalCode";
-        textBoxNationalCode.Size = new Size(474, 31);
+        textBoxNationalCode.Size = new Size(333, 23);
         textBoxNationalCode.TabIndex = 3;
         // 
         // labelPhone
         // 
         labelPhone.AutoSize = true;
-        labelPhone.Location = new Point(897, 163);
-        labelPhone.Margin = new Padding(4, 0, 4, 0);
+        labelPhone.Location = new Point(737, 108);
         labelPhone.Name = "labelPhone";
-        labelPhone.Size = new Size(45, 25);
+        labelPhone.Size = new Size(29, 15);
         labelPhone.TabIndex = 4;
         labelPhone.Text = "تلفن";
         // 
         // textBoxPhone
         // 
-        textBoxPhone.Location = new Point(417, 158);
-        textBoxPhone.Margin = new Padding(4, 5, 4, 5);
+        textBoxPhone.Location = new Point(401, 105);
         textBoxPhone.Name = "textBoxPhone";
-        textBoxPhone.Size = new Size(474, 31);
+        textBoxPhone.Size = new Size(333, 23);
         textBoxPhone.TabIndex = 5;
         // 
         // labelGender
         // 
         labelGender.AutoSize = true;
-        labelGender.Location = new Point(897, 273);
-        labelGender.Margin = new Padding(4, 0, 4, 0);
+        labelGender.Location = new Point(737, 174);
         labelGender.Name = "labelGender";
-        labelGender.Size = new Size(67, 25);
+        labelGender.Size = new Size(43, 15);
         labelGender.TabIndex = 6;
         labelGender.Text = "جنسیت";
         // 
         // radioButtonMale
         // 
         radioButtonMale.Checked = true;
-        radioButtonMale.Location = new Point(197, 5);
-        radioButtonMale.Margin = new Padding(4, 5, 4, 5);
+        radioButtonMale.Location = new Point(138, 3);
         radioButtonMale.Name = "radioButtonMale";
-        radioButtonMale.Size = new Size(74, 38);
+        radioButtonMale.Size = new Size(52, 23);
         radioButtonMale.TabIndex = 7;
         radioButtonMale.TabStop = true;
         radioButtonMale.Text = "مرد";
@@ -135,10 +127,9 @@ partial class FrmSignup
         // 
         // radioButtonFemale
         // 
-        radioButtonFemale.Location = new Point(86, 5);
-        radioButtonFemale.Margin = new Padding(4, 5, 4, 5);
+        radioButtonFemale.Location = new Point(60, 3);
         radioButtonFemale.Name = "radioButtonFemale";
-        radioButtonFemale.Size = new Size(77, 38);
+        radioButtonFemale.Size = new Size(54, 23);
         radioButtonFemale.TabIndex = 8;
         radioButtonFemale.Text = "زن";
         radioButtonFemale.UseVisualStyleBackColor = true;
@@ -146,27 +137,24 @@ partial class FrmSignup
         // labelDateOfBirth
         // 
         labelDateOfBirth.AutoSize = true;
-        labelDateOfBirth.Location = new Point(894, 325);
-        labelDateOfBirth.Margin = new Padding(4, 0, 4, 0);
+        labelDateOfBirth.Location = new Point(735, 205);
         labelDateOfBirth.Name = "labelDateOfBirth";
-        labelDateOfBirth.Size = new Size(85, 25);
+        labelDateOfBirth.Size = new Size(54, 15);
         labelDateOfBirth.TabIndex = 9;
         labelDateOfBirth.Text = "تاریخ تولد";
         // 
         // textBoxDateOfBirth
         // 
-        textBoxDateOfBirth.Location = new Point(700, 320);
-        textBoxDateOfBirth.Margin = new Padding(4, 5, 4, 5);
+        textBoxDateOfBirth.Location = new Point(599, 202);
         textBoxDateOfBirth.Name = "textBoxDateOfBirth";
-        textBoxDateOfBirth.Size = new Size(188, 31);
+        textBoxDateOfBirth.Size = new Size(133, 23);
         textBoxDateOfBirth.TabIndex = 10;
         // 
         // buttonSignUp
         // 
-        buttonSignUp.Location = new Point(306, 430);
-        buttonSignUp.Margin = new Padding(4, 5, 4, 5);
+        buttonSignUp.Location = new Point(323, 268);
         buttonSignUp.Name = "buttonSignUp";
-        buttonSignUp.Size = new Size(79, 43);
+        buttonSignUp.Size = new Size(55, 26);
         buttonSignUp.TabIndex = 11;
         buttonSignUp.Text = "ثبت";
         buttonSignUp.UseVisualStyleBackColor = true;
@@ -180,8 +168,7 @@ partial class FrmSignup
         dataGridViewAthletes.BackgroundColor = Color.LightGray;
         dataGridViewAthletes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         dataGridViewAthletes.Dock = DockStyle.Bottom;
-        dataGridViewAthletes.Location = new Point(0, 579);
-        dataGridViewAthletes.Margin = new Padding(4, 5, 4, 5);
+        dataGridViewAthletes.Location = new Point(0, 350);
         dataGridViewAthletes.MultiSelect = false;
         dataGridViewAthletes.Name = "dataGridViewAthletes";
         dataGridViewAthletes.ReadOnly = true;
@@ -189,16 +176,15 @@ partial class FrmSignup
         dataGridViewAthletes.RowHeadersWidth = 62;
         dataGridViewAthletes.RowTemplate.Height = 25;
         dataGridViewAthletes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        dataGridViewAthletes.Size = new Size(1073, 428);
+        dataGridViewAthletes.Size = new Size(817, 257);
         dataGridViewAthletes.TabIndex = 12;
         dataGridViewAthletes.SelectionChanged += DataGridViewAthletes_SelectionChanged;
         // 
         // buttonNew
         // 
-        buttonNew.Location = new Point(219, 430);
-        buttonNew.Margin = new Padding(4, 5, 4, 5);
+        buttonNew.Location = new Point(262, 268);
         buttonNew.Name = "buttonNew";
-        buttonNew.Size = new Size(79, 43);
+        buttonNew.Size = new Size(55, 26);
         buttonNew.TabIndex = 13;
         buttonNew.Text = "جدید";
         buttonNew.UseVisualStyleBackColor = true;
@@ -207,10 +193,9 @@ partial class FrmSignup
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(897, 380);
-        label1.Margin = new Padding(4, 0, 4, 0);
+        label1.Location = new Point(737, 238);
         label1.Name = "label1";
-        label1.Size = new Size(106, 25);
+        label1.Size = new Size(68, 15);
         label1.TabIndex = 14;
         label1.Text = "نوع عضویت";
         // 
@@ -218,27 +203,28 @@ partial class FrmSignup
         // 
         panel1.Controls.Add(radioButtonMale);
         panel1.Controls.Add(radioButtonFemale);
-        panel1.Location = new Point(600, 262);
+        panel1.Location = new Point(529, 167);
+        panel1.Margin = new Padding(2, 2, 2, 2);
         panel1.Name = "panel1";
-        panel1.Size = new Size(290, 50);
+        panel1.Size = new Size(203, 30);
         panel1.TabIndex = 15;
         // 
         // panel2
         // 
         panel2.Controls.Add(radioNormal);
         panel2.Controls.Add(radioMilitray);
-        panel2.Location = new Point(600, 367);
+        panel2.Location = new Point(529, 230);
+        panel2.Margin = new Padding(2, 2, 2, 2);
         panel2.Name = "panel2";
-        panel2.Size = new Size(290, 50);
+        panel2.Size = new Size(203, 30);
         panel2.TabIndex = 16;
         // 
         // radioNormal
         // 
         radioNormal.Checked = true;
-        radioNormal.Location = new Point(194, 7);
-        radioNormal.Margin = new Padding(4, 5, 4, 5);
+        radioNormal.Location = new Point(136, 4);
         radioNormal.Name = "radioNormal";
-        radioNormal.Size = new Size(77, 38);
+        radioNormal.Size = new Size(54, 23);
         radioNormal.TabIndex = 8;
         radioNormal.TabStop = true;
         radioNormal.Text = "عادی";
@@ -246,30 +232,27 @@ partial class FrmSignup
         // 
         // radioMilitray
         // 
-        radioMilitray.Location = new Point(74, 7);
-        radioMilitray.Margin = new Padding(4, 5, 4, 5);
+        radioMilitray.Location = new Point(52, 4);
         radioMilitray.Name = "radioMilitray";
-        radioMilitray.Size = new Size(89, 38);
+        radioMilitray.Size = new Size(62, 23);
         radioMilitray.TabIndex = 7;
         radioMilitray.Text = "نظامی";
         radioMilitray.UseVisualStyleBackColor = true;
         // 
         // textBoxId
         // 
-        textBoxId.Location = new Point(703, 15);
-        textBoxId.Margin = new Padding(4, 5, 4, 5);
+        textBoxId.Location = new Point(601, 19);
         textBoxId.Name = "textBoxId";
         textBoxId.ReadOnly = true;
-        textBoxId.Size = new Size(188, 31);
+        textBoxId.Size = new Size(133, 23);
         textBoxId.TabIndex = 18;
         // 
         // label2
         // 
         label2.AutoSize = true;
-        label2.Location = new Point(897, 20);
-        label2.Margin = new Padding(4, 0, 4, 0);
+        label2.Location = new Point(737, 22);
         label2.Name = "label2";
-        label2.Size = new Size(30, 25);
+        label2.Size = new Size(19, 15);
         label2.TabIndex = 17;
         label2.Text = "کد";
         // 
@@ -277,21 +260,18 @@ partial class FrmSignup
         // 
         groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         groupBox1.Controls.Add(buttonSearch);
-        groupBox1.Location = new Point(17, 495);
-        groupBox1.Margin = new Padding(4, 5, 4, 5);
+        groupBox1.Location = new Point(12, 297);
         groupBox1.Name = "groupBox1";
-        groupBox1.Padding = new Padding(4, 5, 4, 5);
-        groupBox1.Size = new Size(1039, 75);
+        groupBox1.Size = new Size(793, 45);
         groupBox1.TabIndex = 19;
         groupBox1.TabStop = false;
         groupBox1.Text = "جستجو";
         // 
         // buttonSearch
         // 
-        buttonSearch.Location = new Point(314, 22);
-        buttonSearch.Margin = new Padding(4, 5, 4, 5);
+        buttonSearch.Location = new Point(220, 13);
         buttonSearch.Name = "buttonSearch";
-        buttonSearch.Size = new Size(77, 43);
+        buttonSearch.Size = new Size(54, 26);
         buttonSearch.TabIndex = 22;
         buttonSearch.Text = "جستجو";
         buttonSearch.UseVisualStyleBackColor = true;
@@ -299,28 +279,25 @@ partial class FrmSignup
         // 
         // textBoxSearch
         // 
-        textBoxSearch.Location = new Point(417, 522);
-        textBoxSearch.Margin = new Padding(4, 5, 4, 5);
+        textBoxSearch.Location = new Point(292, 313);
         textBoxSearch.Name = "textBoxSearch";
-        textBoxSearch.Size = new Size(474, 31);
+        textBoxSearch.Size = new Size(333, 23);
         textBoxSearch.TabIndex = 21;
         // 
         // label3
         // 
         label3.AutoSize = true;
-        label3.Location = new Point(897, 527);
-        label3.Margin = new Padding(4, 0, 4, 0);
+        label3.Location = new Point(628, 316);
         label3.Name = "label3";
-        label3.Size = new Size(148, 25);
+        label3.Size = new Size(97, 15);
         label3.TabIndex = 20;
         label3.Text = "نام/کدملی/شناسه";
         // 
         // buttonPayments
         // 
-        buttonPayments.Location = new Point(17, 430);
-        buttonPayments.Margin = new Padding(4, 5, 4, 5);
+        buttonPayments.Location = new Point(121, 268);
         buttonPayments.Name = "buttonPayments";
-        buttonPayments.Size = new Size(106, 43);
+        buttonPayments.Size = new Size(74, 26);
         buttonPayments.TabIndex = 22;
         buttonPayments.Text = "پرداخت ها";
         buttonPayments.UseVisualStyleBackColor = true;
@@ -328,48 +305,43 @@ partial class FrmSignup
         // 
         // textBoxAddress
         // 
-        textBoxAddress.Location = new Point(417, 212);
-        textBoxAddress.Margin = new Padding(4, 5, 4, 5);
+        textBoxAddress.Location = new Point(401, 137);
         textBoxAddress.Name = "textBoxAddress";
-        textBoxAddress.Size = new Size(474, 31);
+        textBoxAddress.Size = new Size(333, 23);
         textBoxAddress.TabIndex = 24;
         // 
         // label4
         // 
         label4.AutoSize = true;
-        label4.Location = new Point(897, 217);
-        label4.Margin = new Padding(4, 0, 4, 0);
+        label4.Location = new Point(737, 140);
         label4.Name = "label4";
-        label4.Size = new Size(53, 25);
+        label4.Size = new Size(34, 15);
         label4.TabIndex = 23;
         label4.Text = "آدرس";
         // 
         // textBoxEpc
         // 
-        textBoxEpc.Location = new Point(510, 430);
-        textBoxEpc.Margin = new Padding(4, 5, 4, 5);
+        textBoxEpc.Location = new Point(466, 268);
         textBoxEpc.Name = "textBoxEpc";
         textBoxEpc.ReadOnly = true;
-        textBoxEpc.Size = new Size(381, 31);
+        textBoxEpc.Size = new Size(268, 23);
         textBoxEpc.TabIndex = 26;
         textBoxEpc.KeyDown += textBoxEpc_KeyDown;
         // 
         // label5
         // 
         label5.AutoSize = true;
-        label5.Location = new Point(897, 435);
-        label5.Margin = new Padding(4, 0, 4, 0);
+        label5.Location = new Point(737, 271);
         label5.Name = "label5";
-        label5.Size = new Size(104, 25);
+        label5.Size = new Size(67, 15);
         label5.TabIndex = 25;
         label5.Text = "شناسه کارت";
         // 
         // buttonEpc
         // 
-        buttonEpc.Location = new Point(423, 425);
-        buttonEpc.Margin = new Padding(4, 5, 4, 5);
+        buttonEpc.Location = new Point(405, 265);
         buttonEpc.Name = "buttonEpc";
-        buttonEpc.Size = new Size(79, 43);
+        buttonEpc.Size = new Size(55, 26);
         buttonEpc.TabIndex = 27;
         buttonEpc.Text = "قرائت";
         buttonEpc.UseVisualStyleBackColor = true;
@@ -382,10 +354,9 @@ partial class FrmSignup
         // 
         // buttonDelete
         // 
-        buttonDelete.Location = new Point(132, 430);
-        buttonDelete.Margin = new Padding(4, 5, 4, 5);
+        buttonDelete.Location = new Point(201, 268);
         buttonDelete.Name = "buttonDelete";
-        buttonDelete.Size = new Size(79, 43);
+        buttonDelete.Size = new Size(55, 26);
         buttonDelete.TabIndex = 28;
         buttonDelete.Text = "حذف";
         buttonDelete.UseVisualStyleBackColor = true;
@@ -393,9 +364,9 @@ partial class FrmSignup
         // 
         // FrmSignup
         // 
-        AutoScaleDimensions = new SizeF(10F, 25F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1073, 1007);
+        ClientSize = new Size(817, 607);
         Controls.Add(buttonDelete);
         Controls.Add(buttonEpc);
         Controls.Add(textBoxEpc);
@@ -424,7 +395,6 @@ partial class FrmSignup
         Controls.Add(textBoxName);
         Controls.Add(labelName);
         Icon = (Icon)resources.GetObject("$this.Icon");
-        Margin = new Padding(4, 5, 4, 5);
         Name = "FrmSignup";
         RightToLeft = RightToLeft.Yes;
         StartPosition = FormStartPosition.CenterScreen;

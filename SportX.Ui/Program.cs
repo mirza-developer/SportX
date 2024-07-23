@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Configuration;
-using SportX.Ui.Pages;
 
 namespace SportX.Ui;
 internal static class Program

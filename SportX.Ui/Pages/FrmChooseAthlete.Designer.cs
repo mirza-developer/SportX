@@ -40,31 +40,31 @@
             // 
             // textBoxAthleteId
             // 
-            textBoxAthleteId.Location = new Point(129, 20);
+            textBoxAthleteId.Location = new Point(254, 20);
             textBoxAthleteId.Name = "textBoxAthleteId";
             textBoxAthleteId.PlaceholderText = "شناسه ورزشکار";
-            textBoxAthleteId.Size = new Size(200, 23);
-            textBoxAthleteId.TabIndex = 0;
+            textBoxAthleteId.Size = new Size(86, 23);
+            textBoxAthleteId.TabIndex = 2;
             // 
             // textBoxNationalCode
             // 
-            textBoxNationalCode.Location = new Point(349, 20);
+            textBoxNationalCode.Location = new Point(346, 20);
             textBoxNationalCode.Name = "textBoxNationalCode";
             textBoxNationalCode.PlaceholderText = "کد ملی";
-            textBoxNationalCode.Size = new Size(200, 23);
+            textBoxNationalCode.Size = new Size(140, 23);
             textBoxNationalCode.TabIndex = 1;
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(569, 20);
+            textBoxName.Location = new Point(492, 20);
             textBoxName.Name = "textBoxName";
             textBoxName.PlaceholderText = "نام";
-            textBoxName.Size = new Size(200, 23);
-            textBoxName.TabIndex = 2;
+            textBoxName.Size = new Size(274, 23);
+            textBoxName.TabIndex = 0;
             // 
             // buttonSearch
             // 
-            buttonSearch.Location = new Point(20, 18);
+            buttonSearch.Location = new Point(148, 18);
             buttonSearch.Name = "buttonSearch";
             buttonSearch.Size = new Size(100, 25);
             buttonSearch.TabIndex = 3;
@@ -73,25 +73,25 @@
             // 
             // dataGridViewAthletes
             // 
-            dataGridViewAthletes.Location = new Point(20, 60);
+            dataGridViewAthletes.Location = new Point(9, 62);
             dataGridViewAthletes.MultiSelect = false;
             dataGridViewAthletes.Name = "dataGridViewAthletes";
             dataGridViewAthletes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewAthletes.Size = new Size(760, 300);
+            dataGridViewAthletes.Size = new Size(781, 337);
             dataGridViewAthletes.TabIndex = 4;
             // 
             // buttonSelect
             // 
-            buttonSelect.Location = new Point(340, 380);
+            buttonSelect.Location = new Point(42, 18);
             buttonSelect.Name = "buttonSelect";
-            buttonSelect.Size = new Size(100, 30);
+            buttonSelect.Size = new Size(100, 25);
             buttonSelect.TabIndex = 5;
             buttonSelect.Text = "انتخاب";
             buttonSelect.Click += ButtonSelect_Click;
             // 
             // FrmChooseAthlete
             // 
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 411);
             Controls.Add(textBoxAthleteId);
             Controls.Add(textBoxNationalCode);
             Controls.Add(textBoxName);

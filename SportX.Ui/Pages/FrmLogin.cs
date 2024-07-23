@@ -33,4 +33,12 @@ public partial class FrmLogin : Form
     {
         Application.Exit();
     }
+
+    private void textBoxPassword_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            buttonLogin_Click(sender, new());
+        }
+    }
 }

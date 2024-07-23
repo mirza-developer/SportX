@@ -12,7 +12,7 @@ public class Athlete : BaseModel
     [StringLength(10)]
     public string? NationalCode { get; set; }
 
-    [StringLength(20)]
+    [StringLength(100)]
     public string? Phone { get; set; }
 
     [Required]
