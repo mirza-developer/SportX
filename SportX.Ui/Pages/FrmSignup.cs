@@ -113,8 +113,22 @@ public partial class FrmSignup : Form
         }
 
         await context.SaveChangesAsync();
+
+        var thisAthleteId = _selectedAthlete.Id;
+
         MessageBox.Show("اطلاعات ورزشکار ثبت شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        LoadAthletes(); // Refresh the DataGridView
+        LoadAthletes();
+
+        foreach (DataGridViewRow row in dataGridViewAthletes.Rows)
+        {
+            if (row.Cells["Id"].Value.ToString() == thisAthleteId.ToString())
+            {
+                row.Selected = true;
+
+                return;
+            }
+        }
+
         ClearForm();
     }
 

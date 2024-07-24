@@ -204,7 +204,7 @@ partial class FrmSignup
         panel1.Controls.Add(radioButtonMale);
         panel1.Controls.Add(radioButtonFemale);
         panel1.Location = new Point(529, 167);
-        panel1.Margin = new Padding(2, 2, 2, 2);
+        panel1.Margin = new Padding(2);
         panel1.Name = "panel1";
         panel1.Size = new Size(203, 30);
         panel1.TabIndex = 15;
@@ -214,7 +214,7 @@ partial class FrmSignup
         panel2.Controls.Add(radioNormal);
         panel2.Controls.Add(radioMilitray);
         panel2.Location = new Point(529, 230);
-        panel2.Margin = new Padding(2, 2, 2, 2);
+        panel2.Margin = new Padding(2);
         panel2.Name = "panel2";
         panel2.Size = new Size(203, 30);
         panel2.TabIndex = 16;
@@ -269,7 +269,7 @@ partial class FrmSignup
         // 
         // buttonSearch
         // 
-        buttonSearch.Location = new Point(220, 13);
+        buttonSearch.Location = new Point(290, 15);
         buttonSearch.Name = "buttonSearch";
         buttonSearch.Size = new Size(54, 26);
         buttonSearch.TabIndex = 22;
@@ -279,7 +279,7 @@ partial class FrmSignup
         // 
         // textBoxSearch
         // 
-        textBoxSearch.Location = new Point(292, 313);
+        textBoxSearch.Location = new Point(362, 314);
         textBoxSearch.Name = "textBoxSearch";
         textBoxSearch.Size = new Size(333, 23);
         textBoxSearch.TabIndex = 21;
@@ -287,7 +287,7 @@ partial class FrmSignup
         // label3
         // 
         label3.AutoSize = true;
-        label3.Location = new Point(628, 316);
+        label3.Location = new Point(698, 317);
         label3.Name = "label3";
         label3.Size = new Size(97, 15);
         label3.TabIndex = 20;
