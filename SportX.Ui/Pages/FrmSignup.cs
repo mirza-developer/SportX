@@ -96,11 +96,11 @@ public partial class FrmSignup : Form
                 Epc = textBoxEpc.Text
             };
 
-            context.Athletes.Add(newAthlete);
+            context.Athletes.Add(_selectedAthlete);
 
             await context.SaveChangesAsync();
 
-            thisAthleteId = newAthlete.Id;
+            thisAthleteId = _selectedAthlete.Id;
         }
         else
         {
