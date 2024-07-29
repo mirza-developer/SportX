@@ -78,6 +78,7 @@ public partial class FrmSignup : Form
 
         //    return;
         //}
+        int thisAthleteId ;
 
         if (string.IsNullOrEmpty(textBoxId.Text))
         {
@@ -95,7 +96,11 @@ public partial class FrmSignup : Form
                 Epc = textBoxEpc.Text
             };
 
-            context.Athletes.Add(_selectedAthlete);
+            context.Athletes.Add(newAthlete);
+
+            await context.SaveChangesAsync();
+
+            thisAthleteId = newAthlete.Id;
         }
         else
         {
@@ -110,13 +115,14 @@ public partial class FrmSignup : Form
             _selectedAthlete.Epc = textBoxEpc.Text;
 
             context.Athletes.Update(_selectedAthlete);
+
+            await context.SaveChangesAsync();
+
+            thisAthleteId = _selectedAthlete.Id;
         }
 
-        var res = await context.SaveChangesAsync();
-
-        var thisAthleteId = _selectedAthlete.Id;
-
         MessageBox.Show("اطلاعات ورزشکار ثبت شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
+       
         LoadAthletes();
 
         foreach (DataGridViewRow row in dataGridViewAthletes.Rows)
@@ -129,7 +135,7 @@ public partial class FrmSignup : Form
             }
         }
 
-        //ClearForm();
+        ClearForm();
     }
 
     private void ClearForm()
