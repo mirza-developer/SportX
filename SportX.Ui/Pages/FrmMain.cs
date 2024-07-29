@@ -15,11 +15,6 @@ public partial class FrmMain : Form
         InitializeComponent();
     }
 
-    private async void ButtonCheck_Click(object sender, EventArgs e)
-    {
-        await CheckAndEnter();
-    }
-
     private void SignUpMenuItem_Click(object sender, EventArgs e)
     {
         timerFocus.Enabled = false;
@@ -74,35 +69,17 @@ public partial class FrmMain : Form
         await LoadEnteredAthletes();
     }
 
-    private async Task Exit()
+    private async Task Exit(Athlete athlete)
     {
-        string nationalCodeOrId = textBoxEnterNationalCode.Text;
-
-        if (string.IsNullOrWhiteSpace(nationalCodeOrId))
-        {
-            MessageBox.Show("لطفا کد ملی پر کنید", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            return;
-        }
 
         await _context.Usages.Where(p => p.IsEntered
                                              && p.CreateDatetime.Date == DateTime.Now.Date
-                                             && (p.AthleteId == int.Parse(textBoxEnterNationalCode.Text) || p.Athlete.NationalCode == textBoxEnterNationalCode.Text))
+                                             && (p.AthleteId == athlete.Id))
                              .ExecuteUpdateAsync(p => p.SetProperty(prop => prop.IsEntered, false));
 
         MessageBox.Show("خروج ثبت شد", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         await LoadEnteredAthletes();
-    }
-
-    private void dataGridViewAthletes_SelectionChanged(object sender, EventArgs e)
-    {
-        if (dataGridViewAthletes.SelectedRows.Count > 0)
-        {
-            var selectedId = (int)dataGridViewAthletes.SelectedRows[0].Cells[0].Value;
-
-            textBoxEnterNationalCode.Text = selectedId.ToString();
-        }
     }
 
     private void گزارشماهیانهپرداختToolStripMenuItem_Click(object sender, EventArgs e)
@@ -131,7 +108,21 @@ public partial class FrmMain : Form
 
         if (frmChooseAthlete.ShowDialog() == DialogResult.OK)
         {
-            textBoxEnterNationalCode.Text = frmChooseAthlete.SelectedAthlete.Id.ToString();
+            if (enteredAthletes.Any(p => p.Id == frmChooseAthlete.SelectedAthlete.Id))
+            {
+                foreach (DataGridViewRow row in dataGridViewAthletes.Rows)
+                {
+                    if (row.Cells["Id"].Value.ToString() == frmChooseAthlete.SelectedAthlete.Id.ToString())
+                    {
+                        row.Selected = true;
+
+                        break;
+                    }
+                }
+            }
+            else
+            { 
+            }
         }
     }
 
@@ -154,12 +145,16 @@ public partial class FrmMain : Form
             buttonEpc.Text = "توقف";
 
             textBoxEpc.Text = string.Empty;
+
+            textBoxEpc.ReadOnly = false; 
         }
         else
         {
             timerFocus.Enabled = false;
 
             buttonEpc.Text = "قرائت";
+
+            textBoxEpc.ReadOnly = true;
         }
     }
 
@@ -189,26 +184,18 @@ public partial class FrmMain : Form
 
     private async Task CheckAndEnter()
     {
-        string nationalCodeOrId = textBoxEnterNationalCode.Text;
-
-        Athlete? athlete;
-
-        if (!string.IsNullOrEmpty(textBoxEpc.Text))
+        if (string.IsNullOrEmpty(textBoxEpc.Text))
         {
-            athlete = await _context.Athletes
+            return;
+        }
+
+        Athlete? athlete = athlete = await _context.Athletes
                                     .FirstOrDefaultAsync(a => a.Epc == textBoxEpc.Text);
-        }
-        else
-        {
-
-
-            athlete = await _context.Athletes
-                                    .FirstOrDefaultAsync(a => a.NationalCode == nationalCodeOrId || a.Id.ToString() == nationalCodeOrId);
-        }
+     
 
         if (enteredAthletes.Any(p => p.AthleteId == athlete.Id))
         {
-            await Exit();
+            await Exit(athlete);
 
             return;
         }

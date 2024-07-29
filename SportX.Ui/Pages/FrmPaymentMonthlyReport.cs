@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportX.Tools;
 using SportX.Ui.Services;
 using System;
 using System.Collections.Generic;
@@ -27,14 +28,23 @@ public partial class FrmPaymentMonthlyReport : Form
         int month = int.Parse(comboBoxMonth.SelectedItem.ToString());
 
         var persianCalendar = new PersianCalendar();
-        DateTime firstDayOfMonth = persianCalendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
-        DateTime lastDayOfMonth = persianCalendar.AddMonths(firstDayOfMonth, 1).AddDays(-1);
+        var monthStartDate = persianCalendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+        var monthEndDate = monthStartDate.AddMonths(1).AddDays(-1);
 
+        string firstDayOfMonth = PersianCalendarTools.GregorianToPersian(monthStartDate);
+        string lastDayOfMonth = PersianCalendarTools.GregorianToPersian(monthEndDate);
+
+        int indexer = 1;
+
+        // Fetch all payments from the database
         var payments = context.Payments
-            .Where(p => DateTime.ParseExact(p.PayDate, "yyyy/MM/dd", null) >= firstDayOfMonth &&
-                        DateTime.ParseExact(p.PayDate, "yyyy/MM/dd", null) <= lastDayOfMonth)
+            .ToList()
+            .OrderBy(p => p.PayDate)
+            .Where(p => DateTime.Parse(p.PayDate) >= DateTime.Parse(firstDayOfMonth)
+                        && DateTime.Parse(p.PayDate) <= DateTime.Parse(lastDayOfMonth))
             .Select(p => new
             {
+                ردیف = indexer++,
                 p.PriceInTomans,
                 p.PayDate,
                 p.Description,
@@ -59,5 +69,14 @@ public partial class FrmPaymentMonthlyReport : Form
         // Calculate the total sum of payments
         var totalPayments = payments.Sum(p => p.PriceInTomans);
         labelTotalPayments.Text = $"جمع مبالغ پرداختی: {totalPayments} تومان";
+    }
+
+    private void FrmPaymentMonthlyReport_Load(object sender, EventArgs e)
+    {
+        var persianCalendar = new PersianCalendar();
+
+        comboBoxMonth.SelectedItem = persianCalendar.GetMonth(DateTime.Now).ToString();
+
+        comboBoxYear.SelectedItem = persianCalendar.GetYear(DateTime.Now).ToString();
     }
 }

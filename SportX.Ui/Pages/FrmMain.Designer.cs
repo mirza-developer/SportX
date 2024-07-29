@@ -50,12 +50,9 @@ namespace SportX.Ui.Pages
             timerClearInfo = new System.Windows.Forms.Timer(components);
             groupBoxInfo = new GroupBox();
             groupBox1 = new GroupBox();
+            label8 = new Label();
             textBoxEpc = new TextBox();
             buttonEpc = new Button();
-            buttonChooseAthlete = new Button();
-            textBoxEnterNationalCode = new TextBox();
-            labelNationalCode = new Label();
-            buttonCheck = new Button();
             textBoxStatus = new TextBox();
             label7 = new Label();
             textBoxEndDate = new TextBox();
@@ -198,7 +195,6 @@ namespace SportX.Ui.Pages
             dataGridViewAthletes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewAthletes.Size = new Size(748, 288);
             dataGridViewAthletes.TabIndex = 5;
-            dataGridViewAthletes.SelectionChanged += dataGridViewAthletes_SelectionChanged;
             // 
             // timerFocus
             // 
@@ -241,73 +237,43 @@ namespace SportX.Ui.Pages
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(textBoxEpc);
             groupBox1.Controls.Add(buttonEpc);
-            groupBox1.Controls.Add(buttonChooseAthlete);
-            groupBox1.Controls.Add(textBoxEnterNationalCode);
-            groupBox1.Controls.Add(labelNationalCode);
-            groupBox1.Controls.Add(buttonCheck);
             groupBox1.Location = new Point(6, 132);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(729, 52);
             groupBox1.TabIndex = 46;
             groupBox1.TabStop = false;
-            groupBox1.Text = "ثبت ورود";
+            groupBox1.Text = "ثبت ورود/خروج با کارت";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(651, 24);
+            label8.Name = "label8";
+            label8.Size = new Size(67, 15);
+            label8.TabIndex = 30;
+            label8.Text = "شناسه کارت";
             // 
             // textBoxEpc
             // 
-            textBoxEpc.Location = new Point(36, 48);
+            textBoxEpc.Location = new Point(405, 21);
             textBoxEpc.Name = "textBoxEpc";
-            textBoxEpc.Size = new Size(1, 23);
+            textBoxEpc.ReadOnly = true;
+            textBoxEpc.Size = new Size(240, 23);
             textBoxEpc.TabIndex = 29;
             textBoxEpc.KeyDown += textBoxEpc_KeyDown;
             // 
             // buttonEpc
             // 
-            buttonEpc.Location = new Point(141, 16);
+            buttonEpc.Location = new Point(344, 18);
             buttonEpc.Name = "buttonEpc";
             buttonEpc.Size = new Size(55, 26);
             buttonEpc.TabIndex = 28;
             buttonEpc.Text = "قرائت";
             buttonEpc.UseVisualStyleBackColor = true;
             buttonEpc.Click += buttonEpc_Click;
-            // 
-            // buttonChooseAthlete
-            // 
-            buttonChooseAthlete.Location = new Point(201, 17);
-            buttonChooseAthlete.Margin = new Padding(2);
-            buttonChooseAthlete.Name = "buttonChooseAthlete";
-            buttonChooseAthlete.Size = new Size(56, 25);
-            buttonChooseAthlete.TabIndex = 5;
-            buttonChooseAthlete.Text = "انتخاب";
-            buttonChooseAthlete.Click += buttonChooseAthlete_Click;
-            // 
-            // textBoxEnterNationalCode
-            // 
-            textBoxEnterNationalCode.Location = new Point(446, 16);
-            textBoxEnterNationalCode.Name = "textBoxEnterNationalCode";
-            textBoxEnterNationalCode.Size = new Size(173, 23);
-            textBoxEnterNationalCode.TabIndex = 2;
-            // 
-            // labelNationalCode
-            // 
-            labelNationalCode.AutoSize = true;
-            labelNationalCode.Location = new Point(625, 19);
-            labelNationalCode.Name = "labelNationalCode";
-            labelNationalCode.Size = new Size(87, 15);
-            labelNationalCode.TabIndex = 1;
-            labelNationalCode.Text = "کد ملی / شناسه";
-            // 
-            // buttonCheck
-            // 
-            buttonCheck.BackColor = SystemColors.ActiveCaption;
-            buttonCheck.Location = new Point(342, 13);
-            buttonCheck.Name = "buttonCheck";
-            buttonCheck.Size = new Size(93, 32);
-            buttonCheck.TabIndex = 3;
-            buttonCheck.Text = "ورود/خروج";
-            buttonCheck.UseVisualStyleBackColor = false;
-            buttonCheck.Click += ButtonCheck_Click;
             // 
             // textBoxStatus
             // 
@@ -525,10 +491,7 @@ namespace SportX.Ui.Pages
         private GroupBox groupBox1;
         private TextBox textBoxEpc;
         private Button buttonEpc;
-        private Button buttonChooseAthlete;
-        private TextBox textBoxEnterNationalCode;
-        private Label labelNationalCode;
-        private Button buttonCheck;
         private System.Windows.Forms.Timer timer2;
+        private Label label8;
     }
 }

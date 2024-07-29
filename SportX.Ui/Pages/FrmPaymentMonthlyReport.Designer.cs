@@ -28,75 +28,97 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelYear = new Label();
-            this.comboBoxYear = new ComboBox();
-            this.labelMonth = new Label();
-            this.comboBoxMonth = new ComboBox();
-            this.buttonGenerateReport = new Button();
-            this.dataGridViewReport = new DataGridView();
-            this.labelTotalPayments = new Label();
-
-            this.SuspendLayout();
-
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPaymentMonthlyReport));
+            labelYear = new Label();
+            comboBoxYear = new ComboBox();
+            labelMonth = new Label();
+            comboBoxMonth = new ComboBox();
+            buttonGenerateReport = new Button();
+            dataGridViewReport = new DataGridView();
+            labelTotalPayments = new Label();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewReport).BeginInit();
+            SuspendLayout();
+            // 
             // labelYear
-            this.labelYear.Text = "سال";
-            this.labelYear.Location = new System.Drawing.Point(300, 20);
-            this.labelYear.Size = new System.Drawing.Size(50, 20);
-            this.labelYear.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-
+            // 
+            labelYear.Location = new Point(716, 23);
+            labelYear.Name = "labelYear";
+            labelYear.Size = new Size(50, 20);
+            labelYear.TabIndex = 0;
+            labelYear.Text = "سال";
+            labelYear.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // comboBoxYear
-            this.comboBoxYear.Location = new System.Drawing.Point(150, 20);
-            this.comboBoxYear.Size = new System.Drawing.Size(120, 20);
-            for (int i = 1400; i <= 1450; i++)
-            {
-                this.comboBoxYear.Items.Add(i.ToString());
-            }
-
+            // 
+            comboBoxYear.Items.AddRange(new object[] { "1403", "1404", "1405", "1406", "1407" });
+            comboBoxYear.Location = new Point(530, 23);
+            comboBoxYear.Name = "comboBoxYear";
+            comboBoxYear.Size = new Size(156, 23);
+            comboBoxYear.TabIndex = 1;
+            // 
             // labelMonth
-            this.labelMonth.Text = "ماه";
-            this.labelMonth.Location = new System.Drawing.Point(300, 50);
-            this.labelMonth.Size = new System.Drawing.Size(50, 20);
-            this.labelMonth.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-
+            // 
+            labelMonth.Location = new Point(716, 53);
+            labelMonth.Name = "labelMonth";
+            labelMonth.Size = new Size(50, 20);
+            labelMonth.TabIndex = 2;
+            labelMonth.Text = "ماه";
+            labelMonth.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // comboBoxMonth
-            this.comboBoxMonth.Location = new System.Drawing.Point(150, 50);
-            this.comboBoxMonth.Size = new System.Drawing.Size(120, 20);
-            for (int i = 1; i <= 12; i++)
-            {
-                this.comboBoxMonth.Items.Add(i.ToString());
-            }
-
+            // 
+            comboBoxMonth.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
+            comboBoxMonth.Location = new Point(530, 53);
+            comboBoxMonth.Name = "comboBoxMonth";
+            comboBoxMonth.Size = new Size(156, 23);
+            comboBoxMonth.TabIndex = 3;
+            // 
             // buttonGenerateReport
-            this.buttonGenerateReport.Text = "تولید گزارش";
-            this.buttonGenerateReport.Location = new System.Drawing.Point(150, 80);
-            this.buttonGenerateReport.Size = new System.Drawing.Size(120, 30);
-            this.buttonGenerateReport.Click += new EventHandler(this.ButtonGenerateReport_Click);
-
+            // 
+            buttonGenerateReport.Location = new Point(530, 83);
+            buttonGenerateReport.Name = "buttonGenerateReport";
+            buttonGenerateReport.Size = new Size(156, 30);
+            buttonGenerateReport.TabIndex = 4;
+            buttonGenerateReport.Text = "تولید گزارش";
+            buttonGenerateReport.Click += ButtonGenerateReport_Click;
+            // 
             // dataGridViewReport
-            this.dataGridViewReport.Location = new System.Drawing.Point(20, 120);
-            this.dataGridViewReport.Size = new System.Drawing.Size(760, 300);
-            this.dataGridViewReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewReport.MultiSelect = false;
-
+            // 
+            dataGridViewReport.Location = new Point(20, 120);
+            dataGridViewReport.MultiSelect = false;
+            dataGridViewReport.Name = "dataGridViewReport";
+            dataGridViewReport.RowHeadersVisible = false;
+            dataGridViewReport.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewReport.Size = new Size(760, 368);
+            dataGridViewReport.TabIndex = 5;
+            // 
             // labelTotalPayments
-            this.labelTotalPayments.Text = "جمع مبالغ پرداختی: 0 تومان";
-            this.labelTotalPayments.Location = new System.Drawing.Point(20, 430);
-            this.labelTotalPayments.Size = new System.Drawing.Size(760, 20);
-            this.labelTotalPayments.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-
-            // MonthlyReportForm
-            this.ClientSize = new System.Drawing.Size(800, 460);
-            this.Controls.Add(this.labelYear);
-            this.Controls.Add(this.comboBoxYear);
-            this.Controls.Add(this.labelMonth);
-            this.Controls.Add(this.comboBoxMonth);
-            this.Controls.Add(this.buttonGenerateReport);
-            this.Controls.Add(this.dataGridViewReport);
-            this.Controls.Add(this.labelTotalPayments);
-            this.Name = "MonthlyReportForm";
-            this.Text = "گزارش ماهانه پرداخت‌ها";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            labelTotalPayments.Location = new Point(20, 491);
+            labelTotalPayments.Name = "labelTotalPayments";
+            labelTotalPayments.Size = new Size(760, 20);
+            labelTotalPayments.TabIndex = 6;
+            labelTotalPayments.Text = "جمع مبالغ پرداختی: 0 تومان";
+            labelTotalPayments.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // FrmPaymentMonthlyReport
+            // 
+            ClientSize = new Size(800, 518);
+            Controls.Add(labelYear);
+            Controls.Add(comboBoxYear);
+            Controls.Add(labelMonth);
+            Controls.Add(comboBoxMonth);
+            Controls.Add(buttonGenerateReport);
+            Controls.Add(dataGridViewReport);
+            Controls.Add(labelTotalPayments);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "FrmPaymentMonthlyReport";
+            RightToLeft = RightToLeft.Yes;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "گزارش ماهانه پرداخت‌ها";
+            Load += FrmPaymentMonthlyReport_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridViewReport).EndInit();
+            ResumeLayout(false);
         }
 
         private Label labelYear;

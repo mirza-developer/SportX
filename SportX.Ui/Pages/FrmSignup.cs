@@ -79,9 +79,9 @@ public partial class FrmSignup : Form
         //    return;
         //}
 
-        if (_selectedAthlete is null)
+        if (string.IsNullOrEmpty(textBoxId.Text))
         {
-            Athlete newAthlete = new Athlete
+            _selectedAthlete = new Athlete
             {
                 Name = textBoxName.Text,
                 NationalCode = textBoxNationalCode.Text,
@@ -95,7 +95,7 @@ public partial class FrmSignup : Form
                 Epc = textBoxEpc.Text
             };
 
-            context.Athletes.Add(newAthlete);
+            context.Athletes.Add(_selectedAthlete);
         }
         else
         {
@@ -112,7 +112,7 @@ public partial class FrmSignup : Form
             context.Athletes.Update(_selectedAthlete);
         }
 
-        await context.SaveChangesAsync();
+        var res = await context.SaveChangesAsync();
 
         var thisAthleteId = _selectedAthlete.Id;
 
@@ -129,7 +129,7 @@ public partial class FrmSignup : Form
             }
         }
 
-        ClearForm();
+        //ClearForm();
     }
 
     private void ClearForm()
