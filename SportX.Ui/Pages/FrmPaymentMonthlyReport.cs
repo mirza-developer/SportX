@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SportX.Tools;
+using SportX.Ui.Models;
 using SportX.Ui.Services;
 using System;
 using System.Collections.Generic;
@@ -36,22 +37,23 @@ public partial class FrmPaymentMonthlyReport : Form
 
         int indexer = 1;
 
-        // Fetch all payments from the database
         var payments = context.Payments
+            .Include(p=> p.Athlete)
             .ToList()
             .OrderBy(p => p.PayDate)
-            .Where(p => DateTime.Parse(p.PayDate) >= DateTime.Parse(firstDayOfMonth)
-                        && DateTime.Parse(p.PayDate) <= DateTime.Parse(lastDayOfMonth))
+            .Where(p => PersianCalendarTools.PersianToGregorian(p.PayDate).Date >= monthStartDate
+                        && PersianCalendarTools.PersianToGregorian(p.PayDate).Date <= monthEndDate)
             .Select(p => new
             {
                 ردیف = indexer++,
                 p.PriceInTomans,
                 p.PayDate,
+                AthleteName = p.Athlete.Name,
                 p.Description,
                 p.ReceiptNumber,
                 p.SessionCountFor,
                 p.DateEndMembership,
-                PaymentType = p.PaymentType.ToString()
+                PaymentType = p.PaymentTypeString
             })
             .ToList();
 
@@ -65,6 +67,7 @@ public partial class FrmPaymentMonthlyReport : Form
         dataGridViewReport.Columns["SessionCountFor"].HeaderText = "تعداد جلسات";
         dataGridViewReport.Columns["DateEndMembership"].HeaderText = "تاریخ پایان عضویت";
         dataGridViewReport.Columns["PaymentType"].HeaderText = "نوع پرداخت";
+        dataGridViewReport.Columns["AthleteName"].HeaderText = "ورزشکار";
 
         // Calculate the total sum of payments
         var totalPayments = payments.Sum(p => p.PriceInTomans);
