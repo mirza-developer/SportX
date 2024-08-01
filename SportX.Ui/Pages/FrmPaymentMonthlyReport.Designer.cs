@@ -29,49 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPaymentMonthlyReport));
-            labelYear = new Label();
-            comboBoxYear = new ComboBox();
-            labelMonth = new Label();
-            comboBoxMonth = new ComboBox();
             buttonGenerateReport = new Button();
             dataGridViewReport = new DataGridView();
             labelTotalPayments = new Label();
+            dateTimePickerToDate = new TextBox();
+            dateTimePickerFromDate = new TextBox();
+            labelFromDate = new Label();
+            labelToDate = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewReport).BeginInit();
             SuspendLayout();
-            // 
-            // labelYear
-            // 
-            labelYear.Location = new Point(716, 23);
-            labelYear.Name = "labelYear";
-            labelYear.Size = new Size(50, 20);
-            labelYear.TabIndex = 0;
-            labelYear.Text = "سال";
-            labelYear.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // comboBoxYear
-            // 
-            comboBoxYear.Items.AddRange(new object[] { "1403", "1404", "1405", "1406", "1407" });
-            comboBoxYear.Location = new Point(530, 23);
-            comboBoxYear.Name = "comboBoxYear";
-            comboBoxYear.Size = new Size(156, 23);
-            comboBoxYear.TabIndex = 1;
-            // 
-            // labelMonth
-            // 
-            labelMonth.Location = new Point(716, 53);
-            labelMonth.Name = "labelMonth";
-            labelMonth.Size = new Size(50, 20);
-            labelMonth.TabIndex = 2;
-            labelMonth.Text = "ماه";
-            labelMonth.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // comboBoxMonth
-            // 
-            comboBoxMonth.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" });
-            comboBoxMonth.Location = new Point(530, 53);
-            comboBoxMonth.Name = "comboBoxMonth";
-            comboBoxMonth.Size = new Size(156, 23);
-            comboBoxMonth.TabIndex = 3;
             // 
             // buttonGenerateReport
             // 
@@ -101,13 +67,45 @@
             labelTotalPayments.Text = "جمع مبالغ پرداختی: 0 تومان";
             labelTotalPayments.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // dateTimePickerToDate
+            // 
+            dateTimePickerToDate.Location = new Point(530, 53);
+            dateTimePickerToDate.Name = "dateTimePickerToDate";
+            dateTimePickerToDate.Size = new Size(154, 23);
+            dateTimePickerToDate.TabIndex = 15;
+            // 
+            // dateTimePickerFromDate
+            // 
+            dateTimePickerFromDate.Location = new Point(530, 23);
+            dateTimePickerFromDate.Name = "dateTimePickerFromDate";
+            dateTimePickerFromDate.Size = new Size(154, 23);
+            dateTimePickerFromDate.TabIndex = 14;
+            // 
+            // labelFromDate
+            // 
+            labelFromDate.Location = new Point(714, 23);
+            labelFromDate.Name = "labelFromDate";
+            labelFromDate.Size = new Size(50, 20);
+            labelFromDate.TabIndex = 12;
+            labelFromDate.Text = "از تاریخ";
+            labelFromDate.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // labelToDate
+            // 
+            labelToDate.Location = new Point(714, 53);
+            labelToDate.Name = "labelToDate";
+            labelToDate.Size = new Size(50, 20);
+            labelToDate.TabIndex = 13;
+            labelToDate.Text = "تا تاریخ";
+            labelToDate.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // FrmPaymentMonthlyReport
             // 
             ClientSize = new Size(800, 518);
-            Controls.Add(labelYear);
-            Controls.Add(comboBoxYear);
-            Controls.Add(labelMonth);
-            Controls.Add(comboBoxMonth);
+            Controls.Add(dateTimePickerToDate);
+            Controls.Add(dateTimePickerFromDate);
+            Controls.Add(labelFromDate);
+            Controls.Add(labelToDate);
             Controls.Add(buttonGenerateReport);
             Controls.Add(dataGridViewReport);
             Controls.Add(labelTotalPayments);
@@ -115,19 +113,21 @@
             Name = "FrmPaymentMonthlyReport";
             RightToLeft = RightToLeft.Yes;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "گزارش ماهانه پرداخت‌ها";
+            Text = "گزارش پرداخت‌ها";
             Load += FrmPaymentMonthlyReport_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewReport).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
-        private Label labelYear;
-        private ComboBox comboBoxYear;
-        private Label labelMonth;
-        private ComboBox comboBoxMonth;
         private Button buttonGenerateReport;
         private DataGridView dataGridViewReport;
         private Label labelTotalPayments;
         #endregion
+
+        private TextBox dateTimePickerToDate;
+        private TextBox dateTimePickerFromDate;
+        private Label labelFromDate;
+        private Label labelToDate;
     }
 }
