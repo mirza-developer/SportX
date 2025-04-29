@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{5013C787-709B-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportX.Ui", "SportX.Ui\SportX.Ui.csproj", "{FEEA2F4D-5568-4066-A727-C28261ED86F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportX.Ui.Parking", "SportX.Ui.Parking\SportX.Ui.Parking.csproj", "{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,14 @@ Global
 		{FEEA2F4D-5568-4066-A727-C28261ED86F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FEEA2F4D-5568-4066-A727-C28261ED86F4}.Release|x86.ActiveCfg = Release|x86
 		{FEEA2F4D-5568-4066-A727-C28261ED86F4}.Release|x86.Build.0 = Release|x86
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}.Debug|x86.Build.0 = Debug|Any CPU
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}.Release|x86.ActiveCfg = Release|Any CPU
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5013C787-709B-4A4C-9A96-ED28E3A54983} = {2FD3C0D4-5E12-4090-908A-BAFAD2C08A78}
 		{FEEA2F4D-5568-4066-A727-C28261ED86F4} = {5013C787-709B-4A4C-9A96-ED28E3A54983}
+		{571DDF30-D368-4FA1-BFD2-4EF1A3EE62C8} = {5013C787-709B-4A4C-9A96-ED28E3A54983}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64B83B0E-1967-46BF-959C-60A4D91D06FA}
