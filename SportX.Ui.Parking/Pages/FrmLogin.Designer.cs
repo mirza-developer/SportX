@@ -1,6 +1,6 @@
 ﻿using SportX.Ui.Parking.Properties;
 
-namespace SportX.Ui.Parking
+namespace SportX.Ui.Parking.Pages
 {
     partial class FrmLogin
     {

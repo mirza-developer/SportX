@@ -1,7 +1,6 @@
-﻿using SportX.Ui.Pages;
-using SportX.Ui.Services;
+﻿using SportX.Ui.Parking.Services;
 
-namespace SportX.Ui;
+namespace SportX.Ui.Parking.Pages;
 public partial class FrmLogin : Form
 {
     public FrmLogin()
@@ -15,9 +14,7 @@ public partial class FrmLogin : Form
 
         string password = textBoxPassword.Text;
 
-        if (AuthenticationService.IsAdminAuthenticate(username, password)
-            || AuthenticationService.IsMaleUserAuthenticate(username, password)
-            || AuthenticationService.IsFemaleUserAuthenticate(username, password))
+        if (AuthenticationService.IsAdminAuthenticate(username, password))
         {
             new FrmMain().Show();
 
