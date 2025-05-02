@@ -102,7 +102,10 @@ namespace SportX.Ui.Parking.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime>("EnterDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ExitDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FullPlateNumber")

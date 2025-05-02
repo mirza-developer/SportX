@@ -16,5 +16,10 @@ namespace SportX.Ui.Parking.Pages
         {
             InitializeComponent();
         }
+
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

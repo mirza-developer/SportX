@@ -12,7 +12,7 @@ using SportX.Ui.Parking.Services;
 namespace SportX.Ui.Parking.Migrations
 {
     [DbContext(typeof(SportXParkingContext))]
-    [Migration("20250502075757_Init")]
+    [Migration("20250502145123_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -105,7 +105,10 @@ namespace SportX.Ui.Parking.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateTime")
+                    b.Property<DateTime>("EnterDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ExitDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FullPlateNumber")

@@ -68,7 +68,8 @@ namespace SportX.Ui.Parking.Migrations
                     FullPlateNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     CarModelId = table.Column<int>(type: "int", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: true),
-                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EnterDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExitDateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -18,5 +18,8 @@ public class ParkingEnterance
     public int? CustomerId { get; set; }
     public Customer? Customer { get; set; }
 
-    public DateTime DateTime { get; set; }
+    [Required]
+    public DateTime EnterDateTime { get; set; }
+
+    public DateTime? ExitDateTime { get; set; }
 }
