@@ -94,7 +94,7 @@ public partial class FrmPaymentManagment : Form
 
         _context.Payments.Add(newPayment);
 
-        selectedAthlete.RemainingSessionCounts += newPayment.SessionCountFor;
+        selectedAthlete.RemainingSessionCounts = newPayment.SessionCountFor;
 
         selectedAthlete.DateEndMembership = txtboxPaymentDateEnd.Text;
 
