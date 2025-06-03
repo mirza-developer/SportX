@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Microsoft.EntityFrameworkCore;
+using SportX.Ui.Parking.Services;
 
-namespace SportX.Ui.Parking.Pages
+namespace SportX.Ui.Parking.Pages;
+public partial class FrmMain : Form
 {
-    public partial class FrmMain : Form
+    private SportXParkingContext _context = new(new DbContextOptions<SportXParkingContext>());
+    public FrmMain()
     {
-        public FrmMain()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void FrmMain_Load(object sender, EventArgs e)
-        {
+    private void FrmMain_Load(object sender, EventArgs e)
+    {
 
-        }
     }
 }
