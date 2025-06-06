@@ -3,26 +3,27 @@ using SportX.Tools;
 using SportX.Ui.Models;
 using SportX.Ui.Services;
 using System.Data;
-using System.Windows.Forms;
 
 namespace SportX.Ui.Pages;
 public partial class FrmPaymentManagment : Form
 {
     private SportXContext _context = new(new DbContextOptions<SportXContext>());
     private Athlete selectedAthlete;
+    private List<Plan> plans = new();
+    private int? selectedPlanId = null;
+
     public FrmPaymentManagment()
     {
         InitializeComponent();
-
+        LoadPlans();
         ClearForm();
     }
 
     public FrmPaymentManagment(Athlete passedAthlete)
     {
         InitializeComponent();
-
+        LoadPlans();
         ClearForm();
-
         LoadAthlete(passedAthlete);
     }
 
@@ -89,7 +90,8 @@ public partial class FrmPaymentManagment : Form
             SessionCountFor = int.Parse(textBoxSessionCount.Text),
             PaymentType = (PaymentType)comboBoxPaymentType.SelectedIndex,
             CreateDatetime = DateTime.Now,
-            DateEndMembership = txtboxPaymentDateEnd.Text
+            DateEndMembership = txtboxPaymentDateEnd.Text,
+            PlanId = selectedPlanId
         };
 
         _context.Payments.Add(newPayment);
@@ -118,8 +120,9 @@ public partial class FrmPaymentManagment : Form
         selectedAthlete = null;
         buttonSelectAthlete.Text = "انتخاب ورزشکار";
         textBoxPayDate.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now);
-        txtboxPaymentDateEnd.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now.AddMonths(1));
         dataGridViewPayments.DataSource = null;
+        selectedPlanId = null;
+        txtboxPaymentDateEnd.Clear();
     }
 
     private void btnClear_Click(object sender, EventArgs e)
@@ -229,15 +232,34 @@ public partial class FrmPaymentManagment : Form
 
         textBoxAthleteName.Text = selectedAthlete.Name;
 
-        if (selectedAthlete.Membership == MembershipType.Normal)
-        {
-            textBoxPrice.Text = Program.Configuration["ProjectConfigs:PriceSettings:NormalPrice"];
-        }
-        else if (selectedAthlete.Membership == MembershipType.Military)
-        {
-            textBoxPrice.Text = Program.Configuration["ProjectConfigs:PriceSettings:MilitaryPrice"];
-        }
-
         LoadPaymentHistory();
+    }
+
+    private void LoadPlans()
+    {
+        plans = _context.Plans.OrderBy(p => p.Title).ToList();
+        comboBoxPlan.DataSource = plans;
+        comboBoxPlan.DisplayMember = "Title";
+        comboBoxPlan.ValueMember = "Id";
+        comboBoxPlan.SelectedIndex = -1;
+    }
+
+    private void comboBoxPlan_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (comboBoxPlan.SelectedIndex >= 0)
+        {
+            var plan = comboBoxPlan.SelectedItem as Plan;
+            if (plan != null)
+            {
+                textBoxPrice.Text = plan.PriceInTomans.ToString();
+                textBoxSessionCount.Text = plan.SessionCount.ToString();
+                txtboxPaymentDateEnd.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now.AddDays(plan.MembershipLengthInDays.Value));
+                selectedPlanId = plan.Id;
+            }
+        }
+        else
+        {
+            selectedPlanId = null;
+        }
     }
 }

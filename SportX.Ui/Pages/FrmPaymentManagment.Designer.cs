@@ -55,12 +55,14 @@
             textBoxEpc = new TextBox();
             buttonEpc = new Button();
             timerFocus = new System.Windows.Forms.Timer(components);
+            labelPlan = new Label();
+            comboBoxPlan = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPayments).BeginInit();
             SuspendLayout();
             // 
             // buttonSelectAthlete
             // 
-            buttonSelectAthlete.Location = new Point(421, 16);
+            buttonSelectAthlete.Location = new Point(392, 16);
             buttonSelectAthlete.Name = "buttonSelectAthlete";
             buttonSelectAthlete.Size = new Size(119, 34);
             buttonSelectAthlete.TabIndex = 0;
@@ -69,7 +71,7 @@
             // 
             // labelPrice
             // 
-            labelPrice.Location = new Point(846, 60);
+            labelPrice.Location = new Point(408, 97);
             labelPrice.Name = "labelPrice";
             labelPrice.Size = new Size(100, 27);
             labelPrice.TabIndex = 1;
@@ -78,14 +80,14 @@
             // 
             // textBoxPrice
             // 
-            textBoxPrice.Location = new Point(546, 60);
+            textBoxPrice.Location = new Point(108, 97);
             textBoxPrice.Name = "textBoxPrice";
-            textBoxPrice.Size = new Size(300, 23);
+            textBoxPrice.Size = new Size(300, 31);
             textBoxPrice.TabIndex = 2;
             // 
             // labelPayDate
             // 
-            labelPayDate.Location = new Point(846, 97);
+            labelPayDate.Location = new Point(817, 97);
             labelPayDate.Name = "labelPayDate";
             labelPayDate.Size = new Size(100, 27);
             labelPayDate.TabIndex = 3;
@@ -94,14 +96,14 @@
             // 
             // textBoxPayDate
             // 
-            textBoxPayDate.Location = new Point(546, 97);
+            textBoxPayDate.Location = new Point(517, 97);
             textBoxPayDate.Name = "textBoxPayDate";
-            textBoxPayDate.Size = new Size(300, 23);
+            textBoxPayDate.Size = new Size(300, 31);
             textBoxPayDate.TabIndex = 4;
             // 
             // labelDescription
             // 
-            labelDescription.Location = new Point(846, 134);
+            labelDescription.Location = new Point(817, 134);
             labelDescription.Name = "labelDescription";
             labelDescription.Size = new Size(100, 27);
             labelDescription.TabIndex = 5;
@@ -110,14 +112,14 @@
             // 
             // textBoxDescription
             // 
-            textBoxDescription.Location = new Point(546, 134);
+            textBoxDescription.Location = new Point(517, 134);
             textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(300, 23);
+            textBoxDescription.Size = new Size(300, 31);
             textBoxDescription.TabIndex = 6;
             // 
             // labelReceiptNumber
             // 
-            labelReceiptNumber.Location = new Point(846, 171);
+            labelReceiptNumber.Location = new Point(817, 171);
             labelReceiptNumber.Name = "labelReceiptNumber";
             labelReceiptNumber.Size = new Size(100, 27);
             labelReceiptNumber.TabIndex = 7;
@@ -126,14 +128,14 @@
             // 
             // textBoxReceiptNumber
             // 
-            textBoxReceiptNumber.Location = new Point(546, 171);
+            textBoxReceiptNumber.Location = new Point(517, 171);
             textBoxReceiptNumber.Name = "textBoxReceiptNumber";
-            textBoxReceiptNumber.Size = new Size(300, 23);
+            textBoxReceiptNumber.Size = new Size(300, 31);
             textBoxReceiptNumber.TabIndex = 8;
             // 
             // labelPaymentType
             // 
-            labelPaymentType.Location = new Point(846, 208);
+            labelPaymentType.Location = new Point(817, 208);
             labelPaymentType.Name = "labelPaymentType";
             labelPaymentType.Size = new Size(100, 27);
             labelPaymentType.TabIndex = 9;
@@ -144,14 +146,14 @@
             // 
             comboBoxPaymentType.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxPaymentType.Items.AddRange(new object[] { "کارت به کارت", "نقدی", "پوز" });
-            comboBoxPaymentType.Location = new Point(546, 208);
+            comboBoxPaymentType.Location = new Point(517, 208);
             comboBoxPaymentType.Name = "comboBoxPaymentType";
-            comboBoxPaymentType.Size = new Size(300, 23);
+            comboBoxPaymentType.Size = new Size(300, 33);
             comboBoxPaymentType.TabIndex = 10;
             // 
             // labelSessionCount
             // 
-            labelSessionCount.Location = new Point(846, 247);
+            labelSessionCount.Location = new Point(408, 134);
             labelSessionCount.Name = "labelSessionCount";
             labelSessionCount.Size = new Size(100, 27);
             labelSessionCount.TabIndex = 11;
@@ -160,9 +162,9 @@
             // 
             // textBoxSessionCount
             // 
-            textBoxSessionCount.Location = new Point(546, 247);
+            textBoxSessionCount.Location = new Point(108, 134);
             textBoxSessionCount.Name = "textBoxSessionCount";
-            textBoxSessionCount.Size = new Size(300, 23);
+            textBoxSessionCount.Size = new Size(300, 31);
             textBoxSessionCount.TabIndex = 12;
             // 
             // buttonSave
@@ -207,7 +209,7 @@
             // 
             // label1
             // 
-            label1.Location = new Point(846, 284);
+            label1.Location = new Point(408, 171);
             label1.Name = "label1";
             label1.Size = new Size(100, 27);
             label1.TabIndex = 16;
@@ -216,14 +218,14 @@
             // 
             // txtboxPaymentDateEnd
             // 
-            txtboxPaymentDateEnd.Location = new Point(546, 284);
+            txtboxPaymentDateEnd.Location = new Point(108, 171);
             txtboxPaymentDateEnd.Name = "txtboxPaymentDateEnd";
-            txtboxPaymentDateEnd.Size = new Size(300, 23);
+            txtboxPaymentDateEnd.Size = new Size(300, 31);
             txtboxPaymentDateEnd.TabIndex = 17;
             // 
             // label2
             // 
-            label2.Location = new Point(846, 23);
+            label2.Location = new Point(817, 23);
             label2.Name = "label2";
             label2.Size = new Size(100, 27);
             label2.TabIndex = 18;
@@ -232,10 +234,10 @@
             // 
             // textBoxAthleteName
             // 
-            textBoxAthleteName.Location = new Point(546, 23);
+            textBoxAthleteName.Location = new Point(517, 23);
             textBoxAthleteName.Name = "textBoxAthleteName";
             textBoxAthleteName.ReadOnly = true;
-            textBoxAthleteName.Size = new Size(300, 23);
+            textBoxAthleteName.Size = new Size(300, 31);
             textBoxAthleteName.TabIndex = 19;
             // 
             // menuGridOptions
@@ -246,15 +248,15 @@
             // 
             // textBoxEpc
             // 
-            textBoxEpc.Location = new Point(137, 26);
+            textBoxEpc.Location = new Point(108, 26);
             textBoxEpc.Name = "textBoxEpc";
-            textBoxEpc.Size = new Size(0, 23);
+            textBoxEpc.Size = new Size(0, 31);
             textBoxEpc.TabIndex = 30;
             textBoxEpc.KeyDown += textBoxEpc_KeyDown;
             // 
             // buttonEpc
             // 
-            buttonEpc.Location = new Point(360, 16);
+            buttonEpc.Location = new Point(331, 16);
             buttonEpc.Name = "buttonEpc";
             buttonEpc.Size = new Size(55, 34);
             buttonEpc.TabIndex = 31;
@@ -266,6 +268,24 @@
             // 
             timerFocus.Interval = 500;
             timerFocus.Tick += timerFocus_Tick;
+            // 
+            // labelPlan
+            // 
+            labelPlan.Location = new Point(817, 60);
+            labelPlan.Name = "labelPlan";
+            labelPlan.Size = new Size(100, 27);
+            labelPlan.TabIndex = 20;
+            labelPlan.Text = "پلن";
+            labelPlan.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // comboBoxPlan
+            // 
+            comboBoxPlan.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlan.Location = new Point(517, 60);
+            comboBoxPlan.Name = "comboBoxPlan";
+            comboBoxPlan.Size = new Size(300, 33);
+            comboBoxPlan.TabIndex = 21;
+            comboBoxPlan.SelectedIndexChanged += comboBoxPlan_SelectedIndexChanged;
             // 
             // FrmPaymentManagment
             // 
@@ -293,6 +313,8 @@
             Controls.Add(buttonSave);
             Controls.Add(dataGridViewPayments);
             Controls.Add(labelTotalPayments);
+            Controls.Add(labelPlan);
+            Controls.Add(comboBoxPlan);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FrmPaymentManagment";
             RightToLeft = RightToLeft.Yes;
@@ -331,5 +353,7 @@
         private TextBox textBoxEpc;
         private Button buttonEpc;
         private System.Windows.Forms.Timer timerFocus;
+        private ComboBox comboBoxPlan;
+        private Label labelPlan;
     }
 }

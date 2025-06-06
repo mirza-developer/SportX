@@ -45,9 +45,10 @@ namespace SportX.Ui
             // 
             labelUsername.AutoSize = true;
             labelUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            labelUsername.Location = new Point(228, 122);
+            labelUsername.Location = new Point(326, 203);
+            labelUsername.Margin = new Padding(4, 0, 4, 0);
             labelUsername.Name = "labelUsername";
-            labelUsername.Size = new Size(76, 19);
+            labelUsername.Size = new Size(115, 29);
             labelUsername.TabIndex = 0;
             labelUsername.Text = "نام کاربری";
             // 
@@ -55,27 +56,30 @@ namespace SportX.Ui
             // 
             labelPassword.AutoSize = true;
             labelPassword.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            labelPassword.Location = new Point(228, 169);
+            labelPassword.Location = new Point(326, 282);
+            labelPassword.Margin = new Padding(4, 0, 4, 0);
             labelPassword.Name = "labelPassword";
-            labelPassword.Size = new Size(63, 19);
+            labelPassword.Size = new Size(94, 29);
             labelPassword.TabIndex = 1;
             labelPassword.Text = "رمز عبور";
             // 
             // textBoxUsername
             // 
             textBoxUsername.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxUsername.Location = new Point(43, 119);
+            textBoxUsername.Location = new Point(61, 198);
+            textBoxUsername.Margin = new Padding(4, 5, 4, 5);
             textBoxUsername.Name = "textBoxUsername";
-            textBoxUsername.Size = new Size(176, 27);
+            textBoxUsername.Size = new Size(250, 36);
             textBoxUsername.TabIndex = 2;
             // 
             // textBoxPassword
             // 
             textBoxPassword.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxPassword.Location = new Point(43, 166);
+            textBoxPassword.Location = new Point(61, 277);
+            textBoxPassword.Margin = new Padding(4, 5, 4, 5);
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.PasswordChar = '*';
-            textBoxPassword.Size = new Size(176, 27);
+            textBoxPassword.Size = new Size(250, 36);
             textBoxPassword.TabIndex = 3;
             textBoxPassword.KeyDown += textBoxPassword_KeyDown;
             // 
@@ -84,9 +88,10 @@ namespace SportX.Ui
             buttonLogin.BackColor = Color.MediumSeaGreen;
             buttonLogin.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
             buttonLogin.ForeColor = Color.White;
-            buttonLogin.Location = new Point(43, 215);
+            buttonLogin.Location = new Point(61, 358);
+            buttonLogin.Margin = new Padding(4, 5, 4, 5);
             buttonLogin.Name = "buttonLogin";
-            buttonLogin.Size = new Size(83, 33);
+            buttonLogin.Size = new Size(119, 55);
             buttonLogin.TabIndex = 4;
             buttonLogin.Text = "ورود";
             buttonLogin.UseVisualStyleBackColor = false;
@@ -97,9 +102,10 @@ namespace SportX.Ui
             buttonCancel.BackColor = Color.Crimson;
             buttonCancel.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
             buttonCancel.ForeColor = Color.White;
-            buttonCancel.Location = new Point(136, 215);
+            buttonCancel.Location = new Point(194, 358);
+            buttonCancel.Margin = new Padding(4, 5, 4, 5);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(83, 33);
+            buttonCancel.Size = new Size(119, 55);
             buttonCancel.TabIndex = 5;
             buttonCancel.Text = "لغو";
             buttonCancel.UseVisualStyleBackColor = false;
@@ -107,20 +113,20 @@ namespace SportX.Ui
             // 
             // pictureBoxLogo
             // 
-            pictureBoxLogo.Image = Resources.Logo;
-            pictureBoxLogo.Location = new Point(132, 10);
+            pictureBoxLogo.Location = new Point(189, 17);
+            pictureBoxLogo.Margin = new Padding(4, 5, 4, 5);
             pictureBoxLogo.Name = "pictureBoxLogo";
-            pictureBoxLogo.Size = new Size(88, 94);
+            pictureBoxLogo.Size = new Size(126, 157);
             pictureBoxLogo.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxLogo.TabIndex = 6;
             pictureBoxLogo.TabStop = false;
             // 
             // FrmLogin
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(350, 281);
+            ClientSize = new Size(500, 468);
             Controls.Add(pictureBoxLogo);
             Controls.Add(buttonCancel);
             Controls.Add(buttonLogin);
@@ -129,10 +135,12 @@ namespace SportX.Ui
             Controls.Add(labelPassword);
             Controls.Add(labelUsername);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 5, 4, 5);
             Name = "FrmLogin";
             RightToLeft = RightToLeft.Yes;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "فرم ورود";
+            Load += FrmLogin_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -41,4 +41,12 @@ public partial class FrmLogin : Form
             buttonLogin_Click(sender, new());
         }
     }
+
+    private void FrmLogin_Load(object sender, EventArgs e)
+    {
+#if DEBUG
+        textBoxUsername.Text = "admin";
+        textBoxPassword.Text = "admingym";
+#endif
+    }
 }

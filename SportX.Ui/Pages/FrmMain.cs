@@ -121,7 +121,7 @@ public partial class FrmMain : Form
                 }
             }
             else
-            { 
+            {
             }
         }
     }
@@ -146,7 +146,7 @@ public partial class FrmMain : Form
 
             textBoxEpc.Text = string.Empty;
 
-            textBoxEpc.ReadOnly = false; 
+            textBoxEpc.ReadOnly = false;
         }
         else
         {
@@ -191,7 +191,7 @@ public partial class FrmMain : Form
 
         Athlete? athlete = athlete = await _context.Athletes
                                     .FirstOrDefaultAsync(a => a.Epc == textBoxEpc.Text);
-     
+
 
         if (enteredAthletes.Any(p => p.AthleteId == athlete.Id))
         {
@@ -267,6 +267,15 @@ public partial class FrmMain : Form
         }
 
         timerClearInfo.Enabled = false;
+    }
+
+    private void مدیریتبرنامههاToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        timerFocus.Enabled = false;
+        buttonEpc.Text = "قرائت";
+
+        FrmPlanManagment reportForm = new();
+        reportForm.ShowDialog();
     }
 }
 

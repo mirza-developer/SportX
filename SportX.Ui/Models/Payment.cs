@@ -40,4 +40,7 @@ public class Payment : BaseModel
 
     public int? AthleteId { get; set; }
     public Athlete? Athlete { get; set; }
+
+    public int? PlanId { get; set; }
+    public Plan? Plan { get; set; }
 }
