@@ -59,7 +59,7 @@ public partial class PersianDatePicker : UserControl
             Text = "<",
             Width = 32,
             Height = 32,
-            Dock = DockStyle.Left,
+            Dock = DockStyle.Right,
             FlatStyle = FlatStyle.Flat
         };
         prevButton.Click += (s, e) => PreviousMonth();
@@ -68,7 +68,7 @@ public partial class PersianDatePicker : UserControl
             Text = ">",
             Width = 32,
             Height = 32,
-            Dock = DockStyle.Right,
+            Dock = DockStyle.Left,
             FlatStyle = FlatStyle.Flat
         };
         nextButton.Click += (s, e) => NextMonth();
@@ -80,8 +80,8 @@ public partial class PersianDatePicker : UserControl
             Font = new Font(Font, FontStyle.Bold),
             Height = 32
         };
-        headerPanel.Controls.Add(prevButton);
-        headerPanel.Controls.Add(nextButton);
+        headerPanel.Controls.Add(prevButton); // Now on the right
+        headerPanel.Controls.Add(nextButton); // Now on the left
         headerPanel.Controls.Add(headerLabel);
         calendarPanel.Controls.Add(headerPanel);
 
