@@ -127,7 +127,7 @@ namespace SportX.Ui
             persianDatePicker1.Location = new Point(13, 41);
             persianDatePicker1.Margin = new Padding(4, 5, 4, 5);
             persianDatePicker1.Name = "persianDatePicker1";
-            persianDatePicker1.Size = new Size(450, 650);
+            persianDatePicker1.Size = new Size(474, 650);
             persianDatePicker1.TabIndex = 7;
             // 
             // FrmLogin

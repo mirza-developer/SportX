@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using SportX.Tools;
 
 namespace SportX.Ui.Components;
 
@@ -40,7 +41,7 @@ public partial class PersianDatePicker : UserControl
 
     private void UpdateDateTextBox()
     {
-        dateTextBox.Text = selectedDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+        dateTextBox.Text = PersianCalendarTools.GregorianToPersian(selectedDate);
     }
 
     private void PopulateCalendar()
