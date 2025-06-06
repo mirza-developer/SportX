@@ -92,12 +92,13 @@ public partial class PersianDatePicker : UserControl
         {
             RowCount = 7,
             ColumnCount = 7,
-            Dock = DockStyle.Fill,
+            Location = new Point(0, headerPanel.Height),
             CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
             BackColor = Color.White,
             Width = 7 * cellWidth,
             Height = 7 * cellHeight,
-            AutoSize = false
+            AutoSize = false,
+            Dock = DockStyle.None
         };
         daysTable.ColumnStyles.Clear();
         for (int i = 0; i < 7; i++)
@@ -158,6 +159,7 @@ public partial class PersianDatePicker : UserControl
             }
         }
         calendarPanel.Width = daysTable.Width;
+        calendarPanel.Height = headerPanel.Height + daysTable.Height;
         calendarPanel.Controls.Add(daysTable);
     }
 
