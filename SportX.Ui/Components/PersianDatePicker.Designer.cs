@@ -31,6 +31,11 @@
             dateTextBox = new TextBox();
             dropdownButton = new Button();
             calendarPanel = new Panel();
+            headerPanel = new Panel();
+            prevButton = new Button();
+            nextButton = new Button();
+            headerLabel = new Label();
+            daysTable = new TableLayoutPanel();
             SuspendLayout();
             // 
             // dateTextBox
@@ -50,10 +55,52 @@
             // 
             // calendarPanel
             // 
-            calendarPanel.Location = new Point(0, 0);
+            calendarPanel.Location = new Point(0, 30);
             calendarPanel.Name = "calendarPanel";
-            calendarPanel.Size = new Size(150, 150);
+            calendarPanel.Size = new Size(210, 230);
             calendarPanel.TabIndex = 2;
+            calendarPanel.Visible = false;
+            calendarPanel.Controls.Add(headerPanel);
+            calendarPanel.Controls.Add(daysTable);
+            // 
+            // headerPanel
+            // 
+            headerPanel.Dock = DockStyle.Top;
+            headerPanel.Height = 36;
+            headerPanel.Controls.Add(prevButton);
+            headerPanel.Controls.Add(nextButton);
+            headerPanel.Controls.Add(headerLabel);
+            // 
+            // prevButton
+            // 
+            prevButton.Text = "<";
+            prevButton.Width = 32;
+            prevButton.Height = 32;
+            prevButton.Dock = DockStyle.Left;
+            prevButton.FlatStyle = FlatStyle.Flat;
+            // 
+            // nextButton
+            // 
+            nextButton.Text = ">";
+            nextButton.Width = 32;
+            nextButton.Height = 32;
+            nextButton.Dock = DockStyle.Right;
+            nextButton.FlatStyle = FlatStyle.Flat;
+            // 
+            // headerLabel
+            // 
+            headerLabel.Dock = DockStyle.Fill;
+            headerLabel.TextAlign = ContentAlignment.MiddleCenter;
+            headerLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            // 
+            // daysTable
+            // 
+            daysTable.Dock = DockStyle.Fill;
+            daysTable.RowCount = 7;
+            daysTable.ColumnCount = 7;
+            daysTable.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            daysTable.BackColor = Color.White;
+        
             // 
             // PersianDatePicker
             // 
@@ -63,6 +110,7 @@
             Controls.Add(dateTextBox);
             Controls.Add(calendarPanel);
             Name = "PersianDatePicker";
+            Size = new Size(210, 260);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -70,6 +118,11 @@
         private TextBox dateTextBox;
         private Button dropdownButton;
         private Panel calendarPanel;
+        private Panel headerPanel;
+        private Button prevButton;
+        private Button nextButton;
+        private Label headerLabel;
+        private TableLayoutPanel daysTable;
         #endregion
     }
 }

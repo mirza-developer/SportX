@@ -16,6 +16,11 @@ public partial class PersianDatePicker : UserControl
     public PersianDatePicker()
     {
         InitializeComponent();
+        for (int i = 0; i < 7; i++)
+        {
+            daysTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 7));
+            daysTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 28));
+        }
         InitializeCustomComponents();
     }
 
@@ -41,42 +46,77 @@ public partial class PersianDatePicker : UserControl
     private void PopulateCalendar()
     {
         calendarPanel.Controls.Clear();
+
+        // Header panel with navigation
+        var headerPanel = new Panel
+        {
+            Dock = DockStyle.Top,
+            Height = 36
+        };
+        var prevButton = new Button
+        {
+            Text = "<",
+            Width = 32,
+            Height = 32,
+            Dock = DockStyle.Left,
+            FlatStyle = FlatStyle.Flat
+        };
+        prevButton.Click += (s, e) => PreviousMonth();
+        var nextButton = new Button
+        {
+            Text = ">",
+            Width = 32,
+            Height = 32,
+            Dock = DockStyle.Right,
+            FlatStyle = FlatStyle.Flat
+        };
+        nextButton.Click += (s, e) => NextMonth();
         var headerLabel = new Label
         {
             Text = PersianMonthNames[persianCalendar.GetMonth(displayedMonth) - 1] + " " + persianCalendar.GetYear(displayedMonth),
             TextAlign = ContentAlignment.MiddleCenter,
-            Dock = DockStyle.Top,
-            Height = 30
+            Dock = DockStyle.Fill,
+            Font = new Font(Font, FontStyle.Bold),
+            Height = 32
         };
-        calendarPanel.Controls.Add(headerLabel);
+        headerPanel.Controls.Add(prevButton);
+        headerPanel.Controls.Add(nextButton);
+        headerPanel.Controls.Add(headerLabel);
+        calendarPanel.Controls.Add(headerPanel);
 
-        var daysPanel = new Panel
+        // Calendar grid
+        var daysTable = new TableLayoutPanel
         {
-            Dock = DockStyle.Fill
+            RowCount = 7,
+            ColumnCount = 7,
+            Dock = DockStyle.Fill,
+            CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
+            BackColor = Color.White
         };
-        calendarPanel.Controls.Add(daysPanel);
+        daysTable.ColumnStyles.Clear();
+        for (int i = 0; i < 7; i++)
+            daysTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 7));
+        daysTable.RowStyles.Clear();
+        for (int i = 0; i < 7; i++)
+            daysTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 28));
 
         string[] persianWeekDays = { "شنبه", "یک‌شنبه", "دو‌شنبه", "سه‌شنبه", "چهار‌شنبه", "پنج‌شنبه", "جمعه" };
-
         for (int i = 0; i < 7; i++)
         {
             var dayLabel = new Label
             {
                 Text = persianWeekDays[i],
                 TextAlign = ContentAlignment.MiddleCenter,
-                Dock = DockStyle.Top,
-                Width = 28,
-                Height = 20,
-                BorderStyle = BorderStyle.FixedSingle
+                Dock = DockStyle.Fill,
+                Font = new Font(Font, FontStyle.Bold),
+                BackColor = Color.LightGray
             };
-            daysPanel.Controls.Add(dayLabel);
+            daysTable.Controls.Add(dayLabel, i, 0);
         }
 
         DateTime startDate = new DateTime(displayedMonth.Year, displayedMonth.Month, 1, persianCalendar);
         while (startDate.DayOfWeek != DayOfWeek.Saturday)
-        {
             startDate = startDate.AddDays(-1);
-        }
 
         for (int week = 0; week < 6; week++)
         {
@@ -86,27 +126,31 @@ public partial class PersianDatePicker : UserControl
                 Button dayButton = new Button
                 {
                     Text = persianCalendar.GetDayOfMonth(currentDate).ToString(),
-                    Width = 28,
-                    Height = 28,
+                    Dock = DockStyle.Fill,
                     Tag = currentDate,
                     FlatStyle = FlatStyle.Flat,
-                    Margin = new Padding(1)
+                    Margin = new Padding(0),
+                    BackColor = Color.White
                 };
-
                 if (currentDate.Month != displayedMonth.Month)
                 {
                     dayButton.ForeColor = Color.Gray;
                 }
                 else if (currentDate.Date == selectedDate.Date)
                 {
-                    dayButton.BackColor = Color.Blue;
+                    dayButton.BackColor = Color.DodgerBlue;
                     dayButton.ForeColor = Color.White;
+                    dayButton.Font = new Font(dayButton.Font, FontStyle.Bold);
                 }
-
+                else if (currentDate.Date == DateTime.Today.Date)
+                {
+                    dayButton.BackColor = Color.LightSkyBlue;
+                }
                 dayButton.Click += DayButton_Click;
-                daysPanel.Controls.Add(dayButton);
+                daysTable.Controls.Add(dayButton, day, week + 1);
             }
         }
+        calendarPanel.Controls.Add(daysTable);
     }
 
     private void DayButton_Click(object sender, EventArgs e)

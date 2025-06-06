@@ -38,6 +38,7 @@ namespace SportX.Ui
             buttonLogin = new Button();
             buttonCancel = new Button();
             pictureBoxLogo = new PictureBox();
+            persianDatePicker1 = new SportX.Ui.Components.PersianDatePicker();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
             SuspendLayout();
             // 
@@ -121,12 +122,21 @@ namespace SportX.Ui
             pictureBoxLogo.TabIndex = 6;
             pictureBoxLogo.TabStop = false;
             // 
+            // persianDatePicker1
+            // 
+            persianDatePicker1.Location = new Point(13, 41);
+            persianDatePicker1.Margin = new Padding(4, 5, 4, 5);
+            persianDatePicker1.Name = "persianDatePicker1";
+            persianDatePicker1.Size = new Size(450, 650);
+            persianDatePicker1.TabIndex = 7;
+            // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(500, 468);
+            Controls.Add(persianDatePicker1);
             Controls.Add(pictureBoxLogo);
             Controls.Add(buttonCancel);
             Controls.Add(buttonLogin);
@@ -154,5 +164,7 @@ namespace SportX.Ui
         private Button buttonCancel;
         private PictureBox pictureBoxLogo;
         #endregion
+
+        private Components.PersianDatePicker persianDatePicker1;
     }
 }
