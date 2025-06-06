@@ -41,7 +41,10 @@ public partial class PersianDatePicker : UserControl
 
     private void UpdateDateTextBox()
     {
-        dateTextBox.Text = PersianCalendarTools.GregorianToPersian(selectedDate);
+        int year = persianCalendar.GetYear(selectedDate);
+        int month = persianCalendar.GetMonth(selectedDate);
+        int day = persianCalendar.GetDayOfMonth(selectedDate);
+        dateTextBox.Text = $"{year:0000}/{month:00}/{day:00}";
     }
 
     private void PopulateCalendar()
@@ -80,12 +83,11 @@ public partial class PersianDatePicker : UserControl
             Font = new Font(Font, FontStyle.Bold),
             Height = 32
         };
-        headerPanel.Controls.Add(prevButton); // Now on the right
-        headerPanel.Controls.Add(nextButton); // Now on the left
+        headerPanel.Controls.Add(prevButton); 
+        headerPanel.Controls.Add(nextButton); 
         headerPanel.Controls.Add(headerLabel);
         calendarPanel.Controls.Add(headerPanel);
 
-        // Calendar grid
         int cellWidth = 54;
         int cellHeight = 36;
         var daysTable = new TableLayoutPanel
@@ -121,9 +123,13 @@ public partial class PersianDatePicker : UserControl
             daysTable.Controls.Add(dayLabel, i, 0);
         }
 
-        DateTime startDate = new DateTime(displayedMonth.Year, displayedMonth.Month, 1, persianCalendar);
-        while (startDate.DayOfWeek != DayOfWeek.Saturday)
-            startDate = startDate.AddDays(-1);
+        DateTime firstOfMonth = persianCalendar.ToDateTime(
+            persianCalendar.GetYear(displayedMonth),
+            persianCalendar.GetMonth(displayedMonth),
+            1, 0, 0, 0, 0);
+        // Find the first Saturday before or on the first of the Persian month
+        int offset = ((int)firstOfMonth.DayOfWeek + 1) % 7; // Saturday=0 in Persian calendar
+        DateTime startDate = firstOfMonth.AddDays(-offset);
 
         for (int week = 0; week < 6; week++)
         {
@@ -140,7 +146,8 @@ public partial class PersianDatePicker : UserControl
                     BackColor = Color.White,
                     Font = new Font(Font.FontFamily, 9, FontStyle.Regular)
                 };
-                if (currentDate.Month != displayedMonth.Month)
+                if (persianCalendar.GetMonth(currentDate) != persianCalendar.GetMonth(displayedMonth) ||
+                    persianCalendar.GetYear(currentDate) != persianCalendar.GetYear(displayedMonth))
                 {
                     dayButton.ForeColor = Color.Gray;
                 }
@@ -152,7 +159,8 @@ public partial class PersianDatePicker : UserControl
                 }
                 else if (currentDate.Date == DateTime.Today.Date)
                 {
-                    dayButton.BackColor = Color.LightSkyBlue;
+                    dayButton.BackColor = Color.DarkOrange;
+                    dayButton.ForeColor = Color.White;
                 }
                 dayButton.Click += DayButton_Click;
                 daysTable.Controls.Add(dayButton, day, week + 1);
