@@ -115,7 +115,7 @@ public partial class PersianDatePicker : UserControl
                 Text = persianWeekDays[i],
                 TextAlign = ContentAlignment.MiddleCenter,
                 Dock = DockStyle.Fill,
-                Font = new Font(Font, FontStyle.Bold),
+                Font = new Font(Font.FontFamily, 5, FontStyle.Regular), // even smaller font size
                 BackColor = Color.LightGray
             };
             daysTable.Controls.Add(dayLabel, i, 0);
