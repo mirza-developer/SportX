@@ -86,20 +86,25 @@ public partial class PersianDatePicker : UserControl
         calendarPanel.Controls.Add(headerPanel);
 
         // Calendar grid
+        int cellWidth = 54;
+        int cellHeight = 36;
         var daysTable = new TableLayoutPanel
         {
             RowCount = 7,
             ColumnCount = 7,
             Dock = DockStyle.Fill,
             CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
-            BackColor = Color.White
+            BackColor = Color.White,
+            Width = 7 * cellWidth,
+            Height = 7 * cellHeight,
+            AutoSize = false
         };
         daysTable.ColumnStyles.Clear();
         for (int i = 0; i < 7; i++)
-            daysTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / 7));
+            daysTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, cellWidth));
         daysTable.RowStyles.Clear();
         for (int i = 0; i < 7; i++)
-            daysTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 28));
+            daysTable.RowStyles.Add(new RowStyle(SizeType.Absolute, cellHeight));
 
         string[] persianWeekDays = { "شنبه", "یک‌شنبه", "دو‌شنبه", "سه‌شنبه", "چهار‌شنبه", "پنج‌شنبه", "جمعه" };
         for (int i = 0; i < 7; i++)
@@ -131,7 +136,8 @@ public partial class PersianDatePicker : UserControl
                     Tag = currentDate,
                     FlatStyle = FlatStyle.Flat,
                     Margin = new Padding(0),
-                    BackColor = Color.White
+                    BackColor = Color.White,
+                    Font = new Font(Font.FontFamily, 9, FontStyle.Regular)
                 };
                 if (currentDate.Month != displayedMonth.Month)
                 {
@@ -151,6 +157,7 @@ public partial class PersianDatePicker : UserControl
                 daysTable.Controls.Add(dayButton, day, week + 1);
             }
         }
+        calendarPanel.Width = daysTable.Width;
         calendarPanel.Controls.Add(daysTable);
     }
 
