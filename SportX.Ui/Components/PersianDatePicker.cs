@@ -14,6 +14,8 @@ public partial class PersianDatePicker : UserControl
         "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
     };
 
+    private Button[,] calendarButtons = new Button[6, 7];
+
     public PersianDatePicker()
     {
         InitializeComponent();
@@ -26,21 +28,23 @@ public partial class PersianDatePicker : UserControl
         selectedDate = DateTime.Today;
         displayedMonth = DateTime.Today;
         UpdateDateTextBox();
-        PopulateCalendar();
 
-        // Wire up previous/next month buttons
-        prevButton.Click += (s, e) => PreviousMonth();
-        nextButton.Click += (s, e) => NextMonth();
-
-        // Wire up day cell buttons
+        // Initialize calendarButtons array and wire up events
         for (int i = 0; i < 6; i++)
         {
             for (int j = 0; j < 7; j++)
             {
                 var btn = (Button)this.GetType().GetField($"btnCell_{i}_{j}", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this);
+                calendarButtons[i, j] = btn;
                 btn.Click += DayButton_Click;
             }
         }
+
+        // Wire up previous/next month buttons
+        prevButton.Click += (s, e) => PreviousMonth();
+        nextButton.Click += (s, e) => NextMonth();
+
+        PopulateCalendar();
     }
 
     private void DropdownButton_Click(object sender, EventArgs e)
@@ -73,7 +77,7 @@ public partial class PersianDatePicker : UserControl
         {
             for (int j = 0; j < 7; j++)
             {
-                var btn = (Button)this.GetType().GetField($"btnCell_{i}_{j}", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this);
+                var btn = calendarButtons[i, j];
                 DateTime currentDate = startDate.AddDays(i * 7 + j);
                 int currentMonth = persianCalendar.GetMonth(currentDate);
                 int currentYear = persianCalendar.GetYear(currentDate);
@@ -113,6 +117,39 @@ public partial class PersianDatePicker : UserControl
         selectedDate = (DateTime)dayButton.Tag;
         UpdateDateTextBox();
         calendarPanel.Visible = false;
+
+        for (int i = 0; i < 6; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                var btn = calendarButtons[i, j];
+                if (btn.Enabled)
+                {
+                    btn.BackColor = Color.White;
+                    btn.ForeColor = Color.Black;
+                    btn.Font = new Font(Font.FontFamily, 9, FontStyle.Regular);
+                }
+                
+                if ((DateTime)btn.Tag == selectedDate.Date)
+                {
+                    btn.BackColor = Color.DodgerBlue;
+                    btn.ForeColor = Color.White;
+                    btn.Font = new Font(btn.Font, FontStyle.Bold);
+                }
+                else if ((DateTime)btn.Tag == DateTime.Today.Date)
+                {
+                    btn.BackColor = Color.DarkOrange;
+                    btn.ForeColor = Color.White;
+                }
+                else
+                {
+                    btn.ForeColor = Color.Black;
+                }
+            }
+        }
+        dayButton.BackColor = Color.DodgerBlue;
+        dayButton.ForeColor = Color.White;
+        dayButton.Font = new Font(dayButton.Font, FontStyle.Bold);
     }
 
     private void PreviousMonth()
