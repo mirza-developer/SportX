@@ -14,7 +14,13 @@ public partial class PersianDatePicker : UserControl
         "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
     };
 
+    private static readonly string[] PersianWeekDayNames =
+    {
+        "ش", "ی", "د", "س", "چ", "پ", "ج"
+    };
+
     private Button[,] calendarButtons = new Button[6, 7];
+    private Label[] weekDayLabels = new Label[7];
 
     public PersianDatePicker()
     {
@@ -29,6 +35,24 @@ public partial class PersianDatePicker : UserControl
         displayedMonth = DateTime.Today;
         UpdateDateTextBox();
 
+        // Add week day labels to calendarPanel
+        int cellWidth = 40;
+        int startY = 36; // headerPanel.Height
+        for (int i = 0; i < 7; i++)
+        {
+            weekDayLabels[i] = new Label();
+            weekDayLabels[i].Text = PersianWeekDayNames[i];
+            weekDayLabels[i].TextAlign = ContentAlignment.MiddleCenter;
+            weekDayLabels[i].Font = new Font(Font.FontFamily, 9, FontStyle.Bold);
+            weekDayLabels[i].Size = new Size(cellWidth, 20);
+            weekDayLabels[i].Location = new Point(i * cellWidth, startY);
+            weekDayLabels[i].BackColor = Color.WhiteSmoke;
+            calendarPanel.Controls.Add(weekDayLabels[i]);
+            weekDayLabels[i].BringToFront();
+        }
+        // Adjust startY for calendar grid
+        startY += 20;
+
         // Initialize calendarButtons array and wire up events
         for (int i = 0; i < 6; i++)
         {
@@ -37,6 +61,8 @@ public partial class PersianDatePicker : UserControl
                 var btn = (Button)this.GetType().GetField($"btnCell_{i}_{j}", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this);
                 calendarButtons[i, j] = btn;
                 btn.Click += DayButton_Click;
+                // Move button down by 20px to make space for week day labels
+                btn.Location = new Point(btn.Location.X, btn.Location.Y + 20);
             }
         }
 
@@ -73,6 +99,12 @@ public partial class PersianDatePicker : UserControl
             1, 0, 0, 0, 0);
         int offset = ((int)firstOfMonth.DayOfWeek + 1) % 7;
         DateTime startDate = firstOfMonth.AddDays(-offset);
+
+        // Set header label to Persian month and year
+        int persianYear = persianCalendar.GetYear(displayedMonth);
+        int persianMonth = persianCalendar.GetMonth(displayedMonth);
+        headerLabel.Text = $"{PersianMonthNames[persianMonth - 1]} {persianYear}";
+
         for (int i = 0; i < 6; i++)
         {
             for (int j = 0; j < 7; j++)
