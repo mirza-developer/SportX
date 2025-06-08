@@ -35,9 +35,16 @@ public partial class PersianDatePicker : UserControl
         displayedMonth = DateTime.Today;
         UpdateDateTextBox();
 
-        // Add week day labels to calendarPanel
+        // Add a border to the calendar panel
+        calendarPanel.BorderStyle = BorderStyle.FixedSingle;
+
+        // Add week day labels to calendarPanel (right-to-left)
         int cellWidth = 40;
+        int cellHeight = 32;
         int startY = 36; // headerPanel.Height
+        int panelWidth = 7 * cellWidth;
+        // Ensure calendarPanel is tall enough for header, weekday labels, and 6 rows
+        calendarPanel.Size = new Size(panelWidth, startY + 20 + 6 * cellHeight);
         for (int i = 0; i < 7; i++)
         {
             weekDayLabels[i] = new Label();
@@ -45,7 +52,8 @@ public partial class PersianDatePicker : UserControl
             weekDayLabels[i].TextAlign = ContentAlignment.MiddleCenter;
             weekDayLabels[i].Font = new Font(Font.FontFamily, 9, FontStyle.Bold);
             weekDayLabels[i].Size = new Size(cellWidth, 20);
-            weekDayLabels[i].Location = new Point(i * cellWidth, startY);
+            // Place index 0 (Saturday) at the rightmost
+            weekDayLabels[i].Location = new Point(panelWidth - (i + 1) * cellWidth, startY);
             weekDayLabels[i].BackColor = Color.WhiteSmoke;
             calendarPanel.Controls.Add(weekDayLabels[i]);
             weekDayLabels[i].BringToFront();
@@ -53,7 +61,7 @@ public partial class PersianDatePicker : UserControl
         // Adjust startY for calendar grid
         startY += 20;
 
-        // Initialize calendarButtons array and wire up events
+        // Initialize calendarButtons array and wire up events (right-to-left)
         for (int i = 0; i < 6; i++)
         {
             for (int j = 0; j < 7; j++)
@@ -61,8 +69,8 @@ public partial class PersianDatePicker : UserControl
                 var btn = (Button)this.GetType().GetField($"btnCell_{i}_{j}", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(this);
                 calendarButtons[i, j] = btn;
                 btn.Click += DayButton_Click;
-                // Move button down by 20px to make space for week day labels
-                btn.Location = new Point(btn.Location.X, btn.Location.Y + 20);
+                // Place column 0 at the rightmost
+                btn.Location = new Point(panelWidth - (j + 1) * cellWidth, btn.Location.Y + 20);
             }
         }
 
