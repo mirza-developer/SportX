@@ -53,6 +53,7 @@
             // 
             // dataGridViewReport
             // 
+            dataGridViewReport.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewReport.Location = new Point(20, 150);
             dataGridViewReport.MultiSelect = false;
             dataGridViewReport.Name = "dataGridViewReport";

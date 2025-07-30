@@ -16,6 +16,68 @@ public partial class FrmMain : Form
         InitializeComponent();
     }
 
+    private async Task CheckAndApplyMigrations()
+    {
+        try
+        {
+            // Check if there are pending migrations
+            var pendingMigrations = await _context.Database.GetPendingMigrationsAsync();
+            
+            if (pendingMigrations.Any())
+            {
+                // Show progress form while applying migrations
+                var progressForm = new Form();
+                var progressLabel = new Label();
+                progressLabel.Text = "در حال اعمال به‌روزرسانی‌های پایگاه داده، لطفا صبر کنید...";
+                progressLabel.AutoSize = true;
+                progressLabel.Location = new Point(20, 20);
+                progressForm.Controls.Add(progressLabel);
+                progressForm.Size = new Size(400, 100);
+                progressForm.StartPosition = FormStartPosition.CenterScreen;
+                progressForm.Text = "به‌روزرسانی پایگاه داده";
+                progressForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                progressForm.MaximizeBox = false;
+                progressForm.MinimizeBox = false;
+                progressForm.Show();
+                Application.DoEvents();
+
+                try
+                {
+                    // Apply migrations
+                    await _context.Database.MigrateAsync();
+                    
+                    // Close progress form
+                    progressForm.Close();
+                    
+                    MessageBox.Show(
+                        "به‌روزرسانی‌های پایگاه داده با موفقیت اعمال شد.",
+                        "به‌روزرسانی موفق",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                catch (Exception migrationEx)
+                {
+                    // Close progress form
+                    progressForm.Close();
+                    
+                    MessageBox.Show(
+                        $"خطا در اعمال به‌روزرسانی‌های پایگاه داده:\n{migrationEx.Message}",
+                        "خطا در به‌روزرسانی",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                $"خطا در بررسی وضعیت پایگاه داده:\n{ex.Message}",
+                "خطا",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+        }
+    }
+
     private void SignUpMenuItem_Click(object sender, EventArgs e)
     {
         timerFocus.Enabled = false;
@@ -67,6 +129,7 @@ public partial class FrmMain : Form
 
     private async void FrmMain_Load(object sender, EventArgs e)
     {
+        await CheckAndApplyMigrations();
         await LoadEnteredAthletes();
     }
 
