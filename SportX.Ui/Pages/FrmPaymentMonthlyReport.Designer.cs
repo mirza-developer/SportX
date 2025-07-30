@@ -36,12 +36,15 @@
             dateTimePickerFromDate = new TextBox();
             labelFromDate = new Label();
             labelToDate = new Label();
+            buttonChooseAthlete = new Button();
+            textBoxAthlete = new TextBox();
+            labelAthlete = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewReport).BeginInit();
             SuspendLayout();
             // 
             // buttonGenerateReport
             // 
-            buttonGenerateReport.Location = new Point(530, 83);
+            buttonGenerateReport.Location = new Point(530, 113);
             buttonGenerateReport.Name = "buttonGenerateReport";
             buttonGenerateReport.Size = new Size(156, 30);
             buttonGenerateReport.TabIndex = 4;
@@ -50,7 +53,7 @@
             // 
             // dataGridViewReport
             // 
-            dataGridViewReport.Location = new Point(20, 120);
+            dataGridViewReport.Location = new Point(20, 150);
             dataGridViewReport.MultiSelect = false;
             dataGridViewReport.Name = "dataGridViewReport";
             dataGridViewReport.RowHeadersVisible = false;
@@ -60,7 +63,7 @@
             // 
             // labelTotalPayments
             // 
-            labelTotalPayments.Location = new Point(20, 491);
+            labelTotalPayments.Location = new Point(20, 521);
             labelTotalPayments.Name = "labelTotalPayments";
             labelTotalPayments.Size = new Size(760, 20);
             labelTotalPayments.TabIndex = 6;
@@ -99,9 +102,38 @@
             labelToDate.Text = "تا تاریخ";
             labelToDate.TextAlign = ContentAlignment.MiddleRight;
             // 
+            // buttonChooseAthlete
+            // 
+            buttonChooseAthlete.Location = new Point(370, 83);
+            buttonChooseAthlete.Name = "buttonChooseAthlete";
+            buttonChooseAthlete.Size = new Size(154, 23);
+            buttonChooseAthlete.TabIndex = 17;
+            buttonChooseAthlete.Text = "انتخاب ورزشکار";
+            buttonChooseAthlete.Click += ButtonChooseAthlete_Click;
+            // 
+            // textBoxAthlete
+            // 
+            textBoxAthlete.Location = new Point(530, 83);
+            textBoxAthlete.Name = "textBoxAthlete";
+            textBoxAthlete.ReadOnly = true;
+            textBoxAthlete.Size = new Size(154, 23);
+            textBoxAthlete.TabIndex = 16;
+            // 
+            // labelAthlete
+            // 
+            labelAthlete.Location = new Point(714, 83);
+            labelAthlete.Name = "labelAthlete";
+            labelAthlete.Size = new Size(50, 20);
+            labelAthlete.TabIndex = 18;
+            labelAthlete.Text = "ورزشکار";
+            labelAthlete.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // FrmPaymentMonthlyReport
             // 
-            ClientSize = new Size(800, 518);
+            ClientSize = new Size(800, 548);
+            Controls.Add(labelAthlete);
+            Controls.Add(buttonChooseAthlete);
+            Controls.Add(textBoxAthlete);
             Controls.Add(dateTimePickerToDate);
             Controls.Add(dateTimePickerFromDate);
             Controls.Add(labelFromDate);
@@ -123,11 +155,13 @@
         private Button buttonGenerateReport;
         private DataGridView dataGridViewReport;
         private Label labelTotalPayments;
-        #endregion
-
         private TextBox dateTimePickerToDate;
         private TextBox dateTimePickerFromDate;
         private Label labelFromDate;
         private Label labelToDate;
+        private Button buttonChooseAthlete;
+        private TextBox textBoxAthlete;
+        private Label labelAthlete;
+        #endregion
     }
 }

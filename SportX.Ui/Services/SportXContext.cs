@@ -55,7 +55,7 @@ public class SportXContext: DbContext
 
             var backupCommand = $"BACKUP DATABASE [{databaseName}] TO DISK = '{backupPath}' WITH FORMAT, INIT";
             using var command = new SqlCommand(backupCommand, connection);
-            command.CommandTimeout = 300; // 5 minutes timeout
+            command.CommandTimeout = 300; 
 
             await command.ExecuteNonQueryAsync();
             return true;

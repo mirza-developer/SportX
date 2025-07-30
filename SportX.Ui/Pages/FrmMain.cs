@@ -9,6 +9,7 @@ public partial class FrmMain : Form
 {
     private SportXContext _context = new(new DbContextOptions<SportXContext>());
     private List<AthleteUsageLog>? enteredAthletes;
+    private bool isExiting = false;
 
     public FrmMain()
     {
@@ -99,81 +100,114 @@ public partial class FrmMain : Form
 
     private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
     {
+        // If already in the process of exiting, don't show dialog again
+        if (isExiting)
+        {
+            return;
+        }
+
         var result = MessageBox.Show(
             "آیا قبل از خروج، پشتیبان از پایگاه داده تهیه شود؟",
             "پشتیبان گیری از پایگاه داده",
-            MessageBoxButtons.YesNoCancel,
+            MessageBoxButtons.YesNo,
             MessageBoxIcon.Question);
 
         switch (result)
         {
             case DialogResult.Yes:
-                e.Cancel = true; // Cancel the closing to perform backup first
-                _ = PerformBackupAndExit(); // Fire and forget async task
+                e.Cancel = true;
+                isExiting = true; // Set flag to prevent loop
+                _ = PerformBackup(true); // Exit after backup
                 break;
-            case DialogResult.No:
+
+            default:
+                isExiting = true; // Set flag before exit
                 Application.Exit();
-                break;
-            case DialogResult.Cancel:
-                e.Cancel = true; // Cancel the closing
                 break;
         }
     }
 
-    private async Task PerformBackupAndExit()
+    private async Task PerformBackup(bool exitAfterBackup = false)
     {
         try
         {
-            // Show save file dialog to let user choose backup location
-            using var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "SQL Backup files (*.bak)|*.bak|All files (*.*)|*.*";
-            saveFileDialog.DefaultExt = "bak";
-            saveFileDialog.FileName = $"SportX_Backup_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.bak";
-            saveFileDialog.Title = "انتخاب مکان ذخیره پشتیبان";
+            // Get backup path from configuration
+            var backupPath = Program.Configuration["ProjectConfigs:BackupSettings:BackupPath"];
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            if (string.IsNullOrEmpty(backupPath))
             {
-                // Show progress message
-                var progressForm = new Form();
-                var progressLabel = new Label();
-                progressLabel.Text = "در حال تهیه پشتیبان، لطفا صبر کنید...";
-                progressLabel.AutoSize = true;
-                progressLabel.Location = new Point(20, 20);
-                progressForm.Controls.Add(progressLabel);
-                progressForm.Size = new Size(300, 100);
-                progressForm.StartPosition = FormStartPosition.CenterParent;
-                progressForm.Text = "پشتیبان گیری";
-                progressForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-                progressForm.MaximizeBox = false;
-                progressForm.MinimizeBox = false;
-                progressForm.Show();
-                Application.DoEvents();
-
-                bool backupSuccess = await _context.CreateBackupAsync(saveFileDialog.FileName);
+                MessageBox.Show(
+                    "مسیر پشتیبان گیری در تنظیمات تعریف نشده است.",
+                    "خطا",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 
-                progressForm.Close();
+                if (exitAfterBackup)
+                {
+                    isExiting = true;
+                    Application.Exit();
+                }
+                return;
+            }
 
-                if (backupSuccess)
-                {
-                    MessageBox.Show(
-                        $"پشتیبان با موفقیت در مسیر زیر ذخیره شد:\n{saveFileDialog.FileName}",
-                        "پشتیبان گیری موفق",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "خطا در تهیه پشتیبان رخ داد. لطفا دوباره تلاش کنید.",
-                        "خطا",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                    return; // Don't exit if backup failed
-                }
+            // Create backup directory if it doesn't exist
+            if (!Directory.Exists(backupPath))
+            {
+                Directory.CreateDirectory(backupPath);
+            }
+
+            // Generate backup file name with Persian date and time
+            var now = DateTime.Now;
+            var persianDate = PersianCalendarTools.GregorianToPersianWithManualSeprator(now, "-");
+            var persianTime = now.ToString("HH-mm-ss");
+            var fileName = $"SportX_Backup_{persianDate}_{persianTime}.bak";
+            var fullBackupPath = Path.Combine(backupPath, fileName);
+
+            // Create and show progress form
+            var progressForm = new Form();
+            var progressLabel = new Label();
+            progressLabel.Text = "در حال تهیه پشتیبان، لطفا صبر کنید...";
+            progressLabel.AutoSize = true;
+            progressLabel.Location = new Point(20, 20);
+            progressForm.Controls.Add(progressLabel);
+            progressForm.Size = new Size(300, 100);
+            progressForm.StartPosition = exitAfterBackup ? FormStartPosition.CenterScreen : FormStartPosition.CenterParent;
+            progressForm.Text = "پشتیبان گیری";
+            progressForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            progressForm.MaximizeBox = false;
+            progressForm.MinimizeBox = false;
+            progressForm.Show();
+            Application.DoEvents();
+
+            // Perform backup
+            bool backupSuccess = await _context.CreateBackupAsync(fullBackupPath);
+
+            // Close progress form
+            progressForm.Close();
+
+            // Show result message
+            if (backupSuccess)
+            {
+                MessageBox.Show(
+                    $"پشتیبان با موفقیت در مسیر زیر ذخیره شد:\n{fullBackupPath}",
+                    "پشتیبان گیری موفق",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
             else
             {
-                return; // User cancelled the save dialog, don't exit
+                MessageBox.Show(
+                    "خطا در تهیه پشتیبان رخ داد. لطفا دوباره تلاش کنید.",
+                    "خطا",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                
+                if (exitAfterBackup)
+                {
+                    isExiting = true;
+                    Application.Exit();
+                }
+                return;
             }
         }
         catch (Exception ex)
@@ -183,11 +217,21 @@ public partial class FrmMain : Form
                 "خطا",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
-            return; // Don't exit if backup failed
+            
+            if (exitAfterBackup)
+            {
+                isExiting = true;
+                Application.Exit();
+            }
+            return;
         }
 
-        // If we reach here, backup was successful or user chose to continue
-        Application.Exit();
+        // Exit application if requested and backup was successful
+        if (exitAfterBackup)
+        {
+            isExiting = true;
+            Application.Exit();
+        }
     }
 
     private void buttonChooseAthlete_Click(object sender, EventArgs e)
@@ -364,6 +408,11 @@ public partial class FrmMain : Form
 
         FrmPlanManagment reportForm = new();
         reportForm.ShowDialog();
+    }
+
+    private async void تهیهپشتیبانToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        await PerformBackup(false); // Don't exit after backup
     }
 }
 
