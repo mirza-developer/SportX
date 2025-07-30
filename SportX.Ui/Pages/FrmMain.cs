@@ -99,6 +99,94 @@ public partial class FrmMain : Form
 
     private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
     {
+        var result = MessageBox.Show(
+            "آیا قبل از خروج، پشتیبان از پایگاه داده تهیه شود؟",
+            "پشتیبان گیری از پایگاه داده",
+            MessageBoxButtons.YesNoCancel,
+            MessageBoxIcon.Question);
+
+        switch (result)
+        {
+            case DialogResult.Yes:
+                e.Cancel = true; // Cancel the closing to perform backup first
+                _ = PerformBackupAndExit(); // Fire and forget async task
+                break;
+            case DialogResult.No:
+                Application.Exit();
+                break;
+            case DialogResult.Cancel:
+                e.Cancel = true; // Cancel the closing
+                break;
+        }
+    }
+
+    private async Task PerformBackupAndExit()
+    {
+        try
+        {
+            // Show save file dialog to let user choose backup location
+            using var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "SQL Backup files (*.bak)|*.bak|All files (*.*)|*.*";
+            saveFileDialog.DefaultExt = "bak";
+            saveFileDialog.FileName = $"SportX_Backup_{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.bak";
+            saveFileDialog.Title = "انتخاب مکان ذخیره پشتیبان";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Show progress message
+                var progressForm = new Form();
+                var progressLabel = new Label();
+                progressLabel.Text = "در حال تهیه پشتیبان، لطفا صبر کنید...";
+                progressLabel.AutoSize = true;
+                progressLabel.Location = new Point(20, 20);
+                progressForm.Controls.Add(progressLabel);
+                progressForm.Size = new Size(300, 100);
+                progressForm.StartPosition = FormStartPosition.CenterParent;
+                progressForm.Text = "پشتیبان گیری";
+                progressForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                progressForm.MaximizeBox = false;
+                progressForm.MinimizeBox = false;
+                progressForm.Show();
+                Application.DoEvents();
+
+                bool backupSuccess = await _context.CreateBackupAsync(saveFileDialog.FileName);
+                
+                progressForm.Close();
+
+                if (backupSuccess)
+                {
+                    MessageBox.Show(
+                        $"پشتیبان با موفقیت در مسیر زیر ذخیره شد:\n{saveFileDialog.FileName}",
+                        "پشتیبان گیری موفق",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "خطا در تهیه پشتیبان رخ داد. لطفا دوباره تلاش کنید.",
+                        "خطا",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return; // Don't exit if backup failed
+                }
+            }
+            else
+            {
+                return; // User cancelled the save dialog, don't exit
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                $"خطا در تهیه پشتیبان: {ex.Message}",
+                "خطا",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            return; // Don't exit if backup failed
+        }
+
+        // If we reach here, backup was successful or user chose to continue
         Application.Exit();
     }
 

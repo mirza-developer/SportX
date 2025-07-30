@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SportX.Ui.Models;
+using Microsoft.Data.SqlClient;
 
 namespace SportX.Ui.Services;
 public class SportXContext: DbContext
@@ -38,6 +39,31 @@ public class SportXContext: DbContext
         if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseSqlServer(Program.Configuration.GetConnectionString("SqlDefaultConnectionString"));
+        }
+    }
+
+    public async Task<bool> CreateBackupAsync(string backupPath)
+    {
+        try
+        {
+            var connectionString = Program.Configuration.GetConnectionString("SqlDefaultConnectionString");
+            var connectionBuilder = new SqlConnectionStringBuilder(connectionString);
+            var databaseName = connectionBuilder.InitialCatalog;
+
+            using var connection = new SqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            var backupCommand = $"BACKUP DATABASE [{databaseName}] TO DISK = '{backupPath}' WITH FORMAT, INIT";
+            using var command = new SqlCommand(backupCommand, connection);
+            command.CommandTimeout = 300; // 5 minutes timeout
+
+            await command.ExecuteNonQueryAsync();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Backup error: {ex.Message}");
+            return false;
         }
     }
 }
