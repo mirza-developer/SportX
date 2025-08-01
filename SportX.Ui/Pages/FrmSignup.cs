@@ -16,7 +16,10 @@ public partial class FrmSignup : Form
 
     private void LoadAthletes()
     {
-        var athletes = context.Athletes.AsQueryable();
+        var athletes = context.Athletes
+            .Include(a => a.Payments)
+            .ThenInclude(p => p.Plan)
+            .AsQueryable();
 
         if (!string.IsNullOrEmpty(textBoxSearch.Text))
         {
@@ -25,7 +28,31 @@ public partial class FrmSignup : Form
             || p.NationalCode.Contains(textBoxSearch.Text));
         }
 
-        dataGridViewAthletes.DataSource = athletes.ToList();
+        var athleteList = athletes.ToList().Select(a => new
+        {
+            a.Id,
+            a.Name,
+            a.NationalCode,
+            a.Phone,
+            a.DateOfBirth,
+            MembershipString = a.MembershipString,
+            GenderString = a.GenderString,
+            RemainingSessionCounts = a.RemainingSessionCounts,
+            a.Address,
+            DateEndMembership = a.DateEndMembership ?? "نامشخص",
+            CurrentPlan = a.Payments
+                .OrderByDescending(p => p.CreateDatetime)
+                .FirstOrDefault()?.Plan?.Title ?? "هیچ برنامه ای",
+            a.CreateDatetime,
+            a.LastModifyDatetime,
+            a.Payments,
+            a.Usages,
+            a.IsMale,
+            a.Epc,
+            a.Membership
+        }).ToList();
+
+        dataGridViewAthletes.DataSource = athleteList;
 
         dataGridViewAthletes.Columns["Name"].HeaderText = "نام";
         dataGridViewAthletes.Columns["NationalCode"].HeaderText = "کد ملی";
@@ -35,6 +62,8 @@ public partial class FrmSignup : Form
         dataGridViewAthletes.Columns["GenderString"].HeaderText = "جنسیت";
         dataGridViewAthletes.Columns["RemainingSessionCounts"].HeaderText = "جلسات باقی مانده";
         dataGridViewAthletes.Columns["Address"].HeaderText = "آدرس";
+        dataGridViewAthletes.Columns["DateEndMembership"].HeaderText = "تاریخ پایان عضویت";
+        dataGridViewAthletes.Columns["CurrentPlan"].HeaderText = "برنامه جاری";
 
         dataGridViewAthletes.Columns["Id"].Visible = false;
         dataGridViewAthletes.Columns["CreateDatetime"].Visible = false;
@@ -44,7 +73,6 @@ public partial class FrmSignup : Form
         dataGridViewAthletes.Columns["IsMale"].Visible = false;
         dataGridViewAthletes.Columns["Epc"].Visible = false;
         dataGridViewAthletes.Columns["Membership"].Visible = false;
-        dataGridViewAthletes.Columns["DateEndMembership"].Visible = false;
     }
 
     private void DataGridViewAthletes_SelectionChanged(object sender, EventArgs e)
@@ -66,6 +94,8 @@ public partial class FrmSignup : Form
                 textBoxId.Text = _selectedAthlete.Id.ToString();
                 textBoxAddress.Text = _selectedAthlete.Address;
                 textBoxEpc.Text = _selectedAthlete.Epc;
+                
+                ShowAthletesPlanInfo(_selectedAthlete.Id);
             }
         }
     }
@@ -150,6 +180,10 @@ public partial class FrmSignup : Form
         textBoxId.Text = string.Empty;
         textBoxAddress.Text = string.Empty;
         textBoxEpc.Text = string.Empty;
+        // Clear plan information
+        textBoxCurrentPlan.Clear();
+        textBoxEndDate.Clear();
+        textBoxRemainingSessions.Clear();
     }
 
     private void buttonNew_Click(object sender, EventArgs e)
@@ -233,5 +267,27 @@ public partial class FrmSignup : Form
         {
             MessageBox.Show("امکان حذف ورزشکار وجود ندارد", "توجه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+    }
+
+    private void ShowAthletesPlanInfo(int athleteId)
+    {
+        var latestPayment = context.Payments
+            .Include(p => p.Plan)
+            .Where(p => p.AthleteId == athleteId)
+            .OrderByDescending(p => p.CreateDatetime)
+            .FirstOrDefault();
+
+        string planInfo = "";
+        if (latestPayment?.Plan != null)
+        {
+            textBoxCurrentPlan.Text = $"{latestPayment.Plan.Title}";
+        }
+        else
+        {
+            textBoxCurrentPlan.Text = "";
+        }
+
+        textBoxEndDate.Text = _selectedAthlete.DateEndMembership ?? "نامشخص";
+        textBoxRemainingSessions.Text = _selectedAthlete.RemainingSessionCounts.ToString();
     }
 }
