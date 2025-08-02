@@ -42,6 +42,7 @@ namespace SportX.Ui.Pages
             گزارشحضورورزشکارToolStripMenuItem = new ToolStripMenuItem();
             تنظیماتToolStripMenuItem = new ToolStripMenuItem();
             مدیریتبرنامههاToolStripMenuItem = new ToolStripMenuItem();
+            تهیهپشتیبانToolStripMenuItem = new ToolStripMenuItem();
             groupBox2 = new GroupBox();
             groupBox3 = new GroupBox();
             textBoxSearch = new TextBox();
@@ -73,7 +74,8 @@ namespace SportX.Ui.Pages
             labelName = new Label();
             textBox1 = new TextBox();
             timer2 = new System.Windows.Forms.Timer(components);
-            تهیهپشتیبانToolStripMenuItem = new ToolStripMenuItem();
+            txtPlan = new TextBox();
+            label9 = new Label();
             menuStrip.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -145,18 +147,25 @@ namespace SportX.Ui.Pages
             // مدیریتبرنامههاToolStripMenuItem
             // 
             مدیریتبرنامههاToolStripMenuItem.Name = "مدیریتبرنامههاToolStripMenuItem";
-            مدیریتبرنامههاToolStripMenuItem.Size = new Size(180, 22);
+            مدیریتبرنامههاToolStripMenuItem.Size = new Size(157, 22);
             مدیریتبرنامههاToolStripMenuItem.Text = "مدیریت برنامه ها";
             مدیریتبرنامههاToolStripMenuItem.Click += مدیریتبرنامههاToolStripMenuItem_Click;
+            // 
+            // تهیهپشتیبانToolStripMenuItem
+            // 
+            تهیهپشتیبانToolStripMenuItem.Name = "تهیهپشتیبانToolStripMenuItem";
+            تهیهپشتیبانToolStripMenuItem.Size = new Size(157, 22);
+            تهیهپشتیبانToolStripMenuItem.Text = "تهیه پشتیبان";
+            تهیهپشتیبانToolStripMenuItem.Click += تهیهپشتیبانToolStripMenuItem_Click;
             // 
             // groupBox2
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(groupBox3);
             groupBox2.Controls.Add(dataGridViewAthletes);
-            groupBox2.Location = new Point(0, 217);
+            groupBox2.Location = new Point(0, 228);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(753, 377);
+            groupBox2.Size = new Size(753, 366);
             groupBox2.TabIndex = 6;
             groupBox2.TabStop = false;
             groupBox2.Text = "ورزشکاران وارد شده";
@@ -167,7 +176,7 @@ namespace SportX.Ui.Pages
             groupBox3.Controls.Add(textBoxSearch);
             groupBox3.Controls.Add(label3);
             groupBox3.Controls.Add(buttonSearch);
-            groupBox3.Location = new Point(6, 22);
+            groupBox3.Location = new Point(6, 19);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(741, 57);
             groupBox3.TabIndex = 22;
@@ -204,13 +213,13 @@ namespace SportX.Ui.Pages
             // 
             dataGridViewAthletes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewAthletes.ColumnHeadersHeight = 34;
-            dataGridViewAthletes.Location = new Point(3, 85);
+            dataGridViewAthletes.Location = new Point(3, 82);
             dataGridViewAthletes.MultiSelect = false;
             dataGridViewAthletes.Name = "dataGridViewAthletes";
             dataGridViewAthletes.RowHeadersVisible = false;
             dataGridViewAthletes.RowHeadersWidth = 62;
             dataGridViewAthletes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewAthletes.Size = new Size(748, 288);
+            dataGridViewAthletes.Size = new Size(748, 214);
             dataGridViewAthletes.TabIndex = 5;
             // 
             // timerFocus
@@ -226,6 +235,8 @@ namespace SportX.Ui.Pages
             // groupBoxInfo
             // 
             groupBoxInfo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBoxInfo.Controls.Add(txtPlan);
+            groupBoxInfo.Controls.Add(label9);
             groupBoxInfo.Controls.Add(groupBox1);
             groupBoxInfo.Controls.Add(textBoxStatus);
             groupBoxInfo.Controls.Add(label7);
@@ -246,7 +257,7 @@ namespace SportX.Ui.Pages
             groupBoxInfo.Controls.Add(textBox1);
             groupBoxInfo.Location = new Point(6, 27);
             groupBoxInfo.Name = "groupBoxInfo";
-            groupBoxInfo.Size = new Size(741, 192);
+            groupBoxInfo.Size = new Size(741, 201);
             groupBoxInfo.TabIndex = 30;
             groupBoxInfo.TabStop = false;
             groupBoxInfo.Text = "اطلاعات ورزشکار";
@@ -257,9 +268,9 @@ namespace SportX.Ui.Pages
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(textBoxEpc);
             groupBox1.Controls.Add(buttonEpc);
-            groupBox1.Location = new Point(6, 132);
+            groupBox1.Location = new Point(6, 147);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(729, 52);
+            groupBox1.Size = new Size(729, 50);
             groupBox1.TabIndex = 46;
             groupBox1.TabStop = false;
             groupBox1.Text = "ثبت ورود/خروج با کارت";
@@ -439,12 +450,22 @@ namespace SportX.Ui.Pages
             // 
             timer2.Interval = 500;
             // 
-            // تهیهپشتیبانToolStripMenuItem
+            // txtPlan
             // 
-            تهیهپشتیبانToolStripMenuItem.Name = "تهیهپشتیبانToolStripMenuItem";
-            تهیهپشتیبانToolStripMenuItem.Size = new Size(180, 22);
-            تهیهپشتیبانToolStripMenuItem.Text = "تهیه پشتیبان";
-            تهیهپشتیبانToolStripMenuItem.Click += تهیهپشتیبانToolStripMenuItem_Click;
+            txtPlan.Location = new Point(292, 120);
+            txtPlan.Name = "txtPlan";
+            txtPlan.ReadOnly = true;
+            txtPlan.Size = new Size(336, 23);
+            txtPlan.TabIndex = 48;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(631, 123);
+            label9.Name = "label9";
+            label9.Size = new Size(35, 15);
+            label9.TabIndex = 47;
+            label9.Text = "برنامه";
             // 
             // FrmMain
             // 
@@ -520,5 +541,7 @@ namespace SportX.Ui.Pages
         private ToolStripMenuItem تنظیماتToolStripMenuItem;
         private ToolStripMenuItem مدیریتبرنامههاToolStripMenuItem;
         private ToolStripMenuItem تهیهپشتیبانToolStripMenuItem;
+        private TextBox txtPlan;
+        private Label label9;
     }
 }

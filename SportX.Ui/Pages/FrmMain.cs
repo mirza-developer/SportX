@@ -22,7 +22,7 @@ public partial class FrmMain : Form
         {
             // Check if there are pending migrations
             var pendingMigrations = await _context.Database.GetPendingMigrationsAsync();
-            
+
             if (pendingMigrations.Any())
             {
                 // Show progress form while applying migrations
@@ -45,10 +45,10 @@ public partial class FrmMain : Form
                 {
                     // Apply migrations
                     await _context.Database.MigrateAsync();
-                    
+
                     // Close progress form
                     progressForm.Close();
-                    
+
                     MessageBox.Show(
                         "به‌روزرسانی‌های پایگاه داده با موفقیت اعمال شد.",
                         "به‌روزرسانی موفق",
@@ -59,7 +59,7 @@ public partial class FrmMain : Form
                 {
                     // Close progress form
                     progressForm.Close();
-                    
+
                     MessageBox.Show(
                         $"خطا در اعمال به‌روزرسانی‌های پایگاه داده:\n{migrationEx.Message}",
                         "خطا در به‌روزرسانی",
@@ -204,7 +204,7 @@ public partial class FrmMain : Form
                     "خطا",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                
+
                 if (exitAfterBackup)
                 {
                     isExiting = true;
@@ -264,7 +264,7 @@ public partial class FrmMain : Form
                     "خطا",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                
+
                 if (exitAfterBackup)
                 {
                     isExiting = true;
@@ -280,7 +280,7 @@ public partial class FrmMain : Form
                 "خطا",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
-            
+
             if (exitAfterBackup)
             {
                 isExiting = true;
@@ -366,7 +366,7 @@ public partial class FrmMain : Form
         }
     }
 
-    private void LoadAthleteInfo(Athlete athlete)
+    private void LoadAthleteInfo(Athlete athlete, Payment? payment = null)
     {
         textBoxName.Text = athlete.Name;
         textBoxNationalCode.Text = athlete.NationalCode;
@@ -375,6 +375,15 @@ public partial class FrmMain : Form
         textBoxAddress.Text = athlete.Address;
         textboxRemainingSessions.Text = athlete.RemainingSessionCounts.ToString();
         textBoxEndDate.Text = athlete.DateEndMembership;
+
+        if (payment is not null)
+        {
+            txtPlan.Text = $"{payment.Plan.Title}";
+        }
+        else
+        {
+            txtPlan.Text = "";
+        }
     }
 
     private async Task CheckAndEnter()
@@ -395,7 +404,13 @@ public partial class FrmMain : Form
             return;
         }
 
-        LoadAthleteInfo(athlete);
+        var latestPayment = _context.Payments
+                                           .Include(p => p.Plan)
+                                           .Where(p => p.AthleteId == athlete.Id)
+                                           .OrderByDescending(p => p.CreateDatetime)
+                                           .FirstOrDefault();
+
+        LoadAthleteInfo(athlete, latestPayment);
 
         if (athlete is not null)
         {
