@@ -96,7 +96,7 @@ public partial class FrmPaymentMonthlyReport : Form
         // Calculate the total sum of payments
         var totalPayments = paymentsList.Sum(p => p.PriceInTomans);
         totalAmount = totalPayments; // Store for printing
-        labelTotalPayments.Text = $"جمع مبالغ پرداختی: {totalPayments} تومان";
+        labelTotalPayments.Text = $"جمع مبالغ پرداختی: {totalPayments.ToString("N2").Replace(".00","")} تومان";
     }
 
     private void ButtonPrint_Click(object sender, EventArgs e)
@@ -317,7 +317,7 @@ public partial class FrmPaymentMonthlyReport : Form
 
     private void FrmPaymentMonthlyReport_Load(object sender, EventArgs e)
     {
-        dateTimePickerFromDate.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now);
+        dateTimePickerFromDate.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now.AddMonths(-1));
 
         dateTimePickerToDate.Text = PersianCalendarTools.GregorianToPersian(DateTime.Now);
     }

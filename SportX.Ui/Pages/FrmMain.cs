@@ -303,14 +303,13 @@ public partial class FrmMain : Form
 
         if (frmChooseAthlete.ShowDialog() == DialogResult.OK)
         {
-            if (enteredAthletes.Any(p => p.Id == frmChooseAthlete.SelectedAthlete.Id))
+            if (enteredAthletes?.Any(p => p.Id == frmChooseAthlete.SelectedAthlete.Id) == true)
             {
                 foreach (DataGridViewRow row in dataGridViewAthletes.Rows)
                 {
                     if (row.Cells["Id"].Value.ToString() == frmChooseAthlete.SelectedAthlete.Id.ToString())
                     {
                         row.Selected = true;
-
                         break;
                     }
                 }
@@ -368,21 +367,21 @@ public partial class FrmMain : Form
 
     private void LoadAthleteInfo(Athlete athlete, Payment? payment = null)
     {
-        textBoxName.Text = athlete.Name;
-        textBoxNationalCode.Text = athlete.NationalCode;
-        textBoxPhone.Text = athlete.Phone;
-        textBoxId.Text = athlete.Id.ToString();
-        textBoxAddress.Text = athlete.Address;
-        textboxRemainingSessions.Text = athlete.RemainingSessionCounts.ToString();
-        textBoxEndDate.Text = athlete.DateEndMembership;
+        textBoxName.Text = athlete?.Name ?? string.Empty;
+        textBoxNationalCode.Text = athlete?.NationalCode ?? string.Empty;
+        textBoxPhone.Text = athlete?.Phone ?? string.Empty;
+        textBoxId.Text = athlete?.Id.ToString() ?? string.Empty;
+        textBoxAddress.Text = athlete?.Address ?? string.Empty;
+        textboxRemainingSessions.Text = athlete?.RemainingSessionCounts.ToString() ?? "0";
+        textBoxEndDate.Text = athlete?.DateEndMembership ?? string.Empty;
 
-        if (payment is not null)
+        if (payment?.Plan != null)
         {
-            txtPlan.Text = $"{payment.Plan.Title}";
+            txtPlan.Text = payment.Plan.Title ?? string.Empty;
         }
         else
         {
-            txtPlan.Text = "";
+            txtPlan.Text = string.Empty;
         }
     }
 
@@ -393,14 +392,26 @@ public partial class FrmMain : Form
             return;
         }
 
-        Athlete? athlete = athlete = await _context.Athletes
+        Athlete? athlete = await _context.Athletes
                                     .FirstOrDefaultAsync(a => a.Epc == textBoxEpc.Text);
 
+        // Check if athlete was found
+        if (athlete == null)
+        {
+            MessageBox.Show("ورزشکار یافت نشد", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
 
-        if (enteredAthletes.Any(p => p.AthleteId == athlete.Id))
+        // Ensure enteredAthletes is not null
+        if (enteredAthletes == null)
+        {
+            await LoadEnteredAthletes();
+        }
+
+        // Check if athlete is already entered
+        if (enteredAthletes?.Any(p => p.AthleteId == athlete.Id) == true)
         {
             await Exit(athlete);
-
             return;
         }
 
@@ -412,56 +423,47 @@ public partial class FrmMain : Form
 
         LoadAthleteInfo(athlete, latestPayment);
 
-        if (athlete is not null)
+        if (athlete.RemainingSessionCounts > 0)
         {
-            if (athlete.RemainingSessionCounts > 0)
+            // Check if DateEndMembership is null or empty before parsing
+            if (string.IsNullOrEmpty(athlete.DateEndMembership) || 
+                PersianCalendarTools.PersianToGregorian(athlete.DateEndMembership).Date < DateTime.Now.Date)
             {
-                if (PersianCalendarTools.PersianToGregorian(athlete.DateEndMembership).Date < DateTime.Now.Date)
-                {
-                    textBoxStatus.Text = "اتمام تاریخی اعتبار";
-
-                    groupBoxInfo.BackColor = Color.Red;
-
-                    timerClearInfo.Enabled = true;
-
-                    return;
-                }
-
-                AthleteUsageLog usageLog = new AthleteUsageLog
-                {
-                    AthleteId = athlete.Id,
-                    IsEntered = true,
-                    IsPaid = true,
-                    CreateDatetime = DateTime.Now
-                };
-
-                _context.Usages.Add(usageLog);
-
-                athlete.RemainingSessionCounts--;
-
-                _context.Athletes.Update(athlete);
-
-                await _context.SaveChangesAsync();
-
-                textBoxStatus.Text = "ورود موفق";
-
-                groupBoxInfo.BackColor = Color.Green;
-
-                await LoadEnteredAthletes();
-            }
-            else
-            {
-                textBoxStatus.Text = "اتمام جلسه ای اعتبار";
-
+                textBoxStatus.Text = "اتمام تاریخی اعتبار";
                 groupBoxInfo.BackColor = Color.Red;
+                timerClearInfo.Enabled = true;
+                return;
             }
 
-            timerClearInfo.Enabled = true;
+            AthleteUsageLog usageLog = new AthleteUsageLog
+            {
+                AthleteId = athlete.Id,
+                IsEntered = true,
+                IsPaid = true,
+                CreateDatetime = DateTime.Now
+            };
+
+            _context.Usages.Add(usageLog);
+
+            athlete.RemainingSessionCounts--;
+
+            _context.Athletes.Update(athlete);
+
+            await _context.SaveChangesAsync();
+
+            textBoxStatus.Text = "ورود موفق";
+
+            groupBoxInfo.BackColor = Color.Green;
+
+            await LoadEnteredAthletes();
         }
         else
         {
-            MessageBox.Show("ورزشکار یافت نشد", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            textBoxStatus.Text = "اتمام جلسه ای اعتبار";
+            groupBoxInfo.BackColor = Color.Red;
         }
+
+        timerClearInfo.Enabled = true;
     }
 
     private void timerClearInfo_Tick(object sender, EventArgs e)
