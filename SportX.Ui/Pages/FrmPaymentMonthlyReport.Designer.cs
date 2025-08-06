@@ -6,6 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Drawing.Printing.PrintDocument printDocument;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -13,9 +14,13 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                printDocument?.Dispose();
+                if (components != null)
+                {
+                    components.Dispose();
+                }
             }
             base.Dispose(disposing);
         }
@@ -30,6 +35,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPaymentMonthlyReport));
             buttonGenerateReport = new Button();
+            buttonPrint = new Button();
             dataGridViewReport = new DataGridView();
             labelTotalPayments = new Label();
             dateTimePickerToDate = new TextBox();
@@ -50,6 +56,16 @@
             buttonGenerateReport.TabIndex = 4;
             buttonGenerateReport.Text = "تولید گزارش";
             buttonGenerateReport.Click += ButtonGenerateReport_Click;
+            // 
+            // buttonPrint
+            // 
+            buttonPrint.Location = new Point(368, 113);
+            buttonPrint.Name = "buttonPrint";
+            buttonPrint.Size = new Size(156, 30);
+            buttonPrint.TabIndex = 19;
+            buttonPrint.Text = "چاپ گزارش";
+            buttonPrint.UseVisualStyleBackColor = true;
+            buttonPrint.Click += ButtonPrint_Click;
             // 
             // dataGridViewReport
             // 
@@ -140,6 +156,7 @@
             Controls.Add(labelFromDate);
             Controls.Add(labelToDate);
             Controls.Add(buttonGenerateReport);
+            Controls.Add(buttonPrint);
             Controls.Add(dataGridViewReport);
             Controls.Add(labelTotalPayments);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -154,6 +171,7 @@
         }
 
         private Button buttonGenerateReport;
+        private Button buttonPrint;
         private DataGridView dataGridViewReport;
         private Label labelTotalPayments;
         private TextBox dateTimePickerToDate;
